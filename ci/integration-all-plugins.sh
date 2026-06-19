@@ -22,16 +22,9 @@ trap cleanup EXIT
 echo "==> register plugins"
 "$PYTHON" ci/register-plugins.py ..
 
-echo "==> start stack"
-(cd rule-engine-py && "$PYTHON" main.py) &
-sleep 1
-(cd control-plane-go && CORE_ROOT="$ROOT" go run ./cmd/scheduler) &
-sleep 2
-(cd api-gateway-go && CORE_ROOT="$ROOT" go run ./cmd/gateway) &
-sleep 3
-
-curl -sf "http://127.0.0.1:${RULE_ENGINE_PORT}/health" | grep -q ok
-curl -sf "http://127.0.0.1:${GATEWAY_PORT}/health" | grep -q ok
+# shellcheck source=lib/stack-common.sh
+source "${ROOT}/ci/lib/stack-common.sh"
+ci_start_stack "$ROOT" "$PYTHON"
 
 REGISTRY="${ROOT}/api-gateway-go/config/plugins.registry.json"
 PLUGIN_IDS=$("$PYTHON" -c "import json; print(' '.join(p['id'] for p in json.load(open('$REGISTRY'))))")
