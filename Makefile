@@ -1,5 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
-        run-rule-engine run-scheduler run-gateway run-frontend dev-backend ci-gate
+        run-rule-engine run-scheduler run-gateway run-frontend dev-backend ci-gate \
+        fabric-bootstrap
 
 MANIFEST ?=
 PLUGINS_DIR ?= ..
@@ -7,6 +8,9 @@ CORE_ROOT := $(CURDIR)
 
 compliance-check:
 	bash ci/compliance/compliance-check.sh .
+
+fabric-bootstrap:
+	bash scripts/fabric-sandbox-bootstrap.sh
 
 validate-plugin:
 	MANIFEST="$(MANIFEST)" bash ci/compliance/validate-plugin.sh

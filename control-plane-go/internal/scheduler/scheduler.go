@@ -63,7 +63,7 @@ func (s *Store) Submit(pluginID, taskType string, params map[string]any) (*Task,
 	s.tasks[id] = task
 	s.mu.Unlock()
 
-	go s.completeV2(task)
+	go s.completeV3(task)
 	return task, nil
 }
 

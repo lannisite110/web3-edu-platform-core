@@ -60,8 +60,8 @@ make test-e2e-smoke
 | 版本 | 内容 |
 |------|------|
 | v0.1.0 | 插件契约 + 合规 CI + E2E smoke（Agent-0） |
-| v0.2.0 | 4 子库插件接入（Agent-1..4） |
-| v0.3.0 | 全热点 + 全领域 Demo 文档齐套 |
+| v0.2.0 | 4 子库插件接入 + 23 插件联调（Agent-0） |
+| v0.3.0 | CI + jobsubmit + Fabric bootstrap + 文档齐套（进行中） |
 
 ---
 

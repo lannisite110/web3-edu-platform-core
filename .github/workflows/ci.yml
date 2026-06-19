@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ci-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout core
+        uses: actions/checkout@v4
+        with:
+          path: web3-edu-platform-core
+
+      - name: Checkout web3-hot-topic-labs
+        uses: actions/checkout@v4
+        with:
+          repository: lannisite110/web3-hot-topic-labs
+          path: web3-hot-topic-labs
+
+      - name: Checkout supervision-trace-edu-suite
+        uses: actions/checkout@v4
+        with:
+          repository: lannisite110/supervision-trace-edu-suite
+          path: supervision-trace-edu-suite
+
+      - name: Checkout enterprise-gov-edu-demo
+        uses: actions/checkout@v4
+        with:
+          repository: lannisite110/enterprise-gov-edu-demo
+          path: enterprise-gov-edu-demo
+
+      - name: Checkout global-social-edu-sandbox
+        uses: actions/checkout@v4
+        with:
+          repository: lannisite110/global-social-edu-sandbox
+          path: global-social-edu-sandbox
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache-dependency-path: |
+            web3-edu-platform-core/api-gateway-go/go.sum
+            web3-edu-platform-core/control-plane-go/go.sum
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web3-edu-platform-core/frontend-web/package-lock.json
+
+      - name: CI gate
+        working-directory: web3-edu-platform-core
+        run: bash ci/ci-gate.sh
