@@ -1,4 +1,4 @@
-# 本地开发启动（v0.5.0）
+# 本地开发启动（v0.6.0）
 
 ## 1. 注册插件
 
@@ -58,6 +58,8 @@ make ci-gate
 make integration-all-plugins
 make tutorial-audit
 make container-manager-smoke
+make scheduler-resolver-smoke
+make bazel-smoke
 # 有 K8s 集群时：
 make k8s-job-smoke
 make k8s-multilang-smoke
@@ -76,6 +78,7 @@ make k8s-multilang-smoke
 | `JOB_LOG_TAIL_LINES` | `80` | 报告内附 Pod 日志尾行数 |
 | `JOB_SMOKE_BUSYBOX` | `0` | 设为 `1` 时 cluster 冒烟用 busybox 代替 toolchain 镜像 |
 | `CONTAINER_MANAGER_PORT` | `8083` | container-manager HTTP 端口 |
+| `CONTAINER_MANAGER_URL` | _(空)_ | 设后 scheduler 经 HTTP 解析 toolchain（否则读本地 manifest） |
 
 ## v0.4.x 要点
 
@@ -85,10 +88,13 @@ make k8s-multilang-smoke
 
 ## v0.5.x 要点
 
-- v0.5.0 — container-manager HTTP 服务、`make tutorial-audit`、mock Vue 面板、Bazel 脚手架
+- v0.5.0 — container-manager HTTP 服务、`make tutorial-audit`、mock Vue 面板、Bazel 脚手架说明
 
-## 后续（v0.5+）
+## v0.6.x 要点
 
-- scheduler 通过 HTTP 调用 container-manager
-- Bazel MODULE.bazel 实装
-- 22 插件教程内容审查（非仅路径存在）
+- v0.6.0 — scheduler ↔ container-manager HTTP 解耦、`tutorial-audit` 合规措辞、根 `MODULE.bazel`
+
+## 后续（v0.6+）
+
+- gazelle 生成 Go BUILD + `bazel build` 纳入 CI
+- k8s 冒烟栈默认经 container-manager 解析 toolchain

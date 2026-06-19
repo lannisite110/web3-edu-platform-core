@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-scheduler run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit container-manager-smoke
+        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke
 
 MANIFEST ?=
 PLUGINS_DIR ?= ..
@@ -23,6 +23,12 @@ tutorial-audit:
 
 container-manager-smoke:
 	bash scripts/container-manager-smoke.sh
+
+scheduler-resolver-smoke:
+	bash scripts/scheduler-resolver-smoke.sh
+
+bazel-smoke:
+	bash scripts/bazel-smoke.sh
 
 validate-plugin:
 	MANIFEST="$(MANIFEST)" bash ci/compliance/validate-plugin.sh

@@ -4,9 +4,9 @@ import (
 	"log"
 	"time"
 
+	"github.com/web3edu/platform-core/control-plane/internal/containermanager"
 	"github.com/web3edu/platform-core/control-plane/internal/jobsubmit"
 	"github.com/web3edu/platform-core/control-plane/internal/plugins"
-	"github.com/web3edu/platform-core/control-plane/internal/toolchain"
 )
 
 func (s *Store) completeV4(task *Task) {
@@ -28,9 +28,9 @@ func (s *Store) completeV4(task *Task) {
 			req.ManifestPath = p.ManifestPath
 		}
 	}
-	if s.toolchain != nil {
-		if _, g, ok := s.toolchain.ResolveGroup(task.TaskType); ok {
-			req.Image = g.Image
+	if s.resolver != nil {
+		if resolved, ok := s.resolver.Resolve(task.TaskType); ok {
+			req.Image = resolved.Image
 		}
 	}
 
@@ -73,12 +73,12 @@ func (s *Store) completeV4(task *Task) {
 		}
 	}
 
-	if s.toolchain != nil {
-		if groupName, g, ok := s.toolchain.ResolveGroup(task.TaskType); ok {
-			report["toolchain_group"] = groupName
-			report["toolchain_image"] = g.Image
-			report["toolchain_tools"] = g.Tools
-			report["compile_message"] = sub.Message + "; toolchain " + g.Namespace + " / " + g.Image
+	if s.resolver != nil {
+		if resolved, ok := s.resolver.Resolve(task.TaskType); ok {
+			report["toolchain_group"] = resolved.Group
+			report["toolchain_image"] = resolved.Image
+			report["toolchain_tools"] = resolved.Tools
+			report["compile_message"] = sub.Message + "; toolchain " + resolved.Namespace + " / " + resolved.Image
 		} else {
 			report["compile_message"] = sub.Message
 		}
@@ -90,5 +90,5 @@ func (s *Store) completeV4(task *Task) {
 	log.Printf("task %s finished status=%s mode=%s namespace=%s type=%s", task.ID, task.Status, sub.Mode, task.Namespace, task.TaskType)
 }
 
-func (s *Store) SetToolchain(m *toolchain.Manifest) { s.toolchain = m }
+func (s *Store) SetResolver(r containermanager.Resolver) { s.resolver = r }
 func (s *Store) SetPluginRegistry(reg *plugins.Registry) { s.plugins = reg }

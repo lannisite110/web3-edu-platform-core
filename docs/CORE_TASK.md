@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.5.0** — container-manager 服务化 + 教程审查 + mock 面板
+> **v0.6.0** — scheduler 解耦 container-manager + Bazel 脚手架
 
 ---
 
@@ -143,12 +143,12 @@
 
 ---
 
-## Phase 5 交付清单（v0.5.0）— 进行中
+## Phase 5 交付清单（v0.5.0）✅
 
 ### A. container-manager 服务化
 - [x] `cmd/container-manager` — HTTP `:8083`（`/health` `/toolchains` `/resolve/:taskType`）
 - [x] `make run-container-manager` + `make container-manager-smoke`
-- [ ] scheduler 可选调用 container-manager 解析镜像（当前仍内嵌 toolchain）
+- [ ] scheduler 可选调用 container-manager 解析镜像 → **v0.6.0**
 
 ### B. 教程与前端
 - [x] `ci/tutorial-audit.sh` + `make tutorial-audit` — 校验 `spec.docs` 文件存在
@@ -156,8 +156,29 @@
 
 ### C. 工程
 - [x] `infra/bazel/README.md` — Bazel 增量采纳脚手架说明
-- [ ] `MODULE.bazel` + 首批 BUILD 目标
+- [ ] `MODULE.bazel` + 首批 BUILD 目标 → **v0.6.0**
 
 ### D. 发布
 - [x] `VERSION` = 0.5.0
-- [ ] git tag `v0.5.0`
+- [x] git tag `v0.5.0`
+
+---
+
+## Phase 6 交付清单（v0.6.0）— 进行中
+
+### A. 调度解耦
+- [x] `containermanager.Resolver` — local manifest 或 `CONTAINER_MANAGER_URL` HTTP
+- [x] scheduler 经 HTTP 解析 toolchain 镜像（联调栈默认启用）
+- [x] `scripts/scheduler-resolver-smoke.sh` + `make scheduler-resolver-smoke`
+
+### B. 教程合规
+- [x] `tutorial-audit` 增加 testnet/测试网/沙箱 措辞检查（仅 `.md`）
+
+### C. Bazel
+- [x] 根目录 `MODULE.bazel` + `BUILD.bazel` 脚手架
+- [x] `make bazel-smoke`（无 bazel 时 skip）
+- [ ] gazelle 生成 Go BUILD 图 + `bazel build` 实装
+
+### D. 发布
+- [x] `VERSION` = 0.6.0
+- [ ] git tag `v0.6.0`

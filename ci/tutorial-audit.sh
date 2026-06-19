@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# v0.5 — verify each plugin manifest lists existing tutorial/docs paths.
+# v0.5+ — verify plugin docs exist and include testnet compliance wording.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -10,6 +10,7 @@ PYTHON="${ROOT}/.venv/bin/python"
 fail=0
 total=0
 missing=0
+content_fail=0
 
 while IFS= read -r manifest; do
   total=$((total + 1))
@@ -47,9 +48,19 @@ PY
       echo "FAIL $manifest — missing doc: $doc"
       missing=$((missing + 1))
       fail=$((fail + 1))
+      continue
+    fi
+    case "$doc" in
+      *.md) ;;
+      *) continue ;;
+    esac
+    if ! grep -qiE 'testnet|测试网|沙箱|sandbox|fabric' "$path"; then
+      echo "FAIL $manifest — doc missing testnet disclaimer: $doc"
+      content_fail=$((content_fail + 1))
+      fail=$((fail + 1))
     fi
   done <<< "$docs"
 done < <(find "$PLUGINS_DIR" -name 'plugin.manifest.yaml' | sort)
 
-echo "==> tutorial audit: plugins=$total missing_docs=$missing failures=$fail"
+echo "==> tutorial audit: plugins=$total missing_docs=$missing content_fail=$content_fail failures=$fail"
 [ "$fail" -eq 0 ]

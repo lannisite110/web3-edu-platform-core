@@ -1,0 +1,12 @@
+module(
+    name = "web3_edu_platform_core",
+    version = "0.6.0",
+)
+
+bazel_dep(name = "rules_go", version = "0.50.1")
+bazel_dep(name = "gazelle", version = "0.39.1")
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(version = "1.23.0")
+
+use_repo(go_sdk, "go_default_sdk")

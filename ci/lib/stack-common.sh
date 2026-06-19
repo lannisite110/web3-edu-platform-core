@@ -52,7 +52,10 @@ ci_start_stack() {
   (cd "${root}/rule-engine-py" && "$python" main.py) &
   ci_wait_health "http://127.0.0.1:${RULE_ENGINE_PORT}/health" "rule-engine"
 
-  (CORE_ROOT="$root" SCHEDULER_PORT="${SCHEDULER_PORT}" "${bin}/scheduler") &
+  (CORE_ROOT="$root" CONTAINER_MANAGER_PORT="${CONTAINER_MANAGER_PORT:-8083}" "${bin}/container-manager") &
+  ci_wait_health "http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}/health" "container-manager"
+
+  (CORE_ROOT="$root" SCHEDULER_PORT="${SCHEDULER_PORT}" CONTAINER_MANAGER_URL="http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}" "${bin}/scheduler") &
   ci_wait_health "http://127.0.0.1:${SCHEDULER_PORT}/health" "scheduler"
 
   (CORE_ROOT="$root" GATEWAY_PORT="${GATEWAY_PORT}" "${bin}/gateway") &

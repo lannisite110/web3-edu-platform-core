@@ -1,0 +1,2 @@
+# v0.6 — Bazel entry points (expand with gazelle-generated Go targets).
+exports_files(["VERSION", "MODULE.bazel"])

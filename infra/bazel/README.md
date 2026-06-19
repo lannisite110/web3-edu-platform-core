@@ -11,8 +11,9 @@ layer. v0.5 ships the scaffold only; Go/Python/Vite builds still use Make.
 
 ## Status
 
-- [ ] `MODULE.bazel` with `rules_go`, `rules_python`
-- [ ] `BUILD.bazel` for control-plane binaries
-- [ ] CI optional `bazel test //...`
+- [x] `MODULE.bazel` at repo root (rules_go + gazelle deps)
+- [x] root `BUILD.bazel` exports `VERSION`
+- [ ] Run `gazelle` to generate `control-plane-go/**/BUILD.bazel`
+- [ ] `bazel build //control-plane-go/...` in CI (optional gate)
 
 Until then, use `make ci-gate` as the canonical gate.

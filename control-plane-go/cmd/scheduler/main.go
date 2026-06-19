@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+	"github.com/web3edu/platform-core/control-plane/internal/containermanager"
 	"github.com/web3edu/platform-core/control-plane/internal/plugins"
 	"github.com/web3edu/platform-core/control-plane/internal/scheduler"
-	"github.com/web3edu/platform-core/control-plane/internal/toolchain"
 	"gopkg.in/yaml.v3"
 )
 
@@ -40,11 +40,15 @@ func main() {
 		root = ".."
 	}
 	store := scheduler.NewStore(loadRouting())
-	if m, err := toolchain.LoadManifest(root); err != nil {
-		log.Printf("warning: toolchain manifest: %v", err)
+	if resolver := containermanager.NewResolver(root); resolver != nil {
+		store.SetResolver(resolver)
+		if os.Getenv("CONTAINER_MANAGER_URL") != "" {
+			log.Printf("toolchain resolver: container-manager %s", os.Getenv("CONTAINER_MANAGER_URL"))
+		} else {
+			log.Printf("toolchain resolver: local manifest")
+		}
 	} else {
-		store.SetToolchain(m)
-		log.Printf("toolchain manifest loaded (%d groups)", len(m.Groups))
+		log.Printf("warning: toolchain resolver unavailable")
 	}
 	if reg, err := plugins.LoadRegistry(root); err != nil {
 		log.Printf("warning: plugin registry: %v", err)

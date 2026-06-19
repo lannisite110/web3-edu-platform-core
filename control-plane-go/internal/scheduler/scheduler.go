@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/web3edu/platform-core/control-plane/internal/containermanager"
 	"github.com/web3edu/platform-core/control-plane/internal/plugins"
-	"github.com/web3edu/platform-core/control-plane/internal/toolchain"
 )
 
 type TaskStatus string
@@ -35,7 +35,7 @@ type Store struct {
 	mu        sync.RWMutex
 	tasks     map[string]*Task
 	route     map[string]string
-	toolchain *toolchain.Manifest
+	resolver  containermanager.Resolver
 	plugins   *plugins.Registry
 }
 
