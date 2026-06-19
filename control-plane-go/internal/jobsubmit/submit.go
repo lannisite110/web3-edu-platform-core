@@ -5,22 +5,23 @@ import (
 	"os"
 )
 
-// Mode controls how scheduler fulfills compile/trace jobs (v0.3).
+// Mode controls how scheduler fulfills compile/trace jobs.
 type Mode string
 
 const (
-	ModeLocal    Mode = "local"    // in-process simulation (default)
-	ModeCluster  Mode = "cluster"  // submit Kubernetes Job (requires kubeconfig)
+	ModeLocal   Mode = "local"   // in-process simulation (default)
+	ModeCluster Mode = "cluster" // submit Kubernetes Job via client-go
 )
 
 type Request struct {
-	TaskID      string
-	PluginID    string
-	TaskType    string
-	Namespace   string
-	JobTemplate string
-	Image       string
-	Params      map[string]any
+	TaskID       string
+	PluginID     string
+	TaskType     string
+	Namespace    string
+	JobTemplate  string
+	ManifestPath string
+	Image        string
+	Params       map[string]any
 }
 
 type Result struct {
@@ -39,22 +40,11 @@ func CurrentMode() Mode {
 	}
 }
 
-// Submit dispatches a job. Cluster mode returns a scaffold response until client-go wiring lands.
+// Submit dispatches a job (local sim or real Kubernetes Job in cluster mode).
 func Submit(req Request) (Result, error) {
-	mode := CurrentMode()
-	switch mode {
+	switch CurrentMode() {
 	case ModeCluster:
-		return Result{
-			Mode:    ModeCluster,
-			Status:  "accepted",
-			Message: "v0.3 cluster scaffold: configure KUBECONFIG and JOB_SUBMIT_MODE=cluster (client-go Job submit next)",
-			Extra: map[string]any{
-				"namespace":    req.Namespace,
-				"job_template": req.JobTemplate,
-				"image":        req.Image,
-				"task_type":    req.TaskType,
-			},
-		}, nil
+		return submitClusterJob(req)
 	default:
 		return Result{
 			Mode:    ModeLocal,

@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.3.0 已发布** — CI、合规、jobsubmit、Fabric bootstrap
+> **v0.4.0 进行中** — client-go K8s Job + container-manager
 
 ---
 
@@ -92,4 +92,20 @@
 
 ## 子库协作说明
 
-> 主库 v0.3.0 已发布。子库继续 v0.1.x 迭代插件；契约变更需主库维护者评审合并。
+> 主库 v0.4.0 开发中（真实 K8s Job）。子库 v0.2.x；契约变更需主库维护者评审。
+
+---
+
+## Phase 4 交付清单（v0.4.0）— 进行中
+
+### A. K8s Job 实装
+- [x] `internal/jobsubmit` — client-go 创建 Job + 状态轮询
+- [x] 子库 `jobTemplate` YAML 加载与 toolchain 镜像覆盖
+- [x] `internal/containermanager` 包装 `build-images/manifest.yaml`
+- [x] `scheduler/v04` — cluster 模式等待 Job 完成
+- [x] `scripts/k8s-job-smoke.sh` + `make k8s-job-smoke`
+
+### B. 发布
+- [x] `VERSION` = 0.4.0
+- [x] `docs/DEV.md` 更新
+- [ ] git tag `v0.4.0`（`make k8s-job-smoke` 验证后）

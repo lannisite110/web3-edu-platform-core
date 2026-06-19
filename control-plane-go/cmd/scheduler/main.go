@@ -52,6 +52,11 @@ func main() {
 		store.SetPluginRegistry(reg)
 		log.Printf("plugin registry loaded (%d plugins)", len(reg.List()))
 	}
+	mode := os.Getenv("JOB_SUBMIT_MODE")
+	if mode == "" {
+		mode = "local"
+	}
+	log.Printf("job submit mode: %s", mode)
 	r := gin.New()
 	r.Use(gin.Recovery())
 

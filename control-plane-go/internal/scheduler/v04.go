@@ -9,11 +9,10 @@ import (
 	"github.com/web3edu/platform-core/control-plane/internal/toolchain"
 )
 
-func (s *Store) completeV3(task *Task) {
-	time.Sleep(500 * time.Millisecond)
-	done := time.Now()
-	task.Status = TaskCompleted
-	task.CompletedAt = &done
+func (s *Store) completeV4(task *Task) {
+	if jobsubmit.CurrentMode() == jobsubmit.ModeLocal {
+		time.Sleep(500 * time.Millisecond)
+	}
 
 	req := jobsubmit.Request{
 		TaskID:    task.ID,
@@ -26,6 +25,7 @@ func (s *Store) completeV3(task *Task) {
 	if s.plugins != nil {
 		if p, ok := s.plugins.Get(task.PluginID); ok {
 			req.JobTemplate = p.JobTemplate
+			req.ManifestPath = p.ManifestPath
 		}
 	}
 	if s.toolchain != nil {
@@ -34,7 +34,25 @@ func (s *Store) completeV3(task *Task) {
 		}
 	}
 
-	sub, _ := jobsubmit.Submit(req)
+	sub, err := jobsubmit.Submit(req)
+	if err != nil {
+		sub = jobsubmit.Result{
+			Mode:    jobsubmit.CurrentMode(),
+			Status:  "failed",
+			Message: err.Error(),
+		}
+	}
+
+	done := time.Now()
+	task.CompletedAt = &done
+	switch sub.Status {
+	case "completed":
+		task.Status = TaskCompleted
+	case "failed", "timeout":
+		task.Status = TaskFailed
+	default:
+		task.Status = TaskCompleted
+	}
 
 	report := map[string]any{
 		"namespace":  task.Namespace,
@@ -69,9 +87,8 @@ func (s *Store) completeV3(task *Task) {
 	}
 
 	task.Report = report
-	log.Printf("task %s completed mode=%s namespace=%s type=%s", task.ID, sub.Mode, task.Namespace, task.TaskType)
+	log.Printf("task %s finished status=%s mode=%s namespace=%s type=%s", task.ID, task.Status, sub.Mode, task.Namespace, task.TaskType)
 }
 
-// keep v0.2 helpers for registry wiring
 func (s *Store) SetToolchain(m *toolchain.Manifest) { s.toolchain = m }
 func (s *Store) SetPluginRegistry(reg *plugins.Registry) { s.plugins = reg }

@@ -12,6 +12,9 @@ compliance-check:
 fabric-bootstrap:
 	bash scripts/fabric-sandbox-bootstrap.sh
 
+k8s-job-smoke:
+	bash scripts/k8s-job-smoke.sh
+
 validate-plugin:
 	MANIFEST="$(MANIFEST)" bash ci/compliance/validate-plugin.sh
 

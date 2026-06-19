@@ -5,7 +5,7 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v0.3.0** · 纯教育培训 | 测试网/沙箱 only
+> **版本 v0.4.0** · 纯教育培训 | 测试网/沙箱 only
 
 ## 职责
 
@@ -62,6 +62,7 @@ make test-e2e-smoke
 | v0.1.0 | 插件契约 + 合规 CI + E2E smoke |
 | v0.2.0 | 4 子库插件接入 + 23 插件联调 |
 | v0.3.0 | CI + jobsubmit + Fabric bootstrap |
+| v0.4.0 | client-go K8s Job + container-manager + `make k8s-job-smoke` |
 
 ---
 
