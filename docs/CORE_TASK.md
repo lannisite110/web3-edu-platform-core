@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.6.0** — scheduler 解耦 container-manager + Bazel 脚手架
+> **v1.0.0** — 稳定教学平台主库首发
 
 ---
 
@@ -164,7 +164,7 @@
 
 ---
 
-## Phase 6 交付清单（v0.6.0）— 进行中
+## Phase 6 交付清单（v0.6.0）✅
 
 ### A. 调度解耦
 - [x] `containermanager.Resolver` — local manifest 或 `CONTAINER_MANAGER_URL` HTTP
@@ -183,3 +183,28 @@
 ### D. 发布
 - [x] `VERSION` = 0.6.0
 - [x] git tag `v0.6.0`
+
+---
+
+## Phase 7 交付清单（v1.0.0）— 进行中
+
+### A. 契约与版本对齐
+- [x] 主库 `VERSION` = 1.0.0
+- [x] 四子库 22 插件 `coreVersion: ">=0.6.0 <2.0.0"`
+- [x] mock 插件 manifest 对齐
+- [x] `ci/core-version-check.sh` + `make core-version-check`
+- [x] `CHANGELOG.md`
+
+### B. 集成与发布
+- [x] k8s 冒烟栈经 container-manager 解析 toolchain
+- [x] `scripts/release-check.sh` + `make release-check`
+- [ ] 四子库 git tag `v0.3.0` 并推送
+- [ ] 主库 git tag `v1.0.0`
+
+### C. 工程（延续）
+- [ ] gazelle + `bazel build` 纳入 CI
+- [ ] GitHub Release 说明与五仓版本矩阵文档
+
+### D. 文档
+- [x] `README.md` / `DEV.md` 更新至 v1.0
+- [ ] 根目录 `web3home/` 架构评估定稿（本地）

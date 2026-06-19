@@ -7,6 +7,7 @@ k8s_smoke_start_scheduler() {
   export CORE_ROOT="$root"
   export JOB_SUBMIT_MODE=cluster
   export SCHEDULER_PORT="${SCHEDULER_PORT:-8082}"
+  export CONTAINER_MANAGER_PORT="${CONTAINER_MANAGER_PORT:-8083}"
   export JOB_POLL_TIMEOUT_SEC="${JOB_POLL_TIMEOUT_SEC:-120}"
 
   PYTHON="${root}/.venv/bin/python"
@@ -16,7 +17,6 @@ k8s_smoke_start_scheduler() {
   }
 
   cleanup() {
-    fuser -k "${SCHEDULER_PORT}/tcp" 2>/dev/null || true
     kill $(jobs -p) 2>/dev/null || true
   }
   trap cleanup EXIT
@@ -25,12 +25,23 @@ k8s_smoke_start_scheduler() {
   kubectl apply -f "${root}/k8s-manifests/base/namespaces.yaml"
   kubectl apply -f "${root}/k8s-manifests/base/testnet-rpc-configmaps.yaml"
 
-  echo "==> start scheduler (cluster mode)"
+  echo "==> start scheduler (cluster mode + container-manager)"
   # shellcheck source=../ci/lib/stack-common.sh
   source "${root}/ci/lib/stack-common.sh"
   ci_build_go_services "$root"
-  (CORE_ROOT="$root" SCHEDULER_PORT="$SCHEDULER_PORT" "${root}/.ci-bin/scheduler") &
-  ci_wait_health "http://127.0.0.1:${SCHEDULER_PORT}/health" "scheduler"
+
+  ci_start_service \
+    "http://127.0.0.1:${CONTAINER_MANAGER_PORT}/health" \
+    "container-manager" "${CONTAINER_MANAGER_PORT}" -- \
+    env CORE_ROOT="$root" CONTAINER_MANAGER_PORT="${CONTAINER_MANAGER_PORT}" \
+      "${root}/.ci-bin/container-manager"
+
+  ci_start_service \
+    "http://127.0.0.1:${SCHEDULER_PORT}/health" \
+    "scheduler" "${SCHEDULER_PORT}" -- \
+    env CORE_ROOT="$root" SCHEDULER_PORT="${SCHEDULER_PORT}" \
+      CONTAINER_MANAGER_URL="http://127.0.0.1:${CONTAINER_MANAGER_PORT}" \
+      "${root}/.ci-bin/scheduler"
 }
 
 k8s_smoke_wait_task() {

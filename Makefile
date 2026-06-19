@@ -1,6 +1,7 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend
+        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
+        core-version-check release-check
 
 MANIFEST ?=
 PLUGINS_DIR ?= ..
@@ -20,6 +21,12 @@ k8s-multilang-smoke:
 
 tutorial-audit:
 	bash ci/tutorial-audit.sh
+
+core-version-check:
+	bash ci/core-version-check.sh
+
+release-check:
+	bash scripts/release-check.sh
 
 container-manager-smoke:
 	bash scripts/container-manager-smoke.sh

@@ -5,7 +5,7 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v0.6.0** · 纯教育培训 | 测试网/沙箱 only
+> **版本 v1.0.0** · 纯教育培训 | 测试网/沙箱 only
 
 ## 职责
 
@@ -67,6 +67,7 @@ make test-e2e-smoke
 | v0.4.2 | Pod 失败诊断 + 多语言 K8s 冒烟 |
 | v0.5.0 | container-manager 服务 + 教程审查 |
 | v0.6.0 | scheduler 解耦 + Bazel MODULE 脚手架 |
+| v1.0.0 | 稳定主库首发 · coreVersion 对齐 · release-check |
 
 ---
 

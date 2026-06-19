@@ -1,4 +1,4 @@
-# 本地开发启动（v0.6.0）
+# 本地开发启动（v1.0.0）
 
 ## 1. 注册插件
 
@@ -65,6 +65,9 @@ make tutorial-audit
 make container-manager-smoke
 make scheduler-resolver-smoke
 make bazel-smoke
+make core-version-check
+# 发布前全量（较 ci-gate 更重）：
+# make release-check
 # 有 K8s 集群时：
 make k8s-job-smoke
 make k8s-multilang-smoke
@@ -99,7 +102,11 @@ make k8s-multilang-smoke
 
 - v0.6.0 — scheduler ↔ container-manager HTTP 解耦、`tutorial-audit` 合规措辞、根 `MODULE.bazel`
 
-## 后续（v0.6+）
+## v1.0.x 要点
 
-- gazelle 生成 Go BUILD + `bazel build` 纳入 CI
-- k8s 冒烟栈默认经 container-manager 解析 toolchain
+- v1.0.0 — 稳定主库、`coreVersion` 对齐、`make release-check`、k8s 冒烟经 container-manager
+
+## 后续（v1.0+）
+
+- 四子库 tag `v0.3.0` 与主库 `v1.0.0` 同步发布
+- gazelle + `bazel build` 纳入 CI
