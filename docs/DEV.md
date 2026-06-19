@@ -11,10 +11,15 @@ make register-plugins PLUGINS_DIR=..
 
 ```bash
 make run-rule-engine   # :8081
-make run-scheduler     # :8082
-make run-container-manager  # :8083
+make run-container-manager  # :8083（可选，配合 run-scheduler-cm）
+make run-scheduler     # :8082，本地 manifest 解析 toolchain
+make run-scheduler-cm  # :8082，经 container-manager HTTP 解析
 make run-gateway       # :8080
 ```
+
+> 若 shell 中曾 `export CONTAINER_MANAGER_URL=...`，`make run-scheduler` 会自动忽略该变量。  
+> 冒烟脚本退出时**不会**再 `fuser -k :8083`，避免误杀手动启动的 container-manager。  
+> 端口冲突时：`make stop-backend`
 
 ### Job 投递模式（v0.4）
 

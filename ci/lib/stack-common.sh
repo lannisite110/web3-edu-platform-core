@@ -29,7 +29,7 @@ ci_wait_health() {
   local tries="${3:-45}"
   local i=1
   while [ "$i" -le "$tries" ]; do
-    if curl -sf "$url" 2>/dev/null | grep -q ok; then
+    if ci_health_ok "$url"; then
       echo "  ready: $label"
       return 0
     fi
@@ -38,6 +38,31 @@ ci_wait_health() {
   done
   echo "TIMEOUT: $label not healthy at $url (${tries}s)"
   return 1
+}
+
+ci_health_ok() {
+  local url="$1"
+  curl -sf "$url" 2>/dev/null | grep -q ok
+}
+
+# Start only when health check fails. Reuse an already-healthy listener on :port.
+ci_start_service() {
+  local url="$1"
+  local label="$2"
+  local port="$3"
+  shift 3
+  [[ "${1:-}" == "--" ]] && shift
+  if ci_health_ok "$url"; then
+    echo "  reuse: $label (:${port})"
+    return 0
+  fi
+  if fuser "${port}/tcp" >/dev/null 2>&1; then
+    echo "ERROR: port ${port} in use but ${label} unhealthy at ${url}" >&2
+    echo "  hint: make stop-backend" >&2
+    return 1
+  fi
+  "$@" &
+  ci_wait_health "$url" "$label"
 }
 
 ci_start_stack() {
@@ -52,11 +77,17 @@ ci_start_stack() {
   (cd "${root}/rule-engine-py" && "$python" main.py) &
   ci_wait_health "http://127.0.0.1:${RULE_ENGINE_PORT}/health" "rule-engine"
 
-  (CORE_ROOT="$root" CONTAINER_MANAGER_PORT="${CONTAINER_MANAGER_PORT:-8083}" "${bin}/container-manager") &
-  ci_wait_health "http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}/health" "container-manager"
+  ci_start_service \
+    "http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}/health" \
+    "container-manager" "${CONTAINER_MANAGER_PORT:-8083}" -- \
+    env CORE_ROOT="$root" CONTAINER_MANAGER_PORT="${CONTAINER_MANAGER_PORT:-8083}" "${bin}/container-manager"
 
-  (CORE_ROOT="$root" SCHEDULER_PORT="${SCHEDULER_PORT}" CONTAINER_MANAGER_URL="http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}" "${bin}/scheduler") &
-  ci_wait_health "http://127.0.0.1:${SCHEDULER_PORT}/health" "scheduler"
+  ci_start_service \
+    "http://127.0.0.1:${SCHEDULER_PORT}/health" \
+    "scheduler" "${SCHEDULER_PORT}" -- \
+    env CORE_ROOT="$root" SCHEDULER_PORT="${SCHEDULER_PORT}" \
+      CONTAINER_MANAGER_URL="http://127.0.0.1:${CONTAINER_MANAGER_PORT:-8083}" \
+      "${bin}/scheduler"
 
   (CORE_ROOT="$root" GATEWAY_PORT="${GATEWAY_PORT}" "${bin}/gateway") &
   ci_wait_health "http://127.0.0.1:${GATEWAY_PORT}/health" "gateway"

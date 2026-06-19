@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
-        run-rule-engine run-scheduler run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke
+        run-rule-engine run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
+        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend
 
 MANIFEST ?=
 PLUGINS_DIR ?= ..
@@ -57,10 +57,17 @@ run-rule-engine:
 	cd rule-engine-py && ../.venv/bin/python main.py
 
 run-scheduler:
-	cd control-plane-go && CORE_ROOT=$(CORE_ROOT) SCHEDULER_PORT=8082 go run ./cmd/scheduler
+	cd control-plane-go && env -u CONTAINER_MANAGER_URL CORE_ROOT=$(CORE_ROOT) SCHEDULER_PORT=8082 go run ./cmd/scheduler
+
+run-scheduler-cm:
+	cd control-plane-go && CORE_ROOT=$(CORE_ROOT) SCHEDULER_PORT=8082 CONTAINER_MANAGER_URL=http://127.0.0.1:8083 go run ./cmd/scheduler
 
 run-container-manager:
 	cd control-plane-go && CORE_ROOT=$(CORE_ROOT) CONTAINER_MANAGER_PORT=8083 go run ./cmd/container-manager
+
+stop-backend:
+	@fuser -k 8080/tcp 8081/tcp 8082/tcp 8083/tcp 8084/tcp 2>/dev/null || true
+	@echo "==> backend ports 8080-8084 freed"
 
 run-gateway:
 	cd api-gateway-go && CORE_ROOT=$(CORE_ROOT) GATEWAY_PORT=8080 go run ./cmd/gateway

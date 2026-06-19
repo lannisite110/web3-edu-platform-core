@@ -14,7 +14,7 @@ PYTHON="${ROOT}/.venv/bin/python"
 [ -x "$PYTHON" ] || { python3 -m venv "${ROOT}/.venv" && "${ROOT}/.venv/bin/pip" install -q -r rule-engine-py/requirements.txt pyyaml; }
 
 cleanup() {
-  fuser -k "${GATEWAY_PORT}/tcp" "${RULE_ENGINE_PORT}/tcp" "${SCHEDULER_PORT}/tcp" 2>/dev/null || true
+  fuser -k "${GATEWAY_PORT}/tcp" "${RULE_ENGINE_PORT}/tcp" "${SCHEDULER_PORT}/tcp" "${CONTAINER_MANAGER_PORT:-8083}/tcp" 2>/dev/null || true
   kill $(jobs -p) 2>/dev/null || true
 }
 trap cleanup EXIT

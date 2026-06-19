@@ -3,6 +3,7 @@ package containermanager
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -91,11 +92,25 @@ func (r *HTTPResolver) Resolve(taskType string) (ResolveResult, bool) {
 
 func NewResolver(coreRoot string) Resolver {
 	if url := os.Getenv("CONTAINER_MANAGER_URL"); url != "" {
-		return NewHTTPResolver(url)
+		if probeContainerManager(url) {
+			return NewHTTPResolver(url)
+		}
+		log.Printf("warning: CONTAINER_MANAGER_URL unreachable (%s), fallback to local manifest", url)
 	}
 	m, err := toolchain.LoadManifest(coreRoot)
 	if err != nil {
 		return nil
 	}
 	return NewLocalResolver(m)
+}
+
+func probeContainerManager(baseURL string) bool {
+	client := &http.Client{Timeout: 2 * time.Second}
+	url := strings.TrimRight(baseURL, "/") + "/health"
+	resp, err := client.Get(url)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	return resp.StatusCode == http.StatusOK
 }

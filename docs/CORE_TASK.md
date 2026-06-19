@@ -170,6 +170,7 @@
 - [x] `containermanager.Resolver` — local manifest 或 `CONTAINER_MANAGER_URL` HTTP
 - [x] scheduler 经 HTTP 解析 toolchain 镜像（联调栈默认启用）
 - [x] `scripts/scheduler-resolver-smoke.sh` + `make scheduler-resolver-smoke`
+- [x] 冒烟脚本 reuse 健康端口、退出不误杀手动服务；`make stop-backend`
 
 ### B. 教程合规
 - [x] `tutorial-audit` 增加 testnet/测试网/沙箱 措辞检查（仅 `.md`）
@@ -177,8 +178,8 @@
 ### C. Bazel
 - [x] 根目录 `MODULE.bazel` + `BUILD.bazel` 脚手架
 - [x] `make bazel-smoke`（无 bazel 时 skip）
-- [ ] gazelle 生成 Go BUILD 图 + `bazel build` 实装
+- [ ] gazelle 生成 Go BUILD 图 + `bazel build` 实装 → **v1.0.x**
 
 ### D. 发布
 - [x] `VERSION` = 0.6.0
-- [ ] git tag `v0.6.0`
+- [x] git tag `v0.6.0`

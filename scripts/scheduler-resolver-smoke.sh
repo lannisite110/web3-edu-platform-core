@@ -9,7 +9,6 @@ PYTHON="${ROOT}/.venv/bin/python"
 [ -x "$PYTHON" ] || PYTHON=python3
 
 cleanup() {
-  fuser -k "${CM_PORT}/tcp" "${SCHED_PORT}/tcp" 2>/dev/null || true
   kill $(jobs -p) 2>/dev/null || true
 }
 trap cleanup EXIT
@@ -17,11 +16,17 @@ trap cleanup EXIT
 source "${ROOT}/ci/lib/stack-common.sh"
 ci_build_go_services "$ROOT"
 
-(CORE_ROOT="$ROOT" CONTAINER_MANAGER_PORT="$CM_PORT" "${ROOT}/.ci-bin/container-manager") &
-ci_wait_health "http://127.0.0.1:${CM_PORT}/health" "container-manager"
+ci_start_service \
+  "http://127.0.0.1:${CM_PORT}/health" \
+  "container-manager" "$CM_PORT" -- \
+  env CORE_ROOT="$ROOT" CONTAINER_MANAGER_PORT="$CM_PORT" "${ROOT}/.ci-bin/container-manager"
 
-(CORE_ROOT="$ROOT" SCHEDULER_PORT="$SCHED_PORT" CONTAINER_MANAGER_URL="http://127.0.0.1:${CM_PORT}" "${ROOT}/.ci-bin/scheduler") &
-ci_wait_health "http://127.0.0.1:${SCHED_PORT}/health" "scheduler"
+ci_start_service \
+  "http://127.0.0.1:${SCHED_PORT}/health" \
+  "scheduler" "$SCHED_PORT" -- \
+  env CORE_ROOT="$ROOT" SCHEDULER_PORT="$SCHED_PORT" \
+    CONTAINER_MANAGER_URL="http://127.0.0.1:${CM_PORT}" \
+    "${ROOT}/.ci-bin/scheduler"
 
 RESP=$(curl -sf -X POST "http://127.0.0.1:${SCHED_PORT}/submit" \
   -H 'Content-Type: application/json' \
