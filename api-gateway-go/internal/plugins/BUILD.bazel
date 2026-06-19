@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "plugins",
+    srcs = ["registry.go"],
+    importpath = "github.com/web3edu/platform-core/api-gateway-go/internal/plugins",
+    visibility = ["//api-gateway-go:__subpackages__"],
+)

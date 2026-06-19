@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "container-manager_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/web3edu/platform-core/control-plane/cmd/container-manager",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//control-plane-go/internal/containermanager",
+        "//control-plane-go/internal/toolchain",
+        "@com_github_gin_gonic_gin//:gin",
+    ],
+)
+
+go_binary(
+    name = "container-manager",
+    embed = [":container-manager_lib"],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "security",
+    srcs = ["mainnet.go"],
+    importpath = "github.com/web3edu/platform-core/api-gateway-go/internal/security",
+    visibility = ["//api-gateway-go:__subpackages__"],
+    deps = ["@com_github_gin_gonic_gin//:gin"],
+)

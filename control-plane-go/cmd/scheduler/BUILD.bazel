@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "scheduler_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/web3edu/platform-core/control-plane/cmd/scheduler",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//control-plane-go/internal/containermanager",
+        "//control-plane-go/internal/plugins",
+        "//control-plane-go/internal/scheduler",
+        "@com_github_gin_gonic_gin//:gin",
+        "@in_gopkg_yaml_v3//:yaml_v3",
+    ],
+)
+
+go_binary(
+    name = "scheduler",
+    embed = [":scheduler_lib"],
+    visibility = ["//visibility:public"],
+)

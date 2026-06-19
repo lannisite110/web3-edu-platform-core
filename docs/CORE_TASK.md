@@ -186,7 +186,7 @@
 
 ---
 
-## Phase 7 交付清单（v1.0.0）— 进行中
+## Phase 7 交付清单（v1.0.0）✅
 
 ### A. 契约与版本对齐
 - [x] 主库 `VERSION` = 1.0.0
@@ -198,13 +198,13 @@
 ### B. 集成与发布
 - [x] k8s 冒烟栈经 container-manager 解析 toolchain
 - [x] `scripts/release-check.sh` + `make release-check`
-- [ ] 四子库 git tag `v0.3.0` 并推送
-- [ ] 主库 git tag `v1.0.0`
+- [x] 四子库 git tag `v0.3.0` 并推送
+- [x] 主库 git tag `v1.0.0`
 
-### C. 工程（延续）
-- [ ] gazelle + `bazel build` 纳入 CI
-- [ ] GitHub Release 说明与五仓版本矩阵文档
+### C. 工程
+- [x] gazelle + `bazel build` 纳入 CI（`ci/bazel-gate.sh`）
+- [x] `docs/LEARNING_PATH.md` + `docs/QUICK_DEPLOY.md`
 
 ### D. 文档
 - [x] `README.md` / `DEV.md` 更新至 v1.0
-- [ ] 根目录 `web3home/` 架构评估定稿（本地）
+- [x] 主库与子库 README 链入学习/部署路径

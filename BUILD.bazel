@@ -1,2 +1,9 @@
-# v0.6 — Bazel entry points (expand with gazelle-generated Go targets).
-exports_files(["VERSION", "MODULE.bazel"])
+load("@gazelle//:def.bzl", "gazelle")
+
+# Regenerate: bazel run //:gazelle
+gazelle(name = "gazelle")
+
+exports_files([
+    "VERSION",
+    "MODULE.bazel",
+])

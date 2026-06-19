@@ -2,7 +2,7 @@
   {
     "id": "edu.hot.mock",
     "name": "Mock Lab (E2E Smoke)",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-edu-platform-core",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -23,7 +23,7 @@
   {
     "id": "edu.cn.gov.bid-graph",
     "name": "Bid Relationship Graph Simulation",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "enterprise-gov-edu-demo",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -45,7 +45,7 @@
   {
     "id": "edu.cn.gov.multisig",
     "name": "Multisig Approval Demo",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "enterprise-gov-edu-demo",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -67,7 +67,7 @@
   {
     "id": "edu.cn.gov.supply",
     "name": "Supply Chain Ledger Demo",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "enterprise-gov-edu-demo",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -89,7 +89,7 @@
   {
     "id": "edu.global.sandbox.election",
     "name": "Election Hash Consensus Demo",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "global-social-edu-sandbox",
     "complianceTier": "global_sandbox",
     "group": "海外沙箱",
@@ -111,7 +111,7 @@
   {
     "id": "edu.global.sandbox.logistics",
     "name": "Logistics Audit Ledger Demo",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "global-social-edu-sandbox",
     "complianceTier": "global_sandbox",
     "group": "海外沙箱",
@@ -133,7 +133,7 @@
   {
     "id": "edu.global.sandbox.regulatory",
     "name": "Regulatory Rule Sandbox",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "global-social-edu-sandbox",
     "complianceTier": "global_sandbox",
     "group": "海外沙箱",
@@ -155,7 +155,7 @@
   {
     "id": "edu.global.sandbox.religion",
     "name": "Religion Rule Sandbox",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "global-social-edu-sandbox",
     "complianceTier": "global_sandbox",
     "group": "海外沙箱",
@@ -177,7 +177,7 @@
   {
     "id": "edu.global.sandbox.welfare",
     "name": "Welfare Anti-Fraud Simulation",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "global-social-edu-sandbox",
     "complianceTier": "global_sandbox",
     "group": "海外沙箱",
@@ -199,7 +199,7 @@
   {
     "id": "edu.cn.trace.charity",
     "name": "Charity Ledger Demo",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "supervision-trace-edu-suite",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -221,7 +221,7 @@
   {
     "id": "edu.cn.trace.food",
     "name": "Food Trace Simulation Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "supervision-trace-edu-suite",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -243,7 +243,7 @@
   {
     "id": "edu.cn.trace.medical",
     "name": "Medical Tamper Detection Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "supervision-trace-edu-suite",
     "complianceTier": "cn_domain",
     "group": "国内领域",
@@ -265,7 +265,7 @@
   {
     "id": "edu.hot.aa-session",
     "name": "AA Session Key Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -287,7 +287,7 @@
   {
     "id": "edu.hot.aa-wallet",
     "name": "Account Abstraction Wallet Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -309,7 +309,7 @@
   {
     "id": "edu.hot.ai-agent",
     "name": "AI Agent Sandbox Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -331,7 +331,7 @@
   {
     "id": "edu.hot.dao",
     "name": "DAO Vote Simulation Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -353,7 +353,7 @@
   {
     "id": "edu.hot.depin",
     "name": "DePIN Node Simulation Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -375,7 +375,7 @@
   {
     "id": "edu.hot.did",
     "name": "DID Privacy Demo Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -397,7 +397,7 @@
   {
     "id": "edu.hot.language-advisor",
     "name": "Smart Contract Language Advisor",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -430,7 +430,7 @@
   {
     "id": "edu.hot.mev",
     "name": "MEV PBS Simulation Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -452,7 +452,7 @@
   {
     "id": "edu.hot.rwa-edu",
     "name": "RWA Education Simulation Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -474,7 +474,7 @@
   {
     "id": "edu.hot.zk-circuit",
     "name": "ZK Circuit Compile Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
@@ -496,7 +496,7 @@
   {
     "id": "edu.hot.zk-modular",
     "name": "ZK Modular Rollup Lab",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "repo": "web3-hot-topic-labs",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",

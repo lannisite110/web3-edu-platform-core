@@ -1,14 +1,14 @@
 # Changelog · web3-edu-platform-core
 
-## v1.0.0 — 进行中
+## v1.0.0 — 2026-06-19
 
-首个稳定教学平台主库版本：23 插件联调、K8s Job 投递、container-manager 服务化。
+首个稳定主库版本。
 
-### 发布门槛
-
-- [ ] 四子库 `coreVersion` 对齐 `>=0.6.0 <2.0.0`
-- [ ] `make release-check` 全绿
-- [ ] git tag `v1.0.0`
+- 23 插件联调、`make release-check` 发布门禁
+- container-manager HTTP + scheduler 解耦
+- K8s Job cluster 模式 + 冒烟脚本
+- Bazel/gazelle 构建 `scheduler` / `container-manager`（`ci/bazel-gate.sh`）
+- 四子库 `coreVersion: ">=0.6.0 <2.0.0"`（子库 tag **v0.3.0**）
 
 ---
 

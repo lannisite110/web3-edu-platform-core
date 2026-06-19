@@ -28,15 +28,13 @@
 
 ## 快速启动
 
-见 [docs/DEV.md](docs/DEV.md)。
+- [学习路径](docs/LEARNING_PATH.md) — 分阶段阅读与实验顺序  
+- [快速部署](docs/QUICK_DEPLOY.md) — 五仓布局、一键 `ci-gate`、K8s 可选  
+- [本地开发](docs/DEV.md) — 四进程启动与环境变量
 
 ```bash
 make register-plugins PLUGINS_DIR=..
-make test-e2e-smoke          # 全链路 smoke 已通过
-make run-rule-engine         # 终端1
-make run-scheduler           # 终端2
-make run-gateway             # 终端3
-cd frontend-web && npm run dev   # 终端4 → http://localhost:5173
+make ci-gate
 ```
 
 ## 子库集成

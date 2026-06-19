@@ -17,5 +17,6 @@ STRICT=1 make core-version-check PLUGINS_DIR=.. || {
 make container-manager-smoke
 make scheduler-resolver-smoke
 make integration-all-plugins
+bash ci/bazel-gate.sh
 
 echo "==> release-check PASSED"

@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "toolchain",
+    srcs = ["manifest.go"],
+    importpath = "github.com/web3edu/platform-core/control-plane/internal/toolchain",
+    visibility = ["//control-plane-go:__subpackages__"],
+    deps = ["@in_gopkg_yaml_v3//:yaml_v3"],
+)

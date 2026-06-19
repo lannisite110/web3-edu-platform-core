@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "containermanager",
+    srcs = [
+        "manager.go",
+        "resolver.go",
+    ],
+    importpath = "github.com/web3edu/platform-core/control-plane/internal/containermanager",
+    visibility = ["//control-plane-go:__subpackages__"],
+    deps = ["//control-plane-go/internal/toolchain"],
+)
+
+go_test(
+    name = "containermanager_test",
+    srcs = ["resolver_test.go"],
+    embed = [":containermanager"],
+    deps = ["//control-plane-go/internal/toolchain"],
+)

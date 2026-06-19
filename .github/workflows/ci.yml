@@ -60,3 +60,12 @@ jobs:
       - name: CI gate
         working-directory: web3-edu-platform-core
         run: bash ci/ci-gate.sh
+
+      - name: Setup Bazelisk
+        uses: bazel-contrib/setup-bazel@0.9.1
+        with:
+          bazelisk-version: "1.25.0"
+
+      - name: Bazel gate
+        working-directory: web3-edu-platform-core
+        run: bash ci/bazel-gate.sh

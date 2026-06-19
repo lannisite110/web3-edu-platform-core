@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "scheduler",
+    srcs = [
+        "scheduler.go",
+        "v04.go",
+    ],
+    importpath = "github.com/web3edu/platform-core/control-plane/internal/scheduler",
+    visibility = ["//control-plane-go:__subpackages__"],
+    deps = [
+        "//control-plane-go/internal/containermanager",
+        "//control-plane-go/internal/jobsubmit",
+        "//control-plane-go/internal/plugins",
+        "@com_github_google_uuid//:uuid",
+    ],
+)
