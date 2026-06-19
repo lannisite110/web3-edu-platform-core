@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-evm
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"

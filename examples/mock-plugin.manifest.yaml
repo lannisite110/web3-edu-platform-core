@@ -1,0 +1,24 @@
+apiVersion: edu.web3/v1
+kind: PluginPackage
+metadata:
+  id: edu.hot.mock
+  name: Mock Lab (E2E Smoke)
+  version: 0.1.0
+  repo: web3-edu-platform-core
+  compliance_tier: hot_topic
+
+spec:
+  coreVersion: ">=0.1.0 <0.2.0"
+  taskTypes:
+    - BASE_CONTRACT_COMPILE
+  namespaces:
+    - ns-evm
+  allowedChainIds:
+    - 11155111
+  frontend:
+    routePrefix: /labs/edu.hot.mock
+    entry: plugins/frontend/plugin.ts
+  rules:
+    entry: plugins.rules.mock_evaluator:evaluate
+  docs:
+    - docs/AGENT0_TASK.md

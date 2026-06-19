@@ -1,0 +1,29 @@
+apiVersion: edu.web3/v1
+kind: PluginPackage
+metadata:
+  id: edu.hot.example
+  name: Example Hot Topic Lab
+  version: 0.0.1
+  repo: web3-edu-platform-core
+  compliance_tier: hot_topic
+
+spec:
+  coreVersion: ">=0.1.0 <0.2.0"
+  taskTypes:
+    - HOT_ZK_ROLLUP_SIM
+  namespaces:
+    - ns-hot-zk
+  allowedChainIds:
+    - 11155111
+  frontend:
+    routePrefix: /labs/edu.hot.example
+    entry: plugins/frontend/ExampleLab.vue
+  rules:
+    entry: plugins.rules.example:evaluate
+  contracts:
+    - path: plugins/contracts/Example.sol
+      language: solidity
+  k8s:
+    jobTemplate: k8s/overlays/ns-hot-zk/example-job.yaml
+  docs:
+    - docs/tutorials/example.md

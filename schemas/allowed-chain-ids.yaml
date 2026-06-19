@@ -1,0 +1,29 @@
+# 测试网 chainId 白名单 — CI 与运行时共用
+# 主网 ID 出现在 manifest 或源码中将导致 compliance-check FAIL
+
+allowed:
+  ethereum_sepolia: 11155111
+  ethereum_holesky: 17000
+  polygon_amoy: 80002
+  bsc_testnet: 97
+
+string_identifiers:
+  solana_devnet: devnet
+  fabric_sandbox: fabric-local
+
+blocked_chain_ids:
+  - 1      # Ethereum Mainnet
+  - 56     # BSC Mainnet
+  - 137    # Polygon Mainnet
+  - 42161  # Arbitrum One
+  - 10     # Optimism
+  - 8453   # Base
+
+blocked_rpc_patterns:
+  - mainnet
+  - MAINNET
+  - eth-mainnet
+  - api.mainnet-beta.solana.com
+  - mainnet.infura.io
+  - polygon-mainnet
+  - bsc-dataseed.binance.org

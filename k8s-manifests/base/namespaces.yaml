@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-evm
+  labels:
+    edu.web3/tier: L1
+    edu.web3/compliance: testnet-only
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-solana
+  labels:
+    edu.web3/tier: L1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-move
+  labels:
+    edu.web3/tier: L1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-hot-zk
+  labels:
+    edu.web3/tier: L2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-hot-aa
+  labels:
+    edu.web3/tier: L2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-hot-sim
+  labels:
+    edu.web3/tier: L2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-domain-cn
+  labels:
+    edu.web3/tier: L3
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-domain-global
+  labels:
+    edu.web3/tier: L3

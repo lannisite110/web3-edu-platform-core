@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://edu.web3/schemas/plugin.manifest.schema.json",
+  "title": "Web3 Edu Plugin Manifest",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "edu.web3/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "PluginPackage"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "name", "version", "repo", "compliance_tier"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^edu\\.(hot|cn|global)\\.[a-z0-9.-]+$"
+        },
+        "name": { "type": "string", "minLength": 3 },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "repo": { "type": "string" },
+        "compliance_tier": {
+          "type": "string",
+          "enum": ["hot_topic", "cn_domain", "global_sandbox"]
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "required": [
+        "taskTypes",
+        "namespaces",
+        "allowedChainIds",
+        "frontend",
+        "rules",
+        "coreVersion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "taskTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "namespaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "ns-evm",
+              "ns-solana",
+              "ns-move",
+              "ns-hot-zk",
+              "ns-hot-aa",
+              "ns-hot-sim",
+              "ns-domain-cn",
+              "ns-domain-global",
+              "ns-lang-btc",
+              "ns-lang-flow",
+              "ns-lang-algorand"
+            ]
+          }
+        },
+        "allowedChainIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              { "type": "integer", "enum": [11155111, 17000, 80002, 97] },
+              { "type": "string", "enum": ["devnet", "fabric-local"] }
+            ]
+          }
+        },
+        "frontend": {
+          "type": "object",
+          "required": ["routePrefix", "entry"],
+          "properties": {
+            "routePrefix": {
+              "type": "string",
+              "pattern": "^/labs/edu\\."
+            },
+            "entry": { "type": "string" }
+          }
+        },
+        "rules": {
+          "type": "object",
+          "required": ["entry"],
+          "properties": {
+            "entry": {
+              "type": "string",
+              "pattern": "^plugins\\.rules\\.[a-z0-9_]+:evaluate$"
+            }
+          }
+        },
+        "contracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "language"],
+            "properties": {
+              "path": { "type": "string" },
+              "language": {
+                "type": "string",
+                "enum": ["solidity", "vyper", "rust", "move", "cairo", "huff"]
+              }
+            }
+          }
+        },
+        "k8s": {
+          "type": "object",
+          "properties": {
+            "jobTemplate": { "type": "string" }
+          }
+        },
+        "docs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "coreVersion": {
+          "type": "string",
+          "pattern": "^>=\\d+\\.\\d+\\.\\d+"
+        }
+      }
+    }
+  }
+}

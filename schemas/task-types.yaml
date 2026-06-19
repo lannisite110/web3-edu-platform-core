@@ -1,0 +1,74 @@
+# TaskType 全局枚举 — 主库维护，子库 manifest 只能引用此列表中的值
+# 新增 TaskType：仅 Agent-0 通过 PR 修改本文件
+
+version: "1.0.0"
+
+# --- 基础合约（主库内置）---
+base:
+  - BASE_CONTRACT_COMPILE
+  - BASE_CONTRACT_AUDIT
+  - BASE_CONTRACT_DEPLOY_TESTNET
+
+# --- 子库1: web3-hot-topic-labs (Agent-1) ---
+hot_topic:
+  - HOT_ZK_ROLLUP_SIM
+  - HOT_ZK_CIRCUIT_COMPILE
+  - HOT_AA_WALLET_SIM
+  - HOT_AA_SESSION_KEY_DEMO
+  - HOT_AI_AGENT_SANDBOX
+  - HOT_RWA_EDU_SIM
+  - HOT_DEPIN_NODE_SIM
+  - HOT_DID_PRIVACY_DEMO
+  - HOT_MEV_PBS_SIM
+  - HOT_DAO_VOTE_SIM
+  - HOT_LANGUAGE_ADVISE
+  - HOT_MULTI_LANG_COMPILE
+
+# --- 子库2: supervision-trace-edu-suite (Agent-2) ---
+cn_trace:
+  - CN_FOOD_TRACE_SIM
+  - CN_MEDICAL_TAMPER_DEMO
+  - CN_CHARITY_LEDGER_DEMO
+
+# --- 子库3: enterprise-gov-edu-demo (Agent-3) ---
+cn_gov:
+  - CN_BID_GRAPH_SIM
+  - CN_MULTISIG_APPROVAL_DEMO
+  - CN_SUPPLY_CHAIN_DEMO
+
+# --- 子库4: global-social-edu-sandbox (Agent-4) ---
+global_sandbox:
+  - GLOBAL_ELECTION_HASH_DEMO
+  - GLOBAL_RELIGION_RULE_SANDBOX
+  - GLOBAL_WELFARE_ANTIFRAUD_SIM
+  - GLOBAL_REGULATORY_RULE_SANDBOX
+  - GLOBAL_LOGISTICS_AUDIT_DEMO
+
+# TaskType -> 默认 Namespace 映射（调度器使用）
+routing:
+  BASE_CONTRACT_COMPILE: ns-evm
+  BASE_CONTRACT_AUDIT: ns-evm
+  BASE_CONTRACT_DEPLOY_TESTNET: ns-evm
+  HOT_ZK_ROLLUP_SIM: ns-hot-zk
+  HOT_ZK_CIRCUIT_COMPILE: ns-hot-zk
+  HOT_AA_WALLET_SIM: ns-hot-aa
+  HOT_AA_SESSION_KEY_DEMO: ns-hot-aa
+  HOT_AI_AGENT_SANDBOX: ns-hot-sim
+  HOT_RWA_EDU_SIM: ns-hot-sim
+  HOT_DEPIN_NODE_SIM: ns-hot-sim
+  HOT_DID_PRIVACY_DEMO: ns-hot-sim
+  HOT_MEV_PBS_SIM: ns-hot-sim
+  HOT_DAO_VOTE_SIM: ns-hot-sim
+  HOT_LANGUAGE_ADVISE: ns-evm
+  HOT_MULTI_LANG_COMPILE: ns-evm
+  CN_FOOD_TRACE_SIM: ns-domain-cn
+  CN_MEDICAL_TAMPER_DEMO: ns-domain-cn
+  CN_CHARITY_LEDGER_DEMO: ns-domain-cn
+  CN_BID_GRAPH_SIM: ns-domain-cn
+  CN_MULTISIG_APPROVAL_DEMO: ns-domain-cn
+  CN_SUPPLY_CHAIN_DEMO: ns-domain-cn
+  GLOBAL_ELECTION_HASH_DEMO: ns-domain-global
+  GLOBAL_RELIGION_RULE_SANDBOX: ns-domain-global
+  GLOBAL_WELFARE_ANTIFRAUD_SIM: ns-domain-global
+  GLOBAL_REGULATORY_RULE_SANDBOX: ns-domain-global
+  GLOBAL_LOGISTICS_AUDIT_DEMO: ns-domain-global

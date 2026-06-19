@@ -1,0 +1,518 @@
+[
+  {
+    "id": "edu.hot.mock",
+    "name": "Mock Lab (E2E Smoke)",
+    "version": "0.1.0",
+    "repo": "web3-edu-platform-core",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.mock",
+    "frontendEntry": "plugins/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.mock_evaluator:evaluate",
+    "taskTypes": [
+      "BASE_CONTRACT_COMPILE"
+    ],
+    "namespaces": [
+      "ns-evm"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-edu-platform-core/examples/mock-plugin.manifest.yaml"
+  },
+  {
+    "id": "edu.cn.gov.bid-graph",
+    "name": "Bid Relationship Graph Simulation",
+    "version": "0.1.0",
+    "repo": "enterprise-gov-edu-demo",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.gov.bid-graph",
+    "frontendEntry": "plugins/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.bid_graph:evaluate",
+    "taskTypes": [
+      "CN_BID_GRAPH_SIM"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/enterprise-gov-edu-demo/plugins/bid-graph/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/bid-graph-job.yaml"
+  },
+  {
+    "id": "edu.cn.gov.multisig",
+    "name": "Multisig Approval Demo",
+    "version": "0.1.0",
+    "repo": "enterprise-gov-edu-demo",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.gov.multisig",
+    "frontendEntry": "plugins/frontend/multisig-plugin.ts",
+    "rulesEntry": "plugins.rules.multisig:evaluate",
+    "taskTypes": [
+      "CN_MULTISIG_APPROVAL_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/enterprise-gov-edu-demo/plugins/multisig/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/multisig-job.yaml"
+  },
+  {
+    "id": "edu.cn.gov.supply",
+    "name": "Supply Chain Ledger Demo",
+    "version": "0.1.0",
+    "repo": "enterprise-gov-edu-demo",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.gov.supply",
+    "frontendEntry": "plugins/frontend/supply-plugin.ts",
+    "rulesEntry": "plugins.rules.supply_chain:evaluate",
+    "taskTypes": [
+      "CN_SUPPLY_CHAIN_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/enterprise-gov-edu-demo/plugins/supply/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/supply-job.yaml"
+  },
+  {
+    "id": "edu.global.sandbox.election",
+    "name": "Election Hash Consensus Demo",
+    "version": "0.1.0",
+    "repo": "global-social-edu-sandbox",
+    "complianceTier": "global_sandbox",
+    "group": "海外沙箱",
+    "routePrefix": "/labs/edu.global.sandbox.election",
+    "frontendEntry": "plugins/frontend/election/plugin.ts",
+    "rulesEntry": "plugins.rules.election:evaluate",
+    "taskTypes": [
+      "GLOBAL_ELECTION_HASH_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-global"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/global-social-edu-sandbox/plugins/election/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-global/election-job.yaml"
+  },
+  {
+    "id": "edu.global.sandbox.logistics",
+    "name": "Logistics Audit Ledger Demo",
+    "version": "0.1.0",
+    "repo": "global-social-edu-sandbox",
+    "complianceTier": "global_sandbox",
+    "group": "海外沙箱",
+    "routePrefix": "/labs/edu.global.sandbox.logistics",
+    "frontendEntry": "plugins/frontend/logistics/plugin.ts",
+    "rulesEntry": "plugins.rules.logistics:evaluate",
+    "taskTypes": [
+      "GLOBAL_LOGISTICS_AUDIT_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-global"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/global-social-edu-sandbox/plugins/logistics/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-global/logistics-job.yaml"
+  },
+  {
+    "id": "edu.global.sandbox.regulatory",
+    "name": "Regulatory Rule Sandbox",
+    "version": "0.1.0",
+    "repo": "global-social-edu-sandbox",
+    "complianceTier": "global_sandbox",
+    "group": "海外沙箱",
+    "routePrefix": "/labs/edu.global.sandbox.regulatory",
+    "frontendEntry": "plugins/frontend/regulatory/plugin.ts",
+    "rulesEntry": "plugins.rules.regulatory:evaluate",
+    "taskTypes": [
+      "GLOBAL_REGULATORY_RULE_SANDBOX"
+    ],
+    "namespaces": [
+      "ns-domain-global"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/global-social-edu-sandbox/plugins/regulatory/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-global/regulatory-job.yaml"
+  },
+  {
+    "id": "edu.global.sandbox.religion",
+    "name": "Religion Rule Sandbox",
+    "version": "0.1.0",
+    "repo": "global-social-edu-sandbox",
+    "complianceTier": "global_sandbox",
+    "group": "海外沙箱",
+    "routePrefix": "/labs/edu.global.sandbox.religion",
+    "frontendEntry": "plugins/frontend/religion/plugin.ts",
+    "rulesEntry": "plugins.rules.religion:evaluate",
+    "taskTypes": [
+      "GLOBAL_RELIGION_RULE_SANDBOX"
+    ],
+    "namespaces": [
+      "ns-domain-global"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/global-social-edu-sandbox/plugins/religion/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-global/religion-job.yaml"
+  },
+  {
+    "id": "edu.global.sandbox.welfare",
+    "name": "Welfare Anti-Fraud Simulation",
+    "version": "0.1.0",
+    "repo": "global-social-edu-sandbox",
+    "complianceTier": "global_sandbox",
+    "group": "海外沙箱",
+    "routePrefix": "/labs/edu.global.sandbox.welfare",
+    "frontendEntry": "plugins/frontend/welfare/plugin.ts",
+    "rulesEntry": "plugins.rules.welfare:evaluate",
+    "taskTypes": [
+      "GLOBAL_WELFARE_ANTIFRAUD_SIM"
+    ],
+    "namespaces": [
+      "ns-domain-global"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/global-social-edu-sandbox/plugins/welfare/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-global/welfare-job.yaml"
+  },
+  {
+    "id": "edu.cn.trace.charity",
+    "name": "Charity Ledger Demo",
+    "version": "0.1.0",
+    "repo": "supervision-trace-edu-suite",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.trace.charity",
+    "frontendEntry": "plugins/charity-ledger/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.charity_ledger:evaluate",
+    "taskTypes": [
+      "CN_CHARITY_LEDGER_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/supervision-trace-edu-suite/plugins/charity-ledger/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/charity-ledger-job.yaml"
+  },
+  {
+    "id": "edu.cn.trace.food",
+    "name": "Food Trace Simulation Lab",
+    "version": "0.1.0",
+    "repo": "supervision-trace-edu-suite",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.trace.food",
+    "frontendEntry": "plugins/food-trace/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.food_trace:evaluate",
+    "taskTypes": [
+      "CN_FOOD_TRACE_SIM"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/supervision-trace-edu-suite/plugins/food-trace/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/food-trace-job.yaml"
+  },
+  {
+    "id": "edu.cn.trace.medical",
+    "name": "Medical Tamper Detection Lab",
+    "version": "0.1.0",
+    "repo": "supervision-trace-edu-suite",
+    "complianceTier": "cn_domain",
+    "group": "国内领域",
+    "routePrefix": "/labs/edu.cn.trace.medical",
+    "frontendEntry": "plugins/medical-tamper/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.medical_tamper:evaluate",
+    "taskTypes": [
+      "CN_MEDICAL_TAMPER_DEMO"
+    ],
+    "namespaces": [
+      "ns-domain-cn"
+    ],
+    "allowedChainIds": [
+      "fabric-local"
+    ],
+    "manifestPath": "/home/lxd110/web3home/supervision-trace-edu-suite/plugins/medical-tamper/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-domain-cn/medical-tamper-job.yaml"
+  },
+  {
+    "id": "edu.hot.aa-session",
+    "name": "AA Session Key Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.aa-session",
+    "frontendEntry": "plugins/aa-session/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.aa_session:evaluate",
+    "taskTypes": [
+      "HOT_AA_SESSION_KEY_DEMO"
+    ],
+    "namespaces": [
+      "ns-hot-aa"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/aa-session/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-aa/aa-session-job.yaml"
+  },
+  {
+    "id": "edu.hot.aa-wallet",
+    "name": "Account Abstraction Wallet Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.aa-wallet",
+    "frontendEntry": "plugins/aa-wallet/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.aa_wallet:evaluate",
+    "taskTypes": [
+      "HOT_AA_WALLET_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-aa"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/aa-wallet/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-aa/aa-wallet-job.yaml"
+  },
+  {
+    "id": "edu.hot.ai-agent",
+    "name": "AI Agent Sandbox Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.ai-agent",
+    "frontendEntry": "plugins/ai-agent/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.ai_agent:evaluate",
+    "taskTypes": [
+      "HOT_AI_AGENT_SANDBOX"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/ai-agent/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/ai-agent-job.yaml"
+  },
+  {
+    "id": "edu.hot.dao",
+    "name": "DAO Vote Simulation Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.dao",
+    "frontendEntry": "plugins/dao/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.dao:evaluate",
+    "taskTypes": [
+      "HOT_DAO_VOTE_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/dao/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/dao-job.yaml"
+  },
+  {
+    "id": "edu.hot.depin",
+    "name": "DePIN Node Simulation Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.depin",
+    "frontendEntry": "plugins/depin/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.depin:evaluate",
+    "taskTypes": [
+      "HOT_DEPIN_NODE_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/depin/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/depin-job.yaml"
+  },
+  {
+    "id": "edu.hot.did",
+    "name": "DID Privacy Demo Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.did",
+    "frontendEntry": "plugins/did/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.did:evaluate",
+    "taskTypes": [
+      "HOT_DID_PRIVACY_DEMO"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/did/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/did-job.yaml"
+  },
+  {
+    "id": "edu.hot.language-advisor",
+    "name": "Smart Contract Language Advisor",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.language-advisor",
+    "frontendEntry": "plugins/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.language_choice:evaluate",
+    "taskTypes": [
+      "HOT_LANGUAGE_ADVISE",
+      "HOT_MULTI_LANG_COMPILE"
+    ],
+    "namespaces": [
+      "ns-evm",
+      "ns-solana",
+      "ns-move",
+      "ns-hot-zk",
+      "ns-lang-btc",
+      "ns-lang-flow",
+      "ns-lang-algorand"
+    ],
+    "allowedChainIds": [
+      11155111,
+      17000,
+      80002,
+      97,
+      "devnet"
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/language-advisor/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-evm/multi-lang-compile-job.yaml"
+  },
+  {
+    "id": "edu.hot.mev",
+    "name": "MEV PBS Simulation Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.mev",
+    "frontendEntry": "plugins/mev/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.mev:evaluate",
+    "taskTypes": [
+      "HOT_MEV_PBS_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/mev/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/mev-job.yaml"
+  },
+  {
+    "id": "edu.hot.rwa-edu",
+    "name": "RWA Education Simulation Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.rwa-edu",
+    "frontendEntry": "plugins/rwa-edu/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.rwa_edu:evaluate",
+    "taskTypes": [
+      "HOT_RWA_EDU_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-sim"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/rwa-edu/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-sim/rwa-edu-job.yaml"
+  },
+  {
+    "id": "edu.hot.zk-circuit",
+    "name": "ZK Circuit Compile Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.zk-circuit",
+    "frontendEntry": "plugins/zk-circuit/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.zk_circuit:evaluate",
+    "taskTypes": [
+      "HOT_ZK_CIRCUIT_COMPILE"
+    ],
+    "namespaces": [
+      "ns-hot-zk"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/zk-circuit/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-zk/zk-circuit-job.yaml"
+  },
+  {
+    "id": "edu.hot.zk-modular",
+    "name": "ZK Modular Rollup Lab",
+    "version": "0.1.0",
+    "repo": "web3-hot-topic-labs",
+    "complianceTier": "hot_topic",
+    "group": "Web3 热点",
+    "routePrefix": "/labs/edu.hot.zk-modular",
+    "frontendEntry": "plugins/zk-modular/frontend/plugin.ts",
+    "rulesEntry": "plugins.rules.zk_modular:evaluate",
+    "taskTypes": [
+      "HOT_ZK_ROLLUP_SIM"
+    ],
+    "namespaces": [
+      "ns-hot-zk"
+    ],
+    "allowedChainIds": [
+      11155111
+    ],
+    "manifestPath": "/home/lxd110/web3home/web3-hot-topic-labs/plugins/zk-modular/plugin.manifest.yaml",
+    "jobTemplate": "k8s/overlays/ns-hot-zk/zk-modular-job.yaml"
+  }
+]
