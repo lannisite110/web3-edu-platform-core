@@ -1,5 +1,11 @@
 # Changelog · web3-edu-platform-core
 
+## v1.0.1 — 2026-06-19
+
+维护发布：从版本库移除误提交的 Bazel 输出符号链接，`.gitignore` 增加 `bazel-*`。
+
+---
+
 ## v1.0.0 — 2026-06-19
 
 首个稳定主库版本。
