@@ -17,7 +17,7 @@ spec:
     - 11155111
   frontend:
     routePrefix: /labs/edu.hot.mock
-    entry: plugins/frontend/plugin.ts
+    entry: examples/plugins/mock/frontend/plugin.ts
   rules:
     entry: plugins.rules.mock_evaluator:evaluate
   docs:

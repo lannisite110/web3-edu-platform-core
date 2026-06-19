@@ -1,4 +1,4 @@
-# 本地开发启动（v0.4.2）
+# 本地开发启动（v0.5.0）
 
 ## 1. 注册插件
 
@@ -12,6 +12,7 @@ make register-plugins PLUGINS_DIR=..
 ```bash
 make run-rule-engine   # :8081
 make run-scheduler     # :8082
+make run-container-manager  # :8083
 make run-gateway       # :8080
 ```
 
@@ -55,6 +56,8 @@ cd frontend-web && npm install && npm run dev
 make compliance-check
 make ci-gate
 make integration-all-plugins
+make tutorial-audit
+make container-manager-smoke
 # 有 K8s 集群时：
 make k8s-job-smoke
 make k8s-multilang-smoke
@@ -72,6 +75,7 @@ make k8s-multilang-smoke
 | `JOB_AUTO_CLEANUP` | `true` | cluster 完成后删除 Job（设 `false` 保留） |
 | `JOB_LOG_TAIL_LINES` | `80` | 报告内附 Pod 日志尾行数 |
 | `JOB_SMOKE_BUSYBOX` | `0` | 设为 `1` 时 cluster 冒烟用 busybox 代替 toolchain 镜像 |
+| `CONTAINER_MANAGER_PORT` | `8083` | container-manager HTTP 端口 |
 
 ## v0.4.x 要点
 
@@ -79,7 +83,12 @@ make k8s-multilang-smoke
 - v0.4.1 — Pod 日志采集、Job 自动清理、kubeconfig 路径检测
 - v0.4.2 — Pod phase/reason/events 诊断、`make k8s-multilang-smoke`、toolchain 镜像 tag 与 manifest version 对齐
 
+## v0.5.x 要点
+
+- v0.5.0 — container-manager HTTP 服务、`make tutorial-audit`、mock Vue 面板、Bazel 脚手架
+
 ## 后续（v0.5+）
 
-- Bazel WORKSPACE
-- 22 插件教程齐套审查
+- scheduler 通过 HTTP 调用 container-manager
+- Bazel MODULE.bazel 实装
+- 22 插件教程内容审查（非仅路径存在）

@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.4.2** — K8s Job 失败诊断与多语言冒烟
+> **v0.5.0** — container-manager 服务化 + 教程审查 + mock 面板
 
 ---
 
@@ -126,7 +126,7 @@
 
 ---
 
-## Phase 4.x 交付清单（v0.4.2）— 进行中
+## Phase 4.x 交付清单（v0.4.2）✅
 
 ### A. K8s Job 增强
 - [x] 失败时 `job_submit.extra` 写入 `pod_status`（phase/reason/exit_code）
@@ -135,7 +135,29 @@
 - [x] `scripts/k8s-multilang-smoke.sh` + `make k8s-multilang-smoke`
 - [x] `JOB_SMOKE_BUSYBOX=1` 冒烟回退 busybox（无本地 toolchain 镜像时）
 - [x] toolchain manifest `version` 自动覆盖镜像 tag（如 `0.2.0`）
+- [x] `sigs.k8s.io/yaml` 修复 Job 模板 `restartPolicy` 解析
 
 ### B. 发布
 - [x] `VERSION` = 0.4.2
-- [ ] git tag `v0.4.2`（k8s smokes 通过后）
+- [x] git tag `v0.4.2`
+
+---
+
+## Phase 5 交付清单（v0.5.0）— 进行中
+
+### A. container-manager 服务化
+- [x] `cmd/container-manager` — HTTP `:8083`（`/health` `/toolchains` `/resolve/:taskType`）
+- [x] `make run-container-manager` + `make container-manager-smoke`
+- [ ] scheduler 可选调用 container-manager 解析镜像（当前仍内嵌 toolchain）
+
+### B. 教程与前端
+- [x] `ci/tutorial-audit.sh` + `make tutorial-audit` — 校验 `spec.docs` 文件存在
+- [x] mock 插件 Vue 面板 `examples/plugins/mock/frontend/MockLab.vue`
+
+### C. 工程
+- [x] `infra/bazel/README.md` — Bazel 增量采纳脚手架说明
+- [ ] `MODULE.bazel` + 首批 BUILD 目标
+
+### D. 发布
+- [x] `VERSION` = 0.5.0
+- [ ] git tag `v0.5.0`

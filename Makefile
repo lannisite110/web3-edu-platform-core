@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
-        run-rule-engine run-scheduler run-gateway run-frontend dev-backend ci-gate \
-        fabric-bootstrap
+        run-rule-engine run-scheduler run-gateway run-container-manager run-frontend dev-backend ci-gate \
+        fabric-bootstrap tutorial-audit container-manager-smoke
 
 MANIFEST ?=
 PLUGINS_DIR ?= ..
@@ -17,6 +17,12 @@ k8s-job-smoke:
 
 k8s-multilang-smoke:
 	bash scripts/k8s-multilang-smoke.sh
+
+tutorial-audit:
+	bash ci/tutorial-audit.sh
+
+container-manager-smoke:
+	bash scripts/container-manager-smoke.sh
 
 validate-plugin:
 	MANIFEST="$(MANIFEST)" bash ci/compliance/validate-plugin.sh
@@ -46,6 +52,9 @@ run-rule-engine:
 
 run-scheduler:
 	cd control-plane-go && CORE_ROOT=$(CORE_ROOT) SCHEDULER_PORT=8082 go run ./cmd/scheduler
+
+run-container-manager:
+	cd control-plane-go && CORE_ROOT=$(CORE_ROOT) CONTAINER_MANAGER_PORT=8083 go run ./cmd/container-manager
 
 run-gateway:
 	cd api-gateway-go && CORE_ROOT=$(CORE_ROOT) GATEWAY_PORT=8080 go run ./cmd/gateway

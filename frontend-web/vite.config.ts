@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@core': fileURLToPath(new URL('..', import.meta.url)),
       '@sandbox': `${web3home}/global-social-edu-sandbox`,
       '@hot-labs': `${web3home}/web3-hot-topic-labs`,
       '@trace': `${web3home}/supervision-trace-edu-suite`,

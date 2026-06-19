@@ -17,8 +17,9 @@ ci_build_go_services() {
   local bin
   bin="$(_ci_bin_dir "$root")"
   mkdir -p "$bin"
-  echo "==> build scheduler + gateway"
+  echo "==> build scheduler + gateway + container-manager"
   (cd "${root}/control-plane-go" && go build -o "${bin}/scheduler" ./cmd/scheduler)
+  (cd "${root}/control-plane-go" && go build -o "${bin}/container-manager" ./cmd/container-manager)
   (cd "${root}/api-gateway-go" && go build -o "${bin}/gateway" ./cmd/gateway)
 }
 

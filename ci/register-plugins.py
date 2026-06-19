@@ -20,7 +20,7 @@ REPO_ALIAS = {
     "supervision-trace-edu-suite": "@trace",
     "enterprise-gov-edu-demo": "@gov",
     "global-social-edu-sandbox": "@sandbox",
-    "web3-edu-platform-core": "@",
+    "web3-edu-platform-core": "@core",
 }
 
 

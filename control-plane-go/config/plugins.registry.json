@@ -7,7 +7,7 @@
     "complianceTier": "hot_topic",
     "group": "Web3 热点",
     "routePrefix": "/labs/edu.hot.mock",
-    "frontendEntry": "plugins/frontend/plugin.ts",
+    "frontendEntry": "examples/plugins/mock/frontend/plugin.ts",
     "rulesEntry": "plugins.rules.mock_evaluator:evaluate",
     "taskTypes": [
       "BASE_CONTRACT_COMPILE"
