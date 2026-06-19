@@ -9,7 +9,7 @@ import (
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"gopkg.in/yaml.v3"
+	"sigs.k8s.io/yaml"
 )
 
 func repoRootFromManifest(manifestPath string) string {
@@ -107,6 +107,7 @@ func prepareJob(req Request) (*batchv1.Job, error) {
 		if err != nil {
 			return nil, err
 		}
+		normalizeJobTemplate(job)
 	} else {
 		job = buildDefaultJob(req)
 	}
@@ -122,6 +123,16 @@ func prepareJob(req Request) (*batchv1.Job, error) {
 	if req.Image != "" && len(job.Spec.Template.Spec.Containers) > 0 {
 		job.Spec.Template.Spec.Containers[0].Image = req.Image
 	}
+	if os.Getenv("JOB_SMOKE_BUSYBOX") == "1" && len(job.Spec.Template.Spec.Containers) > 0 {
+		c := &job.Spec.Template.Spec.Containers[0]
+		c.Image = "busybox:1.36"
+		c.Command = []string{"sh", "-c", fmt.Sprintf("echo smoke %s; echo simulation complete", req.TaskType)}
+		c.Env = []corev1.EnvVar{
+			{Name: "CHAIN_ID", Value: "11155111"},
+			{Name: "TASK_TYPE", Value: req.TaskType},
+			{Name: "PLUGIN_ID", Value: req.PluginID},
+		}
+	}
 
 	// Unique name per submission
 	suffix := strings.ReplaceAll(req.TaskID, "-", "")[:8]
@@ -133,6 +144,16 @@ func prepareJob(req Request) (*batchv1.Job, error) {
 	job.GenerateName = ""
 
 	return job, nil
+}
+
+func normalizeJobTemplate(job *batchv1.Job) {
+	spec := &job.Spec.Template.Spec
+	if spec.RestartPolicy == "" {
+		spec.RestartPolicy = corev1.RestartPolicyNever
+	}
+	if job.Spec.BackoffLimit == nil {
+		job.Spec.BackoffLimit = int32Ptr(1)
+	}
 }
 
 func sanitizeName(s string) string {

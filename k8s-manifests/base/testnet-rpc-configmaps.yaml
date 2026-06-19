@@ -1,0 +1,66 @@
+# Replicated testnet RPC ConfigMap for job templates that reference testnet-rpc-sepolia.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-evm
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-hot-sim
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-hot-aa
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-hot-zk
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-domain-cn
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testnet-rpc-sepolia
+  namespace: ns-domain-global
+data:
+  CHAIN_ID: "11155111"
+  RPC_URL: "https://rpc.sepolia.org"
+  NETWORK: "sepolia"
+  COMPLIANCE_NOTE: "testnet-only — mainnet forbidden"

@@ -15,6 +15,9 @@ fabric-bootstrap:
 k8s-job-smoke:
 	bash scripts/k8s-job-smoke.sh
 
+k8s-multilang-smoke:
+	bash scripts/k8s-multilang-smoke.sh
+
 validate-plugin:
 	MANIFEST="$(MANIFEST)" bash ci/compliance/validate-plugin.sh
 

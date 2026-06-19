@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.4.1** — K8s Job 日志采集与自动清理
+> **v0.4.2** — K8s Job 失败诊断与多语言冒烟
 
 ---
 
@@ -112,7 +112,7 @@
 
 ---
 
-## Phase 4.x 交付清单（v0.4.1）— 进行中
+## Phase 4.x 交付清单（v0.4.1）✅
 
 ### A. K8s Job 增强
 - [x] Pod 日志尾行写入 `job_submit.extra.pod_log_tail`
@@ -122,4 +122,20 @@
 
 ### B. 发布
 - [x] `VERSION` = 0.4.1
-- [ ] git tag `v0.4.1`（k8s-job-smoke 通过后）
+- [x] git tag `v0.4.1`
+
+---
+
+## Phase 4.x 交付清单（v0.4.2）— 进行中
+
+### A. K8s Job 增强
+- [x] 失败时 `job_submit.extra` 写入 `pod_status`（phase/reason/exit_code）
+- [x] 失败时附 `pod_events`（最近 K8s Events）
+- [x] `scripts/k8s-smoke-common.sh` 抽取冒烟公共逻辑
+- [x] `scripts/k8s-multilang-smoke.sh` + `make k8s-multilang-smoke`
+- [x] `JOB_SMOKE_BUSYBOX=1` 冒烟回退 busybox（无本地 toolchain 镜像时）
+- [x] toolchain manifest `version` 自动覆盖镜像 tag（如 `0.2.0`）
+
+### B. 发布
+- [x] `VERSION` = 0.4.2
+- [ ] git tag `v0.4.2`（k8s smokes 通过后）

@@ -26,7 +26,15 @@ func podLogTailLines() int64 {
 }
 
 func attachJobDiagnostics(ctx context.Context, clientset *kubernetes.Clientset, namespace, jobName string, extra map[string]any) {
-	logs, err := fetchJobPodLogs(ctx, clientset, namespace, jobName, podLogTailLines())
+	pods, err := listJobPods(ctx, clientset, namespace, jobName)
+	if err != nil {
+		extra["pod_list_error"] = err.Error()
+		return
+	}
+	attachPodStatus(pods, extra)
+	attachPodEvents(ctx, clientset, namespace, pods, extra)
+
+	logs, err := fetchJobPodLogsFromPods(ctx, clientset, namespace, pods, podLogTailLines())
 	if err != nil {
 		extra["pod_log_error"] = err.Error()
 	} else if logs != "" {
@@ -34,19 +42,30 @@ func attachJobDiagnostics(ctx context.Context, clientset *kubernetes.Clientset, 
 	}
 }
 
-func fetchJobPodLogs(ctx context.Context, clientset *kubernetes.Clientset, namespace, jobName string, tail int64) (string, error) {
+func listJobPods(ctx context.Context, clientset *kubernetes.Clientset, namespace, jobName string) ([]corev1.Pod, error) {
 	pods, err := clientset.CoreV1().Pods(namespace).List(ctx, metav1.ListOptions{
 		LabelSelector: "job-name=" + jobName,
 	})
 	if err != nil {
+		return nil, err
+	}
+	return pods.Items, nil
+}
+
+func fetchJobPodLogs(ctx context.Context, clientset *kubernetes.Clientset, namespace, jobName string, tail int64) (string, error) {
+	pods, err := listJobPods(ctx, clientset, namespace, jobName)
+	if err != nil {
 		return "", err
 	}
-	if len(pods.Items) == 0 {
+	return fetchJobPodLogsFromPods(ctx, clientset, namespace, pods, tail)
+}
+
+func fetchJobPodLogsFromPods(ctx context.Context, clientset *kubernetes.Clientset, namespace string, pods []corev1.Pod, tail int64) (string, error) {
+	if len(pods) == 0 {
 		return "", nil
 	}
-
 	var b strings.Builder
-	for _, pod := range pods.Items {
+	for _, pod := range pods {
 		req := clientset.CoreV1().Pods(namespace).GetLogs(pod.Name, &corev1.PodLogOptions{TailLines: &tail})
 		stream, err := req.Stream(ctx)
 		if err != nil {

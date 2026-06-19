@@ -5,7 +5,7 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v0.4.1** · 纯教育培训 | 测试网/沙箱 only
+> **版本 v0.4.2** · 纯教育培训 | 测试网/沙箱 only
 
 ## 职责
 
@@ -64,6 +64,7 @@ make test-e2e-smoke
 | v0.3.0 | CI + jobsubmit + Fabric bootstrap |
 | v0.4.0 | client-go K8s Job + container-manager |
 | v0.4.1 | Pod 日志采集 + Job 自动清理 |
+| v0.4.2 | Pod 失败诊断 + 多语言 K8s 冒烟 |
 
 ---
 

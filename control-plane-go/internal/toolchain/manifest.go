@@ -3,6 +3,7 @@ package toolchain
 import (
 	"os"
 	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
@@ -41,7 +42,20 @@ func LoadManifest(coreRoot string) (*Manifest, error) {
 	if err := yaml.Unmarshal(data, &m); err != nil {
 		return nil, err
 	}
+	m.applyVersionedImages()
 	return &m, nil
+}
+
+func (m *Manifest) applyVersionedImages() {
+	if m.Version == "" {
+		return
+	}
+	for name, g := range m.Groups {
+		if idx := strings.LastIndex(g.Image, ":"); idx > 0 {
+			g.Image = g.Image[:idx+1] + m.Version
+			m.Groups[name] = g
+		}
+	}
 }
 
 func (m *Manifest) ResolveGroup(taskType string) (string, Group, bool) {
