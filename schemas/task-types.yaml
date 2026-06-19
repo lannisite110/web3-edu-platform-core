@@ -1,5 +1,5 @@
 # TaskType 全局枚举 — 主库维护，子库 manifest 只能引用此列表中的值
-# 新增 TaskType：仅 Agent-0 通过 PR 修改本文件
+# 新增 TaskType：仅主库维护者通过 PR 修改本文件
 
 version: "1.0.0"
 
@@ -9,7 +9,7 @@ base:
   - BASE_CONTRACT_AUDIT
   - BASE_CONTRACT_DEPLOY_TESTNET
 
-# --- 子库1: web3-hot-topic-labs (Agent-1) ---
+# --- 子库1: web3-hot-topic-labs ---
 hot_topic:
   - HOT_ZK_ROLLUP_SIM
   - HOT_ZK_CIRCUIT_COMPILE
@@ -24,19 +24,19 @@ hot_topic:
   - HOT_LANGUAGE_ADVISE
   - HOT_MULTI_LANG_COMPILE
 
-# --- 子库2: supervision-trace-edu-suite (Agent-2) ---
+# --- 子库2: supervision-trace-edu-suite ---
 cn_trace:
   - CN_FOOD_TRACE_SIM
   - CN_MEDICAL_TAMPER_DEMO
   - CN_CHARITY_LEDGER_DEMO
 
-# --- 子库3: enterprise-gov-edu-demo (Agent-3) ---
+# --- 子库3: enterprise-gov-edu-demo ---
 cn_gov:
   - CN_BID_GRAPH_SIM
   - CN_MULTISIG_APPROVAL_DEMO
   - CN_SUPPLY_CHAIN_DEMO
 
-# --- 子库4: global-social-edu-sandbox (Agent-4) ---
+# --- 子库4: global-social-edu-sandbox ---
 global_sandbox:
   - GLOBAL_ELECTION_HASH_DEMO
   - GLOBAL_RELIGION_RULE_SANDBOX

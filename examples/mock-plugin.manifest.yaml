@@ -21,4 +21,4 @@ spec:
   rules:
     entry: plugins.rules.mock_evaluator:evaluate
   docs:
-    - docs/AGENT0_TASK.md
+    - docs/CORE_TASK.md

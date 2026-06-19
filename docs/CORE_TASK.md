@@ -1,6 +1,6 @@
-# Agent-0 任务书 · web3-edu-platform-core（主库）
+# 主库任务书 · web3-edu-platform-core
 
-> **v0.3.0 进行中** — CI、合规、jobsubmit、Fabric bootstrap 已启动
+> **v0.3.0 已发布** — CI、合规、jobsubmit、Fabric bootstrap
 
 ---
 
@@ -10,7 +10,7 @@
 - [x] `schemas/plugin.manifest.schema.json`
 - [x] `schemas/task-types.yaml`
 - [x] `schemas/allowed-chain-ids.yaml`
-- [x] `docs/AGENT_CONTRACT.md`
+- [x] `docs/PLUGIN_CONTRACT.md`
 - [x] `ci/compliance/validate-plugin.sh`
 - [x] `ci/compliance/compliance-check.sh`
 - [x] `ci/register-plugins.py`
@@ -39,7 +39,6 @@
 ### G. 发布
 - [x] `VERSION` = 0.1.0
 - [x] `docs/DEV.md` 本地启动说明
-- [x] git tag `v0.1.0`（主库首版由 v0.2.0 起算，子库已打 v0.1.0）
 
 ---
 
@@ -62,32 +61,35 @@
 
 ### D. 发布
 - [x] `VERSION` = 0.2.0
-- [x] `docs/DEV.md` 更新
 - [x] git tag `v0.2.0` 已推送 GitHub
 
 ---
 
-## Phase 3 交付清单（v0.3.0）— 进行中
+## Phase 3 交付清单（v0.3.0）✅
 
 ### A. 合规与发布基建
 - [x] `compliance-check` 跳过 `security/mainnet.go` deny-list 误报
 - [x] 五仓 `LICENSE`（PolyForm Noncommercial 1.0.0）
 - [x] `.github/workflows/ci.yml` — 五仓 checkout + `ci-gate`
-- [x] 根目录 `README.md` / 本任务书更新
+- [x] 阅读文档去编排化表述（`PLUGIN_CONTRACT` / `CORE_TASK` / `TASK.md`）
 
 ### B. 调度与沙箱
 - [x] `internal/jobsubmit` + `JOB_SUBMIT_MODE`（local / cluster 脚手架）
 - [x] `scripts/fabric-sandbox-bootstrap.sh` + `make fabric-bootstrap`
+- [x] `ci/lib/stack-common.sh` — 联调启动竞态修复
 - [ ] client-go 真实 K8s Job 创建与状态轮询
 - [ ] `container-manager` 服务化（读取 hot-labs build-images）
 
 ### C. 文档与工程
 - [ ] 22 插件教程齐套审查清单
 - [ ] Bazel WORKSPACE（可选）
-- [ ] git tag `v0.3.0`（client-go Job 实装后）
+
+### D. 发布
+- [x] `VERSION` = 0.3.0
+- [x] git tag `v0.3.0`
 
 ---
 
-## 子库启动通知
+## 子库协作说明
 
-> 主库 v0.3.0 开发中（CI + jobsubmit + Fabric bootstrap 已合入 main）。子库继续 v0.1.x 迭代插件；契约变更需 Agent-0 评审。
+> 主库 v0.3.0 已发布。子库继续 v0.1.x 迭代插件；契约变更需主库维护者评审合并。

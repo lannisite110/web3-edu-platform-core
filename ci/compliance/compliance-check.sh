@@ -9,6 +9,7 @@ should_skip() {
   local f="$1"
   [[ "$f" == *"COMPLIANCE"* ]] && return 0
   [[ "$f" == *"AGENT_CONTRACT"* ]] && return 0
+  [[ "$f" == *"PLUGIN_CONTRACT"* ]] && return 0
   [[ "$f" == *"allowed-chain-ids.yaml"* ]] && return 0
   [[ "$f" == *"compliance-check.sh"* ]] && return 0
   [[ "$f" == *"registry.py"* ]] && return 0

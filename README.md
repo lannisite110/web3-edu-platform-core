@@ -5,11 +5,11 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v0.1.0** · 纯教育培训 | 测试网/沙箱 only
+> **版本 v0.3.0** · 纯教育培训 | 测试网/沙箱 only
 
 ## 职责
 
-本仓库提供**全部**跨子库共享能力。子库 Agent **禁止**在本仓之外重复实现：
+本仓库提供**全部**跨子库共享能力。子库**禁止**在本仓之外重复实现：
 
 - Vue3 壳应用 + 插件加载器
 - Gin API 网关 + 合规拦截
@@ -41,7 +41,7 @@ cd frontend-web && npm run dev   # 终端4 → http://localhost:5173
 
 ## 子库集成
 
-子库通过 `plugin.manifest.yaml` 注册。见 [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md)。
+子库通过 `plugin.manifest.yaml` 注册。见 [docs/PLUGIN_CONTRACT.md](docs/PLUGIN_CONTRACT.md)。
 
 ```bash
 make validate-plugin MANIFEST=../web3-hot-topic-labs/plugin.manifest.yaml
@@ -59,9 +59,9 @@ make test-e2e-smoke
 
 | 版本 | 内容 |
 |------|------|
-| v0.1.0 | 插件契约 + 合规 CI + E2E smoke（Agent-0） |
-| v0.2.0 | 4 子库插件接入 + 23 插件联调（Agent-0） |
-| v0.3.0 | CI + jobsubmit + Fabric bootstrap + 文档齐套（进行中） |
+| v0.1.0 | 插件契约 + 合规 CI + E2E smoke |
+| v0.2.0 | 4 子库插件接入 + 23 插件联调 |
+| v0.3.0 | CI + jobsubmit + Fabric bootstrap |
 
 ---
 

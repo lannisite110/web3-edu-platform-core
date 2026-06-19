@@ -1,8 +1,8 @@
-# Agent 协作契约（子库 Agent 必读）
+# 插件协作契约（子库必读）
 
-> **版本**: 1.0.0  
-> **维护者**: 主库 Agent-0 only  
-> **变更**: 子库 Agent 如需新增 TaskType/API，须提 Issue 到主库，不得私自扩展枚举
+> **版本**: 1.1.0  
+> **维护者**: 主库维护团队  
+> **变更**: 子库如需新增 TaskType/API，须提 Issue 到主库，不得私自扩展枚举
 
 ---
 
@@ -34,7 +34,7 @@
 ```
 {sub-repo}/
 ├── plugin.manifest.yaml      # 必填，JSON Schema 校验
-├── AGENT_TASK.md             # 本仓 Agent 任务书
+├── TASK.md                   # 本仓任务书
 ├── README.md
 ├── plugins/
 │   ├── contracts/            # 教学合约模板 (.sol, .rs, …)
@@ -64,7 +64,7 @@
 apiVersion: edu.web3/v1
 kind: PluginPackage
 metadata:
-  id: edu.hot.zk-modular          # 全局唯一，见 AGENT_ORCHESTRATION.md
+  id: edu.hot.zk-modular          # 全局唯一，见 ORCHESTRATION.md
   name: ZK Modular Rollup Lab
   version: 0.1.0
   repo: web3-hot-topic-labs
@@ -103,10 +103,10 @@ make validate-plugin MANIFEST=/path/to/plugin.manifest.yaml
 
 见 [schemas/task-types.yaml](../schemas/task-types.yaml)。
 
-子库 Agent 需要新 TaskType 时：
+子库需要新 TaskType 时：
 
 1. 在主库提 PR 修改 `schemas/task-types.yaml`
-2. 主库 Agent-0 合并后，子库才能写入 manifest
+2. 主库合并后，子库才能写入 manifest
 
 ---
 
@@ -233,13 +233,13 @@ spec:
 
 ---
 
-## 11. Agent-0 交付检查清单（完成后打 tag v0.1.0）
+## 11. 主库交付检查清单
 
-- [ ] `schemas/plugin.manifest.schema.json` 可校验
-- [ ] `schemas/task-types.yaml` 含全部预分配 TaskType
-- [ ] `make validate-plugin` / `make compliance-check` / `make test-e2e-smoke` 通过
-- [ ] `frontend-web/src/plugins/loader.ts` 可加载 mock 插件
-- [ ] `rule-engine-py/plugins/registry.py` 可动态 import 子库 rules
-- [ ] 示例 manifest: `examples/sample-plugin.manifest.yaml`
+- [x] `schemas/plugin.manifest.schema.json` 可校验
+- [x] `schemas/task-types.yaml` 含全部预分配 TaskType
+- [x] `make validate-plugin` / `make compliance-check` / `make test-e2e-smoke` 通过
+- [x] `frontend-web/src/plugins/loader.ts` 可加载 mock 插件
+- [x] `rule-engine-py/plugins/registry.py` 可动态 import 子库 rules
+- [x] 示例 manifest: `examples/sample-plugin.manifest.yaml`
 
-**子库 Agent 看到 v0.1.0 tag 即可开始并行开发。**
+**子库看到主库 v0.2.0+ tag 即可并行迭代插件包。**
