@@ -58,17 +58,10 @@ func submitClusterJob(req Request) (Result, error) {
 	defer cancel()
 
 	status, message, extra, err := waitForJob(ctx, clientset, req.Namespace, created.Name)
-	if err != nil {
-		return Result{
-			Mode:    ModeCluster,
-			Status:  status,
-			Message: message,
-			Extra: map[string]any{
-				"namespace": req.Namespace,
-				"job_name":  created.Name,
-				"error":     err.Error(),
-			},
-		}, nil
+	attachJobDiagnostics(ctx, clientset, req.Namespace, created.Name, extra)
+	if autoCleanupEnabled() {
+		maybeCleanupJob(req.Namespace, created.Name)
+		extra["job_cleaned_up"] = true
 	}
 
 	extra["namespace"] = req.Namespace
@@ -76,6 +69,9 @@ func submitClusterJob(req Request) (Result, error) {
 	extra["job_template"] = req.JobTemplate
 	if req.Image != "" {
 		extra["toolchain_image"] = req.Image
+	}
+	if err != nil {
+		extra["error"] = err.Error()
 	}
 
 	return Result{

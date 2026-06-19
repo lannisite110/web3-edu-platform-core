@@ -2,7 +2,7 @@
   {
     "id": "edu.hot.mock",
     "name": "Mock Lab (E2E Smoke)",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "repo": "web3-edu-platform-core",
     "complianceTier": "hot_topic",
     "group": "Web3 热点",

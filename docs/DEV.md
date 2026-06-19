@@ -1,4 +1,4 @@
-# 本地开发启动（v0.4.0）
+# 本地开发启动（v0.4.1）
 
 ## 1. 注册插件
 
@@ -65,13 +65,13 @@ make k8s-job-smoke
 | `JOB_POLL_TIMEOUT_SEC` | `90` | cluster 模式 Job 轮询超时 |
 | `KUBECONFIG` | `~/.kube/config` | 集群凭证 |
 | `TOOLCHAIN_MANIFEST` | `../web3-hot-topic-labs/build-images/manifest.yaml` | 镜像组（container-manager） |
-| `TRACE_ROOT` | `../supervision-trace-edu-suite` | Fabric bootstrap |
+| `JOB_AUTO_CLEANUP` | `true` | cluster 完成后删除 Job（设 `false` 保留） |
+| `JOB_LOG_TAIL_LINES` | `80` | 报告内附 Pod 日志尾行数 |
 
-## v0.4 要点
+## v0.4.x 要点
 
-- `internal/jobsubmit` — 从子库 YAML 渲染 Job，覆盖 toolchain 镜像
-- `internal/containermanager` — 读取 hot-labs `build-images/manifest.yaml`
-- `scheduler/v04` — cluster 模式等待 Job 完成并写入报告
+- v0.4.0 — client-go Job 创建 + 模板加载 + `make k8s-job-smoke`
+- v0.4.1 — Pod 日志采集、Job 自动清理、kubeconfig 路径检测
 
 ## 后续（v0.5+）
 

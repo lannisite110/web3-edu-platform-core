@@ -3,6 +3,7 @@ package jobsubmit
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 // Mode controls how scheduler fulfills compile/trace jobs.
@@ -59,8 +60,19 @@ func Submit(req Request) (Result, error) {
 }
 
 func ValidateClusterPrereqs() error {
-	if os.Getenv("KUBECONFIG") == "" && os.Getenv("KUBERNETES_SERVICE_HOST") == "" {
-		return fmt.Errorf("cluster mode requires KUBECONFIG or in-cluster credentials")
+	if os.Getenv("KUBERNETES_SERVICE_HOST") != "" {
+		return nil
+	}
+	kubeconfig := os.Getenv("KUBECONFIG")
+	if kubeconfig == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			return fmt.Errorf("cluster mode requires KUBECONFIG or in-cluster credentials")
+		}
+		kubeconfig = filepath.Join(home, ".kube", "config")
+	}
+	if _, err := os.Stat(kubeconfig); err != nil {
+		return fmt.Errorf("cluster mode: kubeconfig not found at %s", kubeconfig)
 	}
 	return nil
 }

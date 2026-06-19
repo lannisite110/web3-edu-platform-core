@@ -1,6 +1,6 @@
 # 主库任务书 · web3-edu-platform-core
 
-> **v0.4.0 进行中** — client-go K8s Job + container-manager
+> **v0.4.1** — K8s Job 日志采集与自动清理
 
 ---
 
@@ -96,7 +96,7 @@
 
 ---
 
-## Phase 4 交付清单（v0.4.0）— 进行中
+## Phase 4 交付清单（v0.4.0）✅
 
 ### A. K8s Job 实装
 - [x] `internal/jobsubmit` — client-go 创建 Job + 状态轮询
@@ -108,4 +108,18 @@
 ### B. 发布
 - [x] `VERSION` = 0.4.0
 - [x] `docs/DEV.md` 更新
-- [ ] git tag `v0.4.0`（`make k8s-job-smoke` 验证后）
+- [x] git tag `v0.4.0`
+
+---
+
+## Phase 4.x 交付清单（v0.4.1）— 进行中
+
+### A. K8s Job 增强
+- [x] Pod 日志尾行写入 `job_submit.extra.pod_log_tail`
+- [x] `JOB_AUTO_CLEANUP` 默认清理已完成 Job
+- [x] kubeconfig 默认路径 `~/.kube/config` 存在性检测
+- [x] mock 插件 manifest 对齐 core v0.3 / v0.2
+
+### B. 发布
+- [x] `VERSION` = 0.4.1
+- [ ] git tag `v0.4.1`（k8s-job-smoke 通过后）
