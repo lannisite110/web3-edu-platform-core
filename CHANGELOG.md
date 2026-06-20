@@ -1,5 +1,20 @@
 # Changelog · web3-edu-platform-core
 
+## v1.1.0 — 2026-06-19
+
+**P0 收官**：四子库全部 **v0.4.0**，主库学习路径 **3A–3D** 齐全。
+
+- [LEARNING_PATH.md](docs/LEARNING_PATH.md) 新增 **阶段 3B / 3C / 3D**
+- 配套子库 tag 对齐：
+  - [supervision-trace-edu-suite v0.4.0](../supervision-trace-edu-suite/) — [TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md)
+  - [enterprise-gov-edu-demo v0.4.0](../enterprise-gov-edu-demo/) — [GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md)
+  - [global-social-edu-sandbox v0.4.0](../global-social-edu-sandbox/) — [GLOBAL_LEARNING_PATH.md](../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md)
+  - [web3-hot-topic-labs v0.4.0](../web3-hot-topic-labs/) — [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md)（v1.0.2 已链接）
+
+验收：`make register-plugins PLUGINS_DIR=..` · `make tutorial-audit` · `make release-check`
+
+---
+
 ## v1.0.2 — 2026-06-20
 
 文档与子库联调：

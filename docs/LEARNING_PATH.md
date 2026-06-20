@@ -1,6 +1,6 @@
 # 学习路径 · Web3 教育培训平台
 
-> **主库** `web3-edu-platform-core` v1.0.0 · 测试网/沙箱 only  
+> **主库** `web3-edu-platform-core` v1.1.0 · 测试网/沙箱 only  
 > 配套四子库各 22 插件 + mock，共 **23** 个 Lab 联调。
 
 ---
@@ -73,6 +73,53 @@
 
 ---
 
+### 阶段 3B：国内民生溯源（子库2 · 推荐）
+
+> 完整 3 插件路线见子库 **[TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md)**  
+> 教程索引：**[tutorials/README.md](../supervision-trace-edu-suite/docs/tutorials/README.md)**
+
+| 天 | 主题 | 插件 / 教程 |
+|----|------|-------------|
+| 1 | 食品溯源 | [food-trace](../supervision-trace-edu-suite/docs/tutorials/food-trace-intro.md) — 批次/Merkle/Fabric 沙箱 |
+| 2 | 医疗防篡改 | [medical-tamper](../supervision-trace-edu-suite/docs/tutorials/medical-tamper-intro.md) — 哈希比对/篡改检测 |
+| 3 | 慈善存证 | [charity-ledger](../supervision-trace-edu-suite/docs/tutorials/charity-ledger-intro.md) — 流水账本/公开隐私字段 |
+
+分阶段工程路线（Phase 0–4）：[TRACE_PHASES.md](../supervision-trace-edu-suite/docs/TRACE_PHASES.md)
+
+---
+
+### 阶段 3C：政企内控（子库3 · 推荐）
+
+> 完整 3 插件路线见子库 **[GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md)**  
+> 教程索引：**[tutorials/README.md](../enterprise-gov-edu-demo/docs/tutorials/README.md)**
+
+| 天 | 主题 | 插件 / 教程 |
+|----|------|-------------|
+| 1 | 招投标图谱 | [bid-graph](../enterprise-gov-edu-demo/docs/tutorials/bid-graph-intro.md) — 关联评分/图算法 |
+| 2 | 多级多签 | [multisig](../enterprise-gov-edu-demo/docs/tutorials/multisig-intro.md) — Sepolia 2-of-3 审批 |
+| 3 | 供应链存证 | [supply](../enterprise-gov-edu-demo/docs/tutorials/supply-intro.md) — 出入库哈希链/Fabric |
+
+分阶段工程路线（Phase 0–4）：[GOV_PHASES.md](../enterprise-gov-edu-demo/docs/GOV_PHASES.md)
+
+---
+
+### 阶段 3D：海外规则沙箱（子库4 · 推荐）
+
+> 完整 5 插件路线见子库 **[GLOBAL_LEARNING_PATH.md](../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md)**  
+> 教程索引：**[tutorials/README.md](../global-social-edu-sandbox/docs/tutorials/README.md)**
+
+| 天 | 主题 | 插件 / 教程 |
+|----|------|-------------|
+| 1 | 监管沙箱 | [regulatory](../global-social-edu-sandbox/docs/tutorials/regulatory-sandbox-intro.md) — OFAC/MiCA 静态 fixture |
+| 2 | 选举哈希 | [election](../global-social-edu-sandbox/docs/tutorials/election-hash-intro.md) — 多节点共识演示 |
+| 3 | 福利反欺诈 | [welfare](../global-social-edu-sandbox/docs/tutorials/welfare-antifraud-intro.md) — 重复申领/Merkle |
+| 4 | 物流审计 | [logistics](../global-social-edu-sandbox/docs/tutorials/logistics-audit-intro.md) — 哈希链断点 |
+| 5 | 宗教规则 | [religion](../global-social-edu-sandbox/docs/tutorials/religion-rules-intro.md) — Zakat/Waqf 表达式 |
+
+分阶段工程路线（Phase 0–4）：[GLOBAL_PHASES.md](../global-social-edu-sandbox/docs/GLOBAL_PHASES.md)
+
+---
+
 ## 阶段 4：发布与工程化（1–2 天）
 
 | 命令 | 含义 |
@@ -90,15 +137,19 @@
 2. `edu.hot.language-advisor` — 热点总入口（→ [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md)）  
 3. `edu.hot.zk-modular` / `edu.hot.dao` / `edu.hot.aa-wallet` — Phase 2 深化 Lab  
 4. `edu.hot.mev` / `edu.hot.did` — Phase 3 合约对齐  
-5. `edu.cn.trace.food` — 国内溯源 + Fabric 沙箱  
-6. 其余插件按侧边栏或 [tutorials/README.md](../web3-hot-topic-labs/docs/tutorials/README.md) 浏览
+5. `edu.cn.trace.food` → … → `edu.cn.trace.charity` — 溯源 [TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md)  
+6. `edu.cn.gov.bid-graph` → `edu.cn.gov.multisig` → `edu.cn.gov.supply` — 政企 [GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md)  
+7. `edu.global.sandbox.regulatory` → … → `edu.global.sandbox.religion` — 海外 [GLOBAL_LEARNING_PATH.md](../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md)  
+8. 其余插件按侧边栏或各子库 `docs/tutorials/README.md` 浏览
 
 ---
 
-## 版本矩阵（v1.0.2）
+## 版本矩阵（v1.1.0）
 
 | 仓库 | Tag | 说明 |
 |------|-----|------|
-| web3-edu-platform-core | **v1.0.2** | 主库 |
-| web3-hot-topic-labs | **v0.4.0** | 热点 Phase 0–4 · [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md) |
-| 其余三子库 | **v0.3.0** | 下一目标：trace [TRACE_PHASES.md](../supervision-trace-edu-suite/docs/TRACE_PHASES.md) |
+| web3-edu-platform-core | **v1.1.0** | 主库 · P0 收官 |
+| web3-hot-topic-labs | **v0.4.0** | 热点 · [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md) |
+| supervision-trace-edu-suite | **v0.4.0** | 溯源 · [TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md) |
+| enterprise-gov-edu-demo | **v0.4.0** | 政企 · [GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md) |
+| global-social-edu-sandbox | **v0.4.0** | 海外 · [GLOBAL_LEARNING_PATH.md](../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md) |
