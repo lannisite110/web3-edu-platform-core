@@ -1,5 +1,16 @@
 # Changelog · web3-edu-platform-core
 
+## v1.2.0-labweave-l2 — 2026-06-19
+
+**LabWeave L2** — 合规绑定沙箱助教：
+
+- `agent-assist-py/` · `POST /api/v1/labs/{id}/assist`
+- 每次 assist 先 rule-engine `evaluate`；拒绝时仅解释原因
+- 三 MVP Lab 抽屉：`language-advisor` · `food-trace` · `bid-graph`
+- `make labweave-assist-smoke` · `make run-agent-assist`
+
+---
+
 ## v1.2.0-labweave-l1 — 2026-06-19
 
 **LabWeave L1** — Codewale 式门户层（不含 Agent）：

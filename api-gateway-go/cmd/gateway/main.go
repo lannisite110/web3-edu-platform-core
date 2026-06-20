@@ -34,6 +34,7 @@ func main() {
 
 	ruleEngineURL := env("RULE_ENGINE_URL", "http://127.0.0.1:8081")
 	schedulerURL := env("SCHEDULER_URL", "http://127.0.0.1:8082")
+	agentAssistURL := env("AGENT_ASSIST_URL", "http://127.0.0.1:8084")
 	client := &http.Client{Timeout: 10 * time.Second}
 
 	r.GET("/health", func(c *gin.Context) {
@@ -142,6 +143,28 @@ func main() {
 			resp, err := client.Get(schedulerURL + "/report/" + taskID)
 			if err != nil {
 				c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+				return
+			}
+			defer resp.Body.Close()
+			raw, _ := io.ReadAll(resp.Body)
+			c.Data(resp.StatusCode, "application/json", raw)
+		})
+
+		lab.POST("/assist", func(c *gin.Context) {
+			pluginID := c.Param("plugin_id")
+			if _, ok := reg.Get(pluginID); !ok {
+				c.JSON(http.StatusNotFound, gin.H{"error": "plugin not found"})
+				return
+			}
+			body, err := io.ReadAll(c.Request.Body)
+			if err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+				return
+			}
+			url := agentAssistURL + "/assist/" + pluginID
+			resp, err := client.Post(url, "application/json", bytes.NewReader(body))
+			if err != nil {
+				c.JSON(http.StatusBadGateway, gin.H{"error": "agent assist unavailable", "detail": err.Error()})
 				return
 			}
 			defer resp.Body.Close()

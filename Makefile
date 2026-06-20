@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
-        run-rule-engine run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit labweave-path-check container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
+        run-rule-engine run-agent-assist run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
+        fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
         core-version-check release-check bazel-gate
 
 MANIFEST ?=
@@ -48,7 +48,7 @@ validate-plugin:
 
 register-plugins:
 	@test -x .venv/bin/python || python3 -m venv .venv
-	.venv/bin/pip install -q -r rule-engine-py/requirements.txt pyyaml
+	.venv/bin/pip install -q -r rule-engine-py/requirements.txt -r agent-assist-py/requirements.txt pyyaml
 	python3 ci/register-plugins.py $(PLUGINS_DIR)
 	@find $(PLUGINS_DIR) -name 'plugin.manifest.yaml' | while read -r m; do \
 		echo "  validated $$m"; \
@@ -66,8 +66,14 @@ ci-gate:
 test-e2e-smoke:
 	bash ci/e2e-smoke.sh
 
+labweave-assist-smoke:
+	bash ci/labweave-assist-smoke.sh
+
 run-rule-engine:
 	cd rule-engine-py && ../.venv/bin/python main.py
+
+run-agent-assist:
+	cd agent-assist-py && CORE_ROOT=$(CORE_ROOT) ../.venv/bin/python main.py
 
 run-scheduler:
 	cd control-plane-go && env -u CONTAINER_MANAGER_URL CORE_ROOT=$(CORE_ROOT) SCHEDULER_PORT=8082 go run ./cmd/scheduler
@@ -83,10 +89,10 @@ stop-backend:
 	@echo "==> backend ports 8080-8084 freed"
 
 run-gateway:
-	cd api-gateway-go && CORE_ROOT=$(CORE_ROOT) GATEWAY_PORT=8080 go run ./cmd/gateway
+	cd api-gateway-go && CORE_ROOT=$(CORE_ROOT) GATEWAY_PORT=8080 AGENT_ASSIST_URL=http://127.0.0.1:8084 go run ./cmd/gateway
 
 run-frontend:
 	cd frontend-web && npm run dev
 
 dev-backend: register-plugins
-	@echo "Run in separate terminals: make run-rule-engine, run-scheduler, run-gateway"
+	@echo "Run in separate terminals: make run-rule-engine, run-agent-assist, run-scheduler, run-gateway"

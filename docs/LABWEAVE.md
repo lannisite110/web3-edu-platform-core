@@ -31,7 +31,7 @@
 |------|------|------|
 | P0 | （已完成） | 四子库 v0.4.0 + 主库 v1.1.0 + LEARNING_PATH 3A–3D |
 | **L1** | `LabWeave L1` | 本文件 + [LABWEAVE_PATH.md](LABWEAVE_PATH.md) + 前端 `/learn` |
-| L2 | `LabWeave L2` | Agent `/assist` · 3 插件 MVP |
+| **L2** | `LabWeave L2` | `agent-assist-py` + `/assist` + 三 Lab 沙箱助教抽屉 ✅ |
 | L3 | `LabWeave L3` | `make labweave-up` 一键启动 · 对外发布 |
 
 ---
@@ -55,10 +55,25 @@
 ```bash
 cd ~/web3home/web3-edu-platform-core
 make register-plugins PLUGINS_DIR=..
-make run-rule-engine & make run-scheduler & make run-gateway &
+make run-rule-engine & make run-agent-assist & make run-scheduler & make run-gateway &
 cd frontend-web && npm run dev
 # → http://127.0.0.1:5173/learn
 ```
+
+---
+
+## L2：合规领域 Agent（当前）
+
+| 模块 | 路径 |
+|------|------|
+| Agent 服务 | `agent-assist-py/` · 端口 **8084** |
+| 网关路由 | `POST /api/v1/labs/{plugin_id}/assist` |
+| 合规门禁 | 每次 assist 先调用 rule-engine `/evaluate` |
+| 前端抽屉 | `LabAssistDrawer.vue` · `useLabAssist.ts` |
+| MVP 插件 | `language-advisor` · `food-trace` · `bid-graph` |
+| 冒烟 | `make labweave-assist-smoke` |
+
+可选 LLM：`LABWEAVE_AGENT_MODE=llm` + `LABWEAVE_AGENT_API_KEY` + `LABWEAVE_AGENT_BASE_URL`（默认 `local` 规则助教，无需 API Key）。
 
 ---
 
