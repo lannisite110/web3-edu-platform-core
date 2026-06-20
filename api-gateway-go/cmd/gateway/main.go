@@ -58,6 +58,7 @@ func main() {
 				UserPrompt      string         `json:"user_prompt"`
 				Params          map[string]any `json:"params"`
 				AllowedChainIDs []any          `json:"allowed_chain_ids"`
+				TaskType        string         `json:"task_type"`
 			}
 			if err := c.ShouldBindJSON(&body); err != nil {
 				body.Params = map[string]any{}
@@ -87,6 +88,14 @@ func main() {
 			}
 
 			taskType := p.TaskTypes[0]
+			if body.TaskType != "" {
+				for _, tt := range p.TaskTypes {
+					if tt == body.TaskType {
+						taskType = body.TaskType
+						break
+					}
+				}
+			}
 			submitReq := map[string]any{
 				"plugin_id": pluginID,
 				"task_type": taskType,

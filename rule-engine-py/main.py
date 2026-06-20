@@ -36,6 +36,10 @@ class EvaluateResponse(BaseModel):
     audit_hints: list[str]
     compliance_passed: bool
     rejection_reason: str | None = None
+    toolchain_group: str | None = None
+    tools: list[str] | None = None
+    reason: str | None = None
+    suggested_lab: str | None = None
 
 
 def _load_registry() -> list[dict]:
@@ -82,6 +86,10 @@ def evaluate(req: EvaluateRequest) -> EvaluateResponse:
         audit_hints=out.audit_hints,
         compliance_passed=out.compliance_passed,
         rejection_reason=out.rejection_reason,
+        toolchain_group=getattr(out, "toolchain_group", None),
+        tools=getattr(out, "tools", None),
+        reason=getattr(out, "reason", None),
+        suggested_lab=getattr(out, "suggested_lab", None),
     )
 
 

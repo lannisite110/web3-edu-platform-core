@@ -58,6 +58,19 @@
 
 每个子库：`README.md` → `TASK.md` → `plugins/*/plugin.manifest.yaml` → `docs/tutorials/*.md`。
 
+### 阶段 3A：Web3 热点专题（子库1 · 推荐）
+
+> 完整 11 插件路线见子库 **[HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md)**  
+> 教程索引：**[tutorials/README.md](../web3-hot-topic-labs/docs/tutorials/README.md)**
+
+| 周 | 主题 | 插件 / 教程 |
+|----|------|-------------|
+| 1 | 入口 + ZK | [language-advisor](../web3-hot-topic-labs/docs/tutorials/language-advisor-intro.md) → [zk-modular](../web3-hot-topic-labs/docs/tutorials/zk-modular-intro.md) → [zk-circuit](../web3-hot-topic-labs/docs/tutorials/zk-circuit-intro.md) |
+| 2 | AA + 治理 | [aa-wallet](../web3-hot-topic-labs/docs/tutorials/aa-wallet-intro.md) → [aa-session](../web3-hot-topic-labs/docs/tutorials/aa-session-intro.md) → [dao](../web3-hot-topic-labs/docs/tutorials/dao-intro.md) → [mev](../web3-hot-topic-labs/docs/tutorials/mev-intro.md) |
+| 3 | 身份 / Infra | [did](../web3-hot-topic-labs/docs/tutorials/did-intro.md) → [depin](../web3-hot-topic-labs/docs/tutorials/depin-intro.md) → [rwa-edu](../web3-hot-topic-labs/docs/tutorials/rwa-edu-intro.md) → [ai-agent](../web3-hot-topic-labs/docs/tutorials/ai-agent-intro.md) |
+
+分阶段工程路线（Phase 0–4）：[HOT_TOPIC_PHASES.md](../web3-hot-topic-labs/docs/HOT_TOPIC_PHASES.md)
+
 ---
 
 ## 阶段 4：发布与工程化（1–2 天）
@@ -74,16 +87,18 @@
 ## 推荐实验顺序（插件）
 
 1. `edu.hot.mock` — E2E 最小路径  
-2. `edu.hot.language-advisor` — 多语言 + toolchain 镜像  
-3. `edu.hot.dao` — K8s Job 模板  
-4. `edu.cn.trace.food` — 国内溯源 + Fabric 沙箱  
-5. 其余插件按侧边栏分组浏览
+2. `edu.hot.language-advisor` — 热点总入口（→ [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md)）  
+3. `edu.hot.zk-modular` / `edu.hot.dao` / `edu.hot.aa-wallet` — Phase 2 深化 Lab  
+4. `edu.hot.mev` / `edu.hot.did` — Phase 3 合约对齐  
+5. `edu.cn.trace.food` — 国内溯源 + Fabric 沙箱  
+6. 其余插件按侧边栏或 [tutorials/README.md](../web3-hot-topic-labs/docs/tutorials/README.md) 浏览
 
 ---
 
-## 版本矩阵（v1.0.0）
+## 版本矩阵（v1.0.2）
 
 | 仓库 | Tag | 说明 |
 |------|-----|------|
-| web3-edu-platform-core | **v1.0.0** | 主库 |
-| 四子库 | **v0.3.0** | `coreVersion: ">=0.6.0 <2.0.0"` |
+| web3-edu-platform-core | **v1.0.2** | 主库 |
+| web3-hot-topic-labs | **v0.4.0** | 热点 Phase 0–4 · [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md) |
+| 其余三子库 | **v0.3.0** | 下一目标：trace [TRACE_PHASES.md](../supervision-trace-edu-suite/docs/TRACE_PHASES.md) |

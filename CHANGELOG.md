@@ -1,5 +1,21 @@
 # Changelog · web3-edu-platform-core
 
+## v1.0.2 — 2026-06-20
+
+文档与子库联调：
+
+- [LEARNING_PATH.md](docs/LEARNING_PATH.md) 新增 **阶段 3A：Web3 热点专题**，链接子库教程总路线
+- 配套子库 **web3-hot-topic-labs v0.4.0**：
+  - [HOT_TOPIC_LEARNING_PATH.md](https://github.com/lannisite110/web3-hot-topic-labs/blob/main/docs/HOT_TOPIC_LEARNING_PATH.md)
+  - [tutorials/README.md](https://github.com/lannisite110/web3-hot-topic-labs/blob/main/docs/tutorials/README.md)
+  - [HOT_TOPIC_PHASES.md](https://github.com/lannisite110/web3-hot-topic-labs/blob/main/docs/HOT_TOPIC_PHASES.md)（Phase 0–4 完成）
+- 网关 simulate 支持可选 `task_type`（language-advisor 编译 Job）
+- 规则引擎 evaluate 返回 `toolchain_group` / `suggested_lab` 等扩展字段
+
+下一子库规划：[supervision-trace-edu-suite/docs/TRACE_PHASES.md](../supervision-trace-edu-suite/docs/TRACE_PHASES.md)
+
+---
+
 ## v1.0.1 — 2026-06-19
 
 维护发布：从版本库移除误提交的 Bazel 输出符号链接，`.gitignore` 增加 `bazel-*`。
