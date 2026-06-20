@@ -5,7 +5,7 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v1.0.0** · 纯教育培训 | 测试网/沙箱 only
+> **版本 v1.1.0** · 纯教育培训 | 测试网/沙箱 only · **P0 收官**
 
 ## 职责
 
@@ -28,24 +28,34 @@
 
 ## 快速启动
 
-- [学习路径](docs/LEARNING_PATH.md) — 分阶段阅读与实验顺序  
+- [学习路径](docs/LEARNING_PATH.md) — 阶段 0–4；子库 **3A–3D** 完整路线链接  
 - [快速部署](docs/QUICK_DEPLOY.md) — 五仓布局、一键 `ci-gate`、K8s 可选  
 - [本地开发](docs/DEV.md) — 四进程启动与环境变量
 
 ```bash
 make register-plugins PLUGINS_DIR=..
+make tutorial-audit PLUGINS_DIR=..
 make ci-gate
 ```
+
+## 子库学习路径（v0.4.0）
+
+| 阶段 | 子库 | 文档 |
+|------|------|------|
+| 3A | web3-hot-topic-labs | [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md) |
+| 3B | supervision-trace-edu-suite | [TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md) |
+| 3C | enterprise-gov-edu-demo | [GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md) |
+| 3D | global-social-edu-sandbox | [GLOBAL_LEARNING_PATH.md](../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md) |
 
 ## 子库集成
 
 子库通过 `plugin.manifest.yaml` 注册。见 [docs/PLUGIN_CONTRACT.md](docs/PLUGIN_CONTRACT.md)。
 
 ```bash
-make validate-plugin MANIFEST=../web3-hot-topic-labs/plugin.manifest.yaml
-make register-plugins PLUGINS_DIR=../
+make validate-plugin MANIFEST=../web3-hot-topic-labs/plugins/language-advisor/plugin.manifest.yaml
+make register-plugins PLUGINS_DIR=..
 make compliance-check
-make test-e2e-smoke
+make integration-all-plugins
 ```
 
 ## 合规
@@ -60,12 +70,10 @@ make test-e2e-smoke
 | v0.1.0 | 插件契约 + 合规 CI + E2E smoke |
 | v0.2.0 | 4 子库插件接入 + 23 插件联调 |
 | v0.3.0 | CI + jobsubmit + Fabric bootstrap |
-| v0.4.0 | client-go K8s Job + container-manager |
-| v0.4.1 | Pod 日志采集 + Job 自动清理 |
-| v0.4.2 | Pod 失败诊断 + 多语言 K8s 冒烟 |
-| v0.5.0 | container-manager 服务 + 教程审查 |
-| v0.6.0 | scheduler 解耦 + Bazel MODULE 脚手架 |
+| v0.4.x | client-go K8s Job + container-manager + 多语言冒烟 |
 | v1.0.0 | 稳定主库首发 · coreVersion 对齐 · release-check |
+| v1.0.2 | 阶段 3A 热点专题 · hot-labs v0.4.0 联调 |
+| **v1.1.0** | **P0 收官** · LEARNING_PATH 3B/3C/3D · 四子库 v0.4.0 对齐 |
 
 ---
 
