@@ -1,6 +1,8 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-agent-assist run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke labweave-up labweave-down container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
+        fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke labweave-up labweave-up-lan labweave-down \
+        k8s-smoke-all labweave-prod-build labweave-prod-up labweave-prod-down deploy-verify \
+        container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
         core-version-check release-check bazel-gate
 
 MANIFEST ?=
@@ -18,6 +20,21 @@ k8s-job-smoke:
 
 k8s-multilang-smoke:
 	bash scripts/k8s-multilang-smoke.sh
+
+k8s-smoke-all:
+	bash scripts/k8s-smoke-all.sh
+
+labweave-prod-build:
+	bash deploy/scripts/labweave-prod-build.sh
+
+labweave-prod-up:
+	bash deploy/scripts/labweave-prod-up.sh
+
+labweave-prod-down:
+	bash deploy/scripts/labweave-prod-down.sh
+
+deploy-verify:
+	bash deploy/scripts/verify-local.sh
 
 labweave-path-check:
 	bash ci/labweave-path-check.sh
@@ -71,6 +88,9 @@ labweave-assist-smoke:
 
 labweave-up:
 	bash scripts/labweave-up.sh
+
+labweave-up-lan:
+	LABWEAVE_BIND_HOST=0.0.0.0 bash scripts/labweave-up.sh
 
 labweave-down:
 	bash scripts/labweave-down.sh

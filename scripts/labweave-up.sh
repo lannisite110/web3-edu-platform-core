@@ -17,6 +17,7 @@ SCHED_PORT="${SCHEDULER_PORT:-8082}"
 GW_PORT="${GATEWAY_PORT:-8080}"
 AGENT_PORT="${AGENT_ASSIST_PORT:-8084}"
 FE_PORT="${FRONTEND_PORT:-5173}"
+BIND_HOST="${LABWEAVE_BIND_HOST:-127.0.0.1}"
 
 PYTHON="${ROOT}/.venv/bin/python"
 
@@ -102,8 +103,8 @@ wait_url "http://127.0.0.1:${AGENT_PORT}/health" "agent-assist"
 wait_url "http://127.0.0.1:${SCHED_PORT}/health" "scheduler"
 wait_url "http://127.0.0.1:${GW_PORT}/health" "gateway"
 
-echo "==> starting frontend :${FE_PORT}"
-start_bg frontend bash -c "cd '${ROOT}/frontend-web' && npm run dev -- --host 127.0.0.1 --port ${FE_PORT}"
+echo "==> starting frontend :${FE_PORT} (bind ${BIND_HOST})"
+start_bg frontend bash -c "cd '${ROOT}/frontend-web' && npm run dev -- --host ${BIND_HOST} --port ${FE_PORT}"
 
 for i in $(seq 1 30); do
   if curl -sf "http://127.0.0.1:${FE_PORT}/" >/dev/null 2>&1; then
@@ -121,13 +122,23 @@ cat <<EOF
 ╔══════════════════════════════════════════════════════════════╗
 ║  LabWeave · 沙箱码坊 已启动                                   ║
 ╠══════════════════════════════════════════════════════════════╣
-║  首页      http://127.0.0.1:${FE_PORT}/                        ║
-║  学习地图  http://127.0.0.1:${FE_PORT}/learn                   ║
+║  首页      http://${BIND_HOST}:${FE_PORT}/                        ║
+║  学习地图  http://${BIND_HOST}:${FE_PORT}/learn                   ║
 ║  网关      http://127.0.0.1:${GW_PORT}/health                  ║
 ║  助教 API  http://127.0.0.1:${GW_PORT}/api/v1/labs/.../assist  ║
+╠══════════════════════════════════════════════════════════════╣
+║  模式: 开发 (Vite dev) · 绑定 ${BIND_HOST}                       ║
+║  内网试用: LABWEAVE_BIND_HOST=0.0.0.0 make labweave-up         ║
+║  生产部署: 见 deploy/README.md · make labweave-prod-up          ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  日志: ${LOG_DIR}/
 ║  停止: make labweave-down
 ╚══════════════════════════════════════════════════════════════╝
 
 EOF
+
+if [ "$BIND_HOST" = "0.0.0.0" ]; then
+  echo "内网访问示例（本机 IP）："
+  hostname -I 2>/dev/null | awk '{for(i=1;i<=NF;i++) printf "  http://%s:'"${FE_PORT}"'/\n", $i}' || true
+  echo
+fi

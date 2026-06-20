@@ -69,8 +69,11 @@ make labweave-down
 | 命令 | 说明 |
 |------|------|
 | `make labweave-up` | register + 四后端 + 前端 + 健康检查 |
+| `make labweave-up-lan` | 同上，前端绑定 `0.0.0.0`（内网试用） |
 | `make labweave-down` | 停止全部进程 |
 | `make labweave-path-check` | 学习地图与 registry 对齐 |
+
+生产与 K8s 见 [deploy/README.md](../deploy/README.md)。
 
 ---
 

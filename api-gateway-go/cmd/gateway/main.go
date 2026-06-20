@@ -21,6 +21,13 @@ func env(key, def string) string {
 	return def
 }
 
+func listenAddr(port string) string {
+	if h := env("LISTEN_HOST", ""); h != "" {
+		return h + ":" + port
+	}
+	return ":" + port
+}
+
 func main() {
 	reg, err := plugins.LoadRegistry()
 	if err != nil {
@@ -174,8 +181,9 @@ func main() {
 	}
 
 	port := env("GATEWAY_PORT", "8080")
-	log.Printf("gateway listening on :%s (%d plugins)", port, len(reg.List()))
-	if err := r.Run(":" + port); err != nil {
+	addr := listenAddr(port)
+	log.Printf("gateway listening on %s (%d plugins)", addr, len(reg.List()))
+	if err := r.Run(addr); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -97,4 +97,5 @@ if __name__ == "__main__":
     import uvicorn
 
     port = int(os.environ.get("RULE_ENGINE_PORT", "8081"))
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
+    host = os.environ.get("LISTEN_HOST", "0.0.0.0")
+    uvicorn.run("main:app", host=host, port=port, reload=False)

@@ -1,0 +1,15 @@
+[Unit]
+Description=LabWeave API Gateway
+After=network.target labweave-rule-engine.service labweave-scheduler.service labweave-agent-assist.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/labweave/labweave.env
+Environment=LISTEN_HOST=127.0.0.1
+Environment=CORE_ROOT=%LABWEAVE_ROOT%
+ExecStart=%LABWEAVE_ROOT%/.labweave/bin/gateway
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=LabWeave Scheduler
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/labweave/labweave.env
+Environment=LISTEN_HOST=127.0.0.1
+Environment=CORE_ROOT=%LABWEAVE_ROOT%
+ExecStart=%LABWEAVE_ROOT%/.labweave/bin/scheduler
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

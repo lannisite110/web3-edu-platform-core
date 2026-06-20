@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/web3edu/platform-core/control-plane/internal/containermanager"
+	"github.com/web3edu/platform-core/control-plane/internal/netutil"
 	"github.com/web3edu/platform-core/control-plane/internal/plugins"
 	"github.com/web3edu/platform-core/control-plane/internal/scheduler"
 	"gopkg.in/yaml.v3"
@@ -108,8 +109,9 @@ func main() {
 	if port == "" {
 		port = "8082"
 	}
-	log.Printf("scheduler listening on :%s", port)
-	if err := r.Run(":" + port); err != nil {
+	addr := netutil.ListenAddr(port)
+	log.Printf("scheduler listening on %s", addr)
+	if err := r.Run(addr); err != nil {
 		log.Fatal(err)
 	}
 }

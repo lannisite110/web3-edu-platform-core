@@ -1,0 +1,15 @@
+[Unit]
+Description=LabWeave Agent Assist
+After=network.target labweave-rule-engine.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/labweave/labweave.env
+Environment=LISTEN_HOST=127.0.0.1
+WorkingDirectory=%LABWEAVE_ROOT%/agent-assist-py
+ExecStart=%LABWEAVE_ROOT%/.venv/bin/python main.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

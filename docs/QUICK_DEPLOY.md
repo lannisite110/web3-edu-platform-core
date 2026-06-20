@@ -50,11 +50,23 @@ make labweave-up PLUGINS_DIR=..
 - 学习地图 http://127.0.0.1:5173/learn
 - 停止 `make labweave-down`
 
-详见 [LABWEAVE_RELEASE.md](LABWEAVE_RELEASE.md)。
+详见 [LABWEAVE_RELEASE.md](LABWEAVE_RELEASE.md)。  
+**内网 / 外网上线**见 [deploy/README.md](../deploy/README.md)（`labweave-prod-build` + Nginx + 可选 K8s）。
 
 ---
 
-## 4. 一键验收（维护者）
+## 4. 部署三档速查
+
+| 档位 | 命令 | 何时用 |
+|------|------|--------|
+| 开发（本地） | `make labweave-up` | WSL 改代码、试 Lab |
+| 本地验收 | `make labweave-prod-build && deploy-verify` | 上线云前自测 |
+| K8s 验收 | `make k8s-smoke-all` | 云 K8s / 本地 kind 测 Job 链 |
+| 云上 | `labweave-prod-*` + Nginx + 域名 | 公网正式访问 |
+
+---
+
+## 5. 一键验收（维护者）
 
 ```bash
 cd ~/web3home/web3-edu-platform-core
@@ -70,7 +82,7 @@ make release-check
 
 ---
 
-## 4. 本地开发（四终端）
+## 6. 本地开发（四终端）
 
 ```bash
 # 终端 0 — 可选 toolchain 服务
@@ -89,7 +101,7 @@ cd frontend-web && npm run dev  # http://localhost:5173
 
 ---
 
-## 5. Kubernetes（可选）
+## 7. Kubernetes（可选）
 
 需本机 `kubectl` 可用（k3d/kind/minikube 均可）。
 
@@ -102,7 +114,7 @@ make k8s-multilang-smoke
 
 ---
 
-## 6. Fabric 教学沙箱（可选）
+## 8. Fabric 教学沙箱（可选）
 
 ```bash
 make fabric-bootstrap
@@ -110,7 +122,7 @@ make fabric-bootstrap
 
 ---
 
-## 7. CI / Bazel（维护者）
+## 9. CI / Bazel（维护者）
 
 ```bash
 make bazel-smoke    # 本地需 bazelisk；CI 自动执行 bazel-gate
@@ -120,7 +132,7 @@ GitHub Actions：五仓 checkout → `ci-gate` + `bazel-gate`。
 
 ---
 
-## 8. 健康检查
+## 10. 健康检查
 
 | 服务 | URL |
 |------|-----|
@@ -133,7 +145,7 @@ GitHub Actions：五仓 checkout → `ci-gate` + `bazel-gate`。
 
 ---
 
-## 9. 常见问题
+## 11. 常见问题
 
 | 现象 | 处理 |
 |------|------|

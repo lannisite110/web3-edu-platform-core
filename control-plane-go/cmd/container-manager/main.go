@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/web3edu/platform-core/control-plane/internal/containermanager"
+	"github.com/web3edu/platform-core/control-plane/internal/netutil"
 	"github.com/web3edu/platform-core/control-plane/internal/toolchain"
 )
 
@@ -56,8 +57,9 @@ func main() {
 	if port == "" {
 		port = "8083"
 	}
-	log.Printf("container-manager listening on :%s", port)
-	if err := r.Run(":" + port); err != nil {
+	addr := netutil.ListenAddr(port)
+	log.Printf("container-manager listening on %s", addr)
+	if err := r.Run(addr); err != nil {
 		log.Fatal(err)
 	}
 }

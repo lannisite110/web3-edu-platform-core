@@ -8,3 +8,4 @@ __pycache__/
 bazel-*
 .bazel-cache/
 .labweave/
+deploy/env/labweave.prod.env
