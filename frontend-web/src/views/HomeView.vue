@@ -25,7 +25,7 @@ const tracks = pathData.tracks
       </p>
       <div class="home-badges">
         <ComplianceBadge :passed="null" />
-        <span class="tag">主库 v1.1.0</span>
+        <span class="tag">LabWeave v1.2.0</span>
         <span class="tag">23 Lab</span>
       </div>
       <div class="home-actions">

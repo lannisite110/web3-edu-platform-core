@@ -1,5 +1,17 @@
 # Changelog · web3-edu-platform-core
 
+## v1.2.0-labweave — 2026-06-19
+
+**LabWeave 产品轨收官**（L1 + L2 + L3）：
+
+- **L1**：[LABWEAVE.md](docs/LABWEAVE.md) · [LABWEAVE_PATH.md](docs/LABWEAVE_PATH.md) · `/learn` 学习地图
+- **L2**：`agent-assist-py` · `POST /assist` · 三 MVP Lab 沙箱助教抽屉
+- **L3**：`make labweave-up` / `make labweave-down` · [LABWEAVE_RELEASE.md](docs/LABWEAVE_RELEASE.md)
+
+验收：`make labweave-path-check` · `make labweave-assist-smoke` · `make labweave-up`
+
+---
+
 ## v1.2.0-labweave-l2 — 2026-06-19
 
 **LabWeave L2** — 合规绑定沙箱助教：

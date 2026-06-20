@@ -1,6 +1,6 @@
 # 学习路径 · Web3 教育培训平台
 
-> **主库** `web3-edu-platform-core` v1.1.0 · 测试网/沙箱 only  
+> **主库** `web3-edu-platform-core` v1.2.0-labweave · 测试网/沙箱 only  
 > 配套四子库各 22 插件 + mock，共 **23** 个 Lab 联调。  
 > **LabWeave（沙箱码坊）** 产品入口：[LABWEAVE.md](LABWEAVE.md) · [学习地图 `/learn`](../frontend-web/src/views/LearnView.vue) · [LABWEAVE_PATH.md](LABWEAVE_PATH.md)
 
@@ -145,11 +145,11 @@
 
 ---
 
-## 版本矩阵（v1.1.0）
+## 版本矩阵（v1.2.0-labweave）
 
 | 仓库 | Tag | 说明 |
 |------|-----|------|
-| web3-edu-platform-core | **v1.1.0** | 主库 · P0 收官 |
+| web3-edu-platform-core | **v1.2.0-labweave** | 主库 · [LabWeave](LABWEAVE.md) · `make labweave-up` |
 | web3-hot-topic-labs | **v0.4.0** | 热点 · [HOT_TOPIC_LEARNING_PATH.md](../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md) |
 | supervision-trace-edu-suite | **v0.4.0** | 溯源 · [TRACE_LEARNING_PATH.md](../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md) |
 | enterprise-gov-edu-demo | **v0.4.0** | 政企 · [GOV_LEARNING_PATH.md](../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md) |

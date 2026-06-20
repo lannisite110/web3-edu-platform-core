@@ -37,7 +37,24 @@ cd frontend-web && npm ci && cd ..
 
 ---
 
-## 3. 一键验收（推荐）
+## 3. LabWeave 一键试用（推荐）
+
+五仓克隆完成后：
+
+```bash
+cd ~/web3home/web3-edu-platform-core
+make labweave-up PLUGINS_DIR=..
+```
+
+- 首页 http://127.0.0.1:5173/
+- 学习地图 http://127.0.0.1:5173/learn
+- 停止 `make labweave-down`
+
+详见 [LABWEAVE_RELEASE.md](LABWEAVE_RELEASE.md)。
+
+---
+
+## 4. 一键验收（维护者）
 
 ```bash
 cd ~/web3home/web3-edu-platform-core
@@ -111,6 +128,7 @@ GitHub Actions：五仓 checkout → `ci-gate` + `bazel-gate`。
 | 调度器 | http://127.0.0.1:8082/health |
 | container-manager | http://127.0.0.1:8083/health |
 | 网关 | http://127.0.0.1:8080/health |
+| Agent 助教 | http://127.0.0.1:8084/health |
 | 前端 | http://localhost:5173 |
 
 ---

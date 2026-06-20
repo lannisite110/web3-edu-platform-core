@@ -5,7 +5,7 @@
 # Web3 Education Platform Core
 
 > **主库 · 唯一基础设施源**  
-> **版本 v1.1.0** · 纯教育培训 | 测试网/沙箱 only · **P0 收官**
+> **版本 v1.2.0-labweave** · 纯教育培训 | 测试网/沙箱 only · **LabWeave 沙箱码坊**
 
 ## 职责
 
@@ -28,14 +28,14 @@
 
 ## 快速启动
 
-- [学习路径](docs/LEARNING_PATH.md) — 阶段 0–4；子库 **3A–3D** 完整路线链接  
-- [快速部署](docs/QUICK_DEPLOY.md) — 五仓布局、一键 `ci-gate`、K8s 可选  
-- [本地开发](docs/DEV.md) — 四进程启动与环境变量
+- [LabWeave 一键启动](docs/LABWEAVE_RELEASE.md) — `make labweave-up`  
+- [LabWeave 总纲](docs/LABWEAVE.md) · [学习地图 `/learn`](frontend-web/src/views/LearnView.vue)  
+- [学习路径](docs/LEARNING_PATH.md) — 阶段 0–4；子库 **3A–3D**  
+- [快速部署](docs/QUICK_DEPLOY.md) · [本地开发](docs/DEV.md)
 
 ```bash
-make register-plugins PLUGINS_DIR=..
-make tutorial-audit PLUGINS_DIR=..
-make ci-gate
+make labweave-up PLUGINS_DIR=..
+# 或维护者：make register-plugins PLUGINS_DIR=.. && make ci-gate
 ```
 
 ## 子库学习路径（v0.4.0）
@@ -73,7 +73,7 @@ make integration-all-plugins
 | v0.4.x | client-go K8s Job + container-manager + 多语言冒烟 |
 | v1.0.0 | 稳定主库首发 · coreVersion 对齐 · release-check |
 | v1.0.2 | 阶段 3A 热点专题 · hot-labs v0.4.0 联调 |
-| **v1.1.0** | **P0 收官** · LEARNING_PATH 3B/3C/3D · 四子库 v0.4.0 对齐 |
+| **v1.2.0-labweave** | **LabWeave L1–L3** · `make labweave-up` · 沙箱助教 |
 
 ---
 

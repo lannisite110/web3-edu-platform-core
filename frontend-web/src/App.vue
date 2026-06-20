@@ -23,7 +23,7 @@ function goLab(id: string, prefix: string) {
         <img src="/favicon.png" alt="logo" class="logo" />
         <div>
           <div class="title">LabWeave</div>
-          <div class="subtitle">沙箱码坊 · v1.1.0</div>
+          <div class="subtitle">沙箱码坊 · v1.2.0</div>
         </div>
       </div>
       <nav>

@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-agent-assist run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
+        fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke labweave-up labweave-down container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
         core-version-check release-check bazel-gate
 
 MANIFEST ?=
@@ -68,6 +68,12 @@ test-e2e-smoke:
 
 labweave-assist-smoke:
 	bash ci/labweave-assist-smoke.sh
+
+labweave-up:
+	bash scripts/labweave-up.sh
+
+labweave-down:
+	bash scripts/labweave-down.sh
 
 run-rule-engine:
 	cd rule-engine-py && ../.venv/bin/python main.py
