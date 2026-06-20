@@ -88,7 +88,7 @@
   outline-offset: 1px;
 }
 
-.lab-host-unified button:not(.chip):not(.scenario-chip):not(.yes):not(.no) {
+.lab-host-unified button:not(.chip):not(.scenario-chip):not(.yes):not(.no):not(.q-opt):not(.quiz-submit):not(.quiz-retry) {
   background: #2563eb;
   color: #fff;
   border: none;

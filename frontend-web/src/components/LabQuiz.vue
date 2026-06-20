@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { QuizQuestion } from '@/data/knowledge/types'
 import { useLabWeaveProgress } from '@/composables/useLabWeaveProgress'
@@ -13,31 +13,69 @@ const props = defineProps<{
 const { t } = useI18n()
 const { isQuizPassed, recordQuizScore } = useLabWeaveProgress()
 
-const picks = ref<Record<number, number | null>>({})
+/** Per-question selected option index (null = unanswered). */
+const picks = ref<(number | null)[]>([])
 const submitted = ref(false)
+
+function resetPicks() {
+  picks.value = props.questions.map(() => null)
+  submitted.value = false
+}
+
+watch(
+  () => [props.pluginId, props.questions] as const,
+  () => resetPicks(),
+  { immediate: true, deep: true },
+)
 
 const score = computed(() => {
   if (!submitted.value) return 0
-  return props.questions.reduce((n, q, i) => (picks.value[i] === q.answerIndex ? n + 1 : n), 0)
+  return props.questions.reduce(
+    (n, q, i) => (picks.value[i] === q.answerIndex ? n + 1 : n),
+    0,
+  )
 })
 
-const passed = computed(() => score.value === props.questions.length && props.questions.length > 0)
+const passed = computed(
+  () => score.value === props.questions.length && props.questions.length > 0,
+)
 const alreadyPassed = computed(() => isQuizPassed(props.pluginId))
+const canSubmit = computed(
+  () => !submitted.value && !alreadyPassed.value && picks.value.every((p) => p != null),
+)
 
 function pick(qi: number, oi: number) {
   if (submitted.value || alreadyPassed.value) return
-  picks.value = { ...picks.value, [qi]: oi }
+  const next = [...picks.value]
+  next[qi] = oi
+  picks.value = next
 }
 
 function submit() {
-  if (props.questions.some((_, i) => picks.value[i] == null)) return
+  if (!canSubmit.value) return
   submitted.value = true
-  if (passed.value) recordQuizScore(props.pluginId, score.value, props.questions.length)
+  const s = props.questions.reduce(
+    (n, q, i) => (picks.value[i] === q.answerIndex ? n + 1 : n),
+    0,
+  )
+  if (s === props.questions.length) {
+    recordQuizScore(props.pluginId, s, props.questions.length)
+  }
 }
 
-function reset() {
-  picks.value = {}
-  submitted.value = false
+function retry() {
+  resetPicks()
+}
+
+function optionClass(qi: number, oi: number, q: QuizQuestion) {
+  const picked = picks.value[qi] === oi
+  const isCorrect = oi === q.answerIndex
+  if (submitted.value) {
+    if (isCorrect) return 'q-opt correct'
+    if (picked && !isCorrect) return 'q-opt wrong'
+    return 'q-opt dimmed'
+  }
+  return picked ? 'q-opt picked' : 'q-opt'
 }
 </script>
 
@@ -47,19 +85,15 @@ function reset() {
       {{ t('quiz.alreadyPassed') }}
     </div>
 
-    <div v-for="(q, qi) in questions" :key="qi" class="quiz-q">
+    <div v-for="(q, qi) in questions" :key="`${pluginId}-q${qi}`" class="quiz-q">
       <p class="q-text">{{ qi + 1 }}. {{ q.question }}</p>
       <div class="q-options">
         <button
           v-for="(opt, oi) in q.options"
-          :key="oi"
+          :key="`${pluginId}-q${qi}-o${oi}`"
           type="button"
-          class="q-opt"
-          :class="{
-            picked: picks[qi] === oi,
-            correct: submitted && oi === q.answerIndex,
-            wrong: submitted && picks[qi] === oi && oi !== q.answerIndex,
-          }"
+          :class="optionClass(qi, oi, q)"
+          :disabled="submitted || alreadyPassed"
           @click="pick(qi, oi)"
         >
           {{ opt }}
@@ -73,12 +107,12 @@ function reset() {
         v-if="!submitted && !alreadyPassed"
         type="button"
         class="quiz-submit"
-        :disabled="questions.some((_, i) => picks[i] == null)"
+        :disabled="!canSubmit"
         @click="submit"
       >
         {{ t('quiz.submit') }}
       </button>
-      <button v-if="submitted && !passed" type="button" class="quiz-retry" @click="reset">
+      <button v-if="submitted && !passed" type="button" class="quiz-retry" @click="retry">
         {{ t('quiz.retry') }}
       </button>
       <p v-if="submitted" class="quiz-score" :class="{ pass: passed }">
@@ -109,19 +143,39 @@ function reset() {
 .q-options { display: flex; flex-direction: column; gap: 6px; }
 .q-opt {
   text-align: left;
-  background: #151b23;
-  border: 1px solid #243044;
-  color: #c5d0de;
+  background: #151b23 !important;
+  border: 1px solid #243044 !important;
+  color: #c5d0de !important;
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
-.q-opt:hover:not(:disabled) { border-color: #2563eb; background: #1a3a5c; }
-.q-opt.picked { border-color: #2563eb; background: #1a3a5c; }
-.q-opt.correct { border-color: #166534; background: #0d2818; color: #6ee7b7; }
-.q-opt.wrong { border-color: #7f1d1d; background: #2a1115; color: #fca5a5; }
+.q-opt:hover:not(:disabled) {
+  border-color: #2563eb !important;
+  background: #1a3a5c !important;
+}
+.q-opt.picked {
+  border-color: #2563eb !important;
+  background: #1a3a5c !important;
+  color: #e8eef5 !important;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+.q-opt.correct {
+  border-color: #166534 !important;
+  background: #0d2818 !important;
+  color: #6ee7b7 !important;
+  box-shadow: 0 0 0 1px #166534;
+}
+.q-opt.wrong {
+  border-color: #7f1d1d !important;
+  background: #2a1115 !important;
+  color: #fca5a5 !important;
+}
+.q-opt.dimmed {
+  opacity: 0.55;
+}
 .q-exp {
   margin: 0.4rem 0 0;
   font-size: 0.8rem;
@@ -130,9 +184,9 @@ function reset() {
 }
 .quiz-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 0.5rem; }
 .quiz-submit {
-  background: #2563eb;
-  color: #fff;
-  border: none;
+  background: #2563eb !important;
+  color: #fff !important;
+  border: none !important;
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -140,9 +194,9 @@ function reset() {
 }
 .quiz-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 .quiz-retry {
-  background: #1e2733;
-  color: #9ec5ff;
-  border: 1px solid #243044;
+  background: #1e2733 !important;
+  color: #9ec5ff !important;
+  border: 1px solid #243044 !important;
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;

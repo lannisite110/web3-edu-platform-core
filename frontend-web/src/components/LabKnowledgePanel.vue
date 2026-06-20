@@ -92,7 +92,7 @@ const knowledge = useLabKnowledge(props.pluginId)
       <section v-if="knowledge.quiz?.length" class="k-section k-quiz-section">
         <h3>{{ t('knowledge.quiz') }}</h3>
         <p class="k-quiz-hint">{{ t('knowledge.quizHint') }}</p>
-        <LabQuiz :plugin-id="pluginId" :questions="knowledge.quiz" />
+        <LabQuiz :key="pluginId" :plugin-id="pluginId" :questions="knowledge.quiz" />
       </section>
     </div>
   </details>
