@@ -1,28 +1,37 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import pathData from '@/data/labweave-path.json'
 import ComplianceBadge from '@/components/ComplianceBadge.vue'
+import LearnStepDetail from '@/components/LearnStepDetail.vue'
 import { useLabWeaveProgress } from '@/composables/useLabWeaveProgress'
+import { useLocalizedPath } from '@/composables/useLocalizedPath'
 
+const { t } = useI18n()
 const router = useRouter()
-const { isCompleted, toggleComplete, trackProgress, resetAll } = useLabWeaveProgress()
+const { isCompleted, isQuizPassed, toggleComplete, trackProgress, trackQuizProgress, resetAll } =
+  useLabWeaveProgress()
+const { prerequisite, tracks } = useLocalizedPath()
 
-const prerequisite = pathData.prerequisite
-const tracks = pathData.tracks
+const expandedId = ref<string | null>(null)
 
 const allPluginIds = computed(() => {
-  const ids = prerequisite.steps.map((s) => s.pluginId)
-  for (const t of tracks) {
-    for (const s of t.steps) ids.push(s.pluginId)
+  const ids = prerequisite.value.steps.map((s) => s.pluginId)
+  for (const tr of tracks.value) {
+    for (const s of tr.steps) ids.push(s.pluginId)
   }
   return ids
 })
 
 const overall = computed(() => trackProgress(allPluginIds.value))
+const quizOverall = computed(() => trackQuizProgress(allPluginIds.value))
 
 function goLab(routePrefix: string) {
   router.push(routePrefix)
+}
+
+function toggleExpand(pluginId: string) {
+  expandedId.value = expandedId.value === pluginId ? null : pluginId
 }
 </script>
 
@@ -31,41 +40,61 @@ function goLab(routePrefix: string) {
     <header class="learn-hero card learn-hero-wide">
       <div class="learn-hero-top">
         <div>
-          <p class="learn-kicker">LabWeave · 沙箱码坊</p>
-          <h1>学习地图</h1>
-          <p class="muted">
-            四轨道 · 22 插件 + 起步 mock · 每步可进 Lab 动手 · 进度保存在本机浏览器
-          </p>
+          <p class="learn-kicker">{{ t('learn.kicker') }}</p>
+          <h1>{{ t('learn.title') }}</h1>
+          <p class="muted">{{ t('learn.subtitle') }}</p>
         </div>
-        <ComplianceBadge :passed="null" label="测试网/沙箱 only" />
+        <ComplianceBadge :passed="null" />
       </div>
       <div class="learn-overall">
-        <div class="learn-overall-label">总进度 {{ overall.done }} / {{ overall.total }}</div>
+        <div class="learn-overall-label">
+          {{ t('common.overallProgress') }} {{ overall.done }} / {{ overall.total }}
+        </div>
         <div class="progress-bar">
           <div class="progress-fill" :style="{ width: overall.pct + '%' }" />
         </div>
-        <button type="button" class="link-btn" @click="resetAll">重置进度</button>
+        <div class="learn-overall-label">
+          {{ t('quiz.overall') }} {{ quizOverall.done }} / {{ quizOverall.total }}
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill quiz-fill" :style="{ width: quizOverall.pct + '%' }" />
+        </div>
+        <button type="button" class="link-btn" @click="resetAll">{{ t('common.resetProgress') }}</button>
       </div>
     </header>
 
     <section class="card learn-hero-wide">
       <h2>{{ prerequisite.title }} · {{ prerequisite.subtitle }}</h2>
-      <p class="muted">约 {{ prerequisite.estimatedDays }} 天 · 建议最先完成</p>
+      <p class="muted">
+        {{ t('common.approx') }} {{ prerequisite.estimatedDays }} {{ t('common.days') }} ·
+        {{ t('learn.prerequisiteHint') }}
+      </p>
       <ul class="step-list">
-        <li v-for="step in prerequisite.steps" :key="step.pluginId" class="step-row">
-          <label class="step-check">
-            <input
-              type="checkbox"
-              :checked="isCompleted(step.pluginId)"
-              @change="toggleComplete(step.pluginId)"
-            />
-          </label>
-          <div class="step-body">
-            <div class="step-title">{{ step.title }}</div>
-            <div class="step-meta muted">{{ step.summary }} · ~{{ step.estimatedHours }}h</div>
-            <code class="step-id">{{ step.pluginId }}</code>
+        <li v-for="step in prerequisite.steps" :key="step.pluginId" class="step-block">
+          <div class="step-row">
+            <label class="step-check">
+              <input
+                type="checkbox"
+                :checked="isCompleted(step.pluginId)"
+                @change="toggleComplete(step.pluginId)"
+              />
+            </label>
+            <div class="step-body">
+              <div class="step-title">{{ step.title }}</div>
+              <div class="step-meta muted">
+                {{ step.summary }} · ~{{ step.estimatedHours }}{{ t('common.hours') }}
+                <span v-if="isQuizPassed(step.pluginId)" class="quiz-badge">✓ {{ t('quiz.passedShort') }}</span>
+              </div>
+              <code class="step-id">{{ step.pluginId }}</code>
+            </div>
+            <button type="button" class="ghost-btn" @click="toggleExpand(step.pluginId)">
+              {{ expandedId === step.pluginId ? t('learn.collapse') : t('learn.expand') }}
+            </button>
+            <button type="button" class="secondary" @click="goLab(step.routePrefix)">
+              {{ t('common.openLab') }}
+            </button>
           </div>
-          <button type="button" class="secondary" @click="goLab(step.routePrefix)">打开 Lab</button>
+          <LearnStepDetail v-if="expandedId === step.pluginId" :plugin-id="step.pluginId" />
         </li>
       </ul>
     </section>
@@ -75,7 +104,9 @@ function goLab(routePrefix: string) {
         <div class="track-head">
           <span class="track-id">{{ track.id }}</span>
           <h2>{{ track.title }}</h2>
-          <p class="muted">{{ track.subtitle }} · 约 {{ track.estimatedDays }} 天</p>
+          <p class="muted">
+            {{ track.subtitle }} · {{ t('common.approx') }} {{ track.estimatedDays }} {{ t('common.days') }}
+          </p>
         </div>
         <div class="track-progress">
           <span>{{ trackProgress(track.steps.map((s) => s.pluginId)).done }}/{{ track.steps.length }}</span>
@@ -87,27 +118,36 @@ function goLab(routePrefix: string) {
           </div>
         </div>
         <ol class="step-list">
-          <li v-for="step in track.steps" :key="step.pluginId" class="step-row">
-            <label class="step-check">
-              <input
-                type="checkbox"
-                :checked="isCompleted(step.pluginId)"
-                @change="toggleComplete(step.pluginId)"
-              />
-            </label>
-            <div class="step-body">
-              <div class="step-title">{{ step.order }}. {{ step.title }}</div>
-              <div class="step-meta muted">~{{ step.estimatedHours }}h</div>
+          <li v-for="step in track.steps" :key="step.pluginId" class="step-block">
+            <div class="step-row">
+              <label class="step-check">
+                <input
+                  type="checkbox"
+                  :checked="isCompleted(step.pluginId)"
+                  @change="toggleComplete(step.pluginId)"
+                />
+              </label>
+              <div class="step-body">
+                <div class="step-title">{{ step.order }}. {{ step.title }}</div>
+                <div class="step-meta muted">
+                  ~{{ step.estimatedHours }}{{ t('common.hours') }}
+                  <span v-if="isQuizPassed(step.pluginId)" class="quiz-badge">✓ {{ t('quiz.passedShort') }}</span>
+                </div>
+              </div>
+              <button type="button" class="ghost-btn" @click="toggleExpand(step.pluginId)">
+                {{ expandedId === step.pluginId ? t('learn.collapse') : t('learn.expand') }}
+              </button>
+              <button type="button" class="secondary" @click="goLab(step.routePrefix)">
+                {{ t('common.labs') }}
+              </button>
             </div>
-            <button type="button" class="secondary" @click="goLab(step.routePrefix)">Lab</button>
+            <LearnStepDetail v-if="expandedId === step.pluginId" :plugin-id="step.pluginId" />
           </li>
         </ol>
       </section>
     </div>
 
-    <footer class="learn-footer muted">
-      详细文档见仓库 <code>docs/LABWEAVE_PATH.md</code> · L1 不含 Agent（L2 启动合规助教）
-    </footer>
+    <footer class="learn-footer muted">{{ t('learn.footer') }}</footer>
   </div>
 </template>
 
@@ -135,10 +175,10 @@ function goLab(routePrefix: string) {
   gap: 12px;
   flex-wrap: wrap;
 }
-.learn-overall-label { font-size: 13px; min-width: 120px; }
+.learn-overall-label { font-size: 13px; min-width: 140px; }
 .progress-bar {
   flex: 1;
-  min-width: 160px;
+  min-width: 120px;
   height: 8px;
   background: #0f1419;
   border-radius: 999px;
@@ -151,6 +191,7 @@ function goLab(routePrefix: string) {
   border-radius: 999px;
   transition: width 0.2s ease;
 }
+.quiz-fill { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
 .link-btn {
   background: none;
   border: none;
@@ -190,19 +231,35 @@ function goLab(routePrefix: string) {
   margin: 0;
   padding: 0;
 }
+.step-block { border-top: 1px solid #243044; }
+.step-block:first-child { border-top: none; }
 .step-row {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 0;
-  border-top: 1px solid #243044;
 }
-.step-row:first-child { border-top: none; }
 .step-check { flex-shrink: 0; }
 .step-body { flex: 1; min-width: 0; }
 .step-title { font-size: 14px; font-weight: 600; }
 .step-meta { font-size: 12px; margin-top: 2px; }
 .step-id { font-size: 11px; color: #6b7c93; }
+.quiz-badge {
+  margin-left: 8px;
+  color: #a78bfa;
+  font-size: 11px;
+}
+.ghost-btn {
+  background: none;
+  border: 1px solid #243044;
+  color: #9ec5ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.ghost-btn:hover { background: #1a3a5c; }
 .secondary {
   background: #1e2733;
   color: #c5d0de;

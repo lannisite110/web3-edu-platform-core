@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 defineProps<{
   passed?: boolean | null
   compact?: boolean
   label?: string
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -15,11 +19,11 @@ defineProps<{
       'compliance-badge--pending': passed == null,
       'compliance-badge--compact': compact,
     }"
-    :title="label || '合规评估状态'"
+    :title="label || t('compliance.statusTitle')"
   >
-    <template v-if="passed === true">✓ 合规通过</template>
-    <template v-else-if="passed === false">✗ 合规拒绝</template>
-    <template v-else>◎ 待评估</template>
+    <template v-if="passed === true">{{ t('compliance.pass') }}</template>
+    <template v-else-if="passed === false">{{ t('compliance.fail') }}</template>
+    <template v-else>{{ t('compliance.pending') }}</template>
   </span>
 </template>
 

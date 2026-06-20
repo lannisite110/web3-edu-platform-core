@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import type { PluginManifestRef } from '@/plugins/types'
+import { usePluginLabel } from '@/composables/useLocalizedPath'
 
+const { t } = useI18n()
+const pluginLabel = usePluginLabel()
 const route = useRoute()
 const plugin = computed(() => route.meta.plugin as PluginManifestRef)
-const prompt = ref('通用 DeFi 教学合约')
+const prompt = ref(t('lab.promptDefault'))
 const loading = ref(false)
 const result = ref<Record<string, unknown> | null>(null)
 const error = ref('')
@@ -38,17 +42,17 @@ async function runSimulate() {
 
 <template>
   <section v-if="plugin" class="card">
-    <h1>{{ plugin.name }}</h1>
+    <h1>{{ pluginLabel(plugin.id, plugin.name) }}</h1>
     <p class="muted">{{ plugin.id }} · {{ plugin.repo }}</p>
     <div class="tags">
-      <span v-for="t in plugin.taskTypes" :key="t" class="tag">{{ t }}</span>
+      <span v-for="task in plugin.taskTypes" :key="task" class="tag">{{ task }}</span>
     </div>
     <label class="field">
-      实验描述
+      {{ t('lab.promptLabel') }}
       <textarea v-model="prompt" rows="3" />
     </label>
     <button class="primary" :disabled="loading" @click="runSimulate">
-      {{ loading ? '运行中…' : '提交仿真实验' }}
+      {{ loading ? t('lab.running') : t('lab.submit') }}
     </button>
     <p v-if="error" class="error">{{ error }}</p>
     <pre v-if="result" class="result">{{ JSON.stringify(result, null, 2) }}</pre>

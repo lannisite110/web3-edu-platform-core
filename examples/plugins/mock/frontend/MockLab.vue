@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useLabI18n } from '@/composables/useLabI18n'
+
+const PLUGIN_ID = 'edu.hot.mock'
+const { t } = useLabI18n(PLUGIN_ID)
 
 const loading = ref(false)
 const error = ref('')
 const result = ref<Record<string, unknown> | null>(null)
-
-const PLUGIN_ID = 'edu.hot.mock'
 
 async function runSimulate() {
   loading.value = true
@@ -34,10 +36,10 @@ async function runSimulate() {
 
 <template>
   <section class="card">
-    <h2>Mock Lab (E2E)</h2>
-    <p>主库内置 smoke 插件面板 — 测试网 only。</p>
+    <h2>{{ t('title') }}</h2>
+    <p>{{ t('desc') }}</p>
     <button :disabled="loading" @click="runSimulate">
-      {{ loading ? 'Running…' : 'Run simulate' }}
+      {{ loading ? t('running') : t('run') }}
     </button>
     <p v-if="error" class="error">{{ error }}</p>
     <pre v-if="result">{{ JSON.stringify(result, null, 2) }}</pre>

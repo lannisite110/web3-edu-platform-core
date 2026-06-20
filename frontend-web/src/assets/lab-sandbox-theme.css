@@ -1,0 +1,236 @@
+/**
+ * Unify Web3 热点 + 国内领域 Lab panels with 海外沙箱 dark palette.
+ * Loaded globally; scoped child styles overridden via !important where needed.
+ */
+.lab-host-unified {
+  color: #c5d0de;
+}
+
+.lab-host-unified :is(.lab-panel, .advisor-panel, section.card) {
+  padding: 1rem;
+}
+
+.lab-host-unified :is(.lab-panel, .advisor-panel, section.card) h1 {
+  color: #e8eef5;
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.lab-host-unified :is(.lab-panel, .advisor-panel, section.card) h2 {
+  color: #9ec5ff !important;
+  font-size: 0.95rem;
+}
+
+.lab-host-unified .card,
+.lab-host-unified .panel,
+.lab-host-unified .result-card {
+  background: #0f1419 !important;
+  border: 1px solid #243044 !important;
+  border-radius: 8px;
+  color: #c5d0de;
+}
+
+.lab-host-unified .card.fabric-card {
+  background: #0d1a2a !important;
+  border-color: #1e3a5f !important;
+}
+
+.lab-host-unified .result-card {
+  background: linear-gradient(180deg, #0d2818 0%, #0f1419 100%) !important;
+  border-color: #166534 !important;
+}
+
+.lab-host-unified .eval-card {
+  background: #0d2818 !important;
+  border: 1px solid #166534 !important;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.lab-host-unified .eval-card .ok,
+.lab-host-unified .ok {
+  color: #6ee7b7 !important;
+  font-weight: 600;
+}
+
+.lab-host-unified .warn {
+  color: #fbbf24 !important;
+  font-weight: 600;
+}
+
+.lab-host-unified .muted {
+  color: #8aa0b6 !important;
+}
+
+.lab-host-unified .status {
+  color: #9ec5ff !important;
+}
+
+.lab-host-unified .error {
+  color: #fca5a5 !important;
+}
+
+.lab-host-unified label {
+  color: #c5d0de;
+  font-size: 0.875rem;
+}
+
+.lab-host-unified :is(input, textarea, select) {
+  background: #151b23 !important;
+  border: 1px solid #243044 !important;
+  color: #e8eef5 !important;
+  border-radius: 8px;
+}
+
+.lab-host-unified :is(input, textarea, select):focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+.lab-host-unified button:not(.chip):not(.scenario-chip):not(.yes):not(.no) {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lab-host-unified button.primary,
+.lab-host-unified .submit {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+.lab-host-unified button.primary.outline {
+  background: transparent !important;
+  color: #9ec5ff !important;
+  border: 1px solid #2563eb !important;
+}
+
+.lab-host-unified button.secondary,
+.lab-host-unified .secondary {
+  background: #1e2733 !important;
+  color: #c5d0de !important;
+  border: 1px solid #243044 !important;
+}
+
+.lab-host-unified .chip,
+.lab-host-unified .scenario-chip {
+  background: #1e2733 !important;
+  border: 1px solid #243044 !important;
+  color: #9ec5ff !important;
+}
+
+.lab-host-unified .scenario-chip.active {
+  background: #2563eb !important;
+  color: #fff !important;
+  border-color: #2563eb !important;
+}
+
+.lab-host-unified .chip:hover,
+.lab-host-unified .scenario-chip:hover {
+  background: #1a3a5c !important;
+}
+
+.lab-host-unified code,
+.lab-host-unified .hash {
+  color: #6ee7b7 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.lab-host-unified :is(.result, .block, .raw pre) {
+  background: #151b23 !important;
+  color: #c5d0de !important;
+  border: 1px solid #243044;
+}
+
+.lab-host-unified table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.lab-host-unified :is(th, td) {
+  border: 1px solid #243044;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.lab-host-unified th {
+  background: #151b23;
+  color: #9ec5ff;
+}
+
+.lab-host-unified .status-badge.draft {
+  background: #1e2733 !important;
+  color: #8aa0b6 !important;
+}
+
+.lab-host-unified .status-badge.active {
+  background: #1a3a5c !important;
+  color: #9ec5ff !important;
+}
+
+.lab-host-unified .status-badge.passed {
+  background: #0d2818 !important;
+  color: #6ee7b7 !important;
+}
+
+.lab-host-unified .status-badge.rejected {
+  background: #2a1115 !important;
+  color: #fca5a5 !important;
+}
+
+.lab-host-unified .gov-flow li {
+  color: #64748b !important;
+}
+
+.lab-host-unified .gov-flow li.done {
+  color: #6ee7b7 !important;
+}
+
+.lab-host-unified .counts .yes {
+  color: #6ee7b7 !important;
+}
+
+.lab-host-unified .counts .no {
+  color: #fca5a5 !important;
+}
+
+.lab-host-unified .badge.lang {
+  background: #1a3a5c !important;
+  color: #9ec5ff !important;
+}
+
+.lab-host-unified .badge.chain {
+  background: #2e1a4a !important;
+  color: #c4b5fd !important;
+}
+
+.lab-host-unified .badge.ns {
+  background: #3a2a0a !important;
+  color: #fcd34d !important;
+}
+
+.lab-host-unified .tool-tag {
+  background: #1e2733 !important;
+  color: #c5d0de !important;
+}
+
+.lab-host-unified .lab-logo,
+.lab-host-unified .lab-header img {
+  border-radius: 6px;
+}
+
+.lab-host-unified .lab-grid {
+  gap: 16px;
+}
+
+.lab-host-unified .hint-list {
+  color: #c5d0de;
+}
+
+.lab-host-unified .data-table td.memo {
+  color: #8aa0b6;
+}

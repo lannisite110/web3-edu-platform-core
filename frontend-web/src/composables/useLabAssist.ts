@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export interface AssistMessage {
   role: 'user' | 'assistant'
@@ -22,6 +23,8 @@ export function useLabAssist(
   const loading = ref(false)
   const error = ref('')
   const messages = ref<AssistMessage[]>([])
+
+  const { t } = useI18n()
 
   async function ask(
     message: string,
@@ -62,7 +65,7 @@ export function useLabAssist(
       error.value = e instanceof Error ? e.message : String(e)
       messages.value.push({
         role: 'assistant',
-        text: `助教暂时不可用：${error.value}`,
+        text: t('assist.unavailable', { error: error.value }),
         compliancePassed: false,
       })
     } finally {

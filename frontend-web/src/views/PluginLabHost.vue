@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import type { PluginManifestRef } from '@/plugins/types'
 import { resolveLabLoader } from '@/plugins/loader'
 import LabView from '@/views/LabView.vue'
+import LabKnowledgePanel from '@/components/LabKnowledgePanel.vue'
 
 const route = useRoute()
 const plugin = computed(() => route.meta.plugin as PluginManifestRef | undefined)
@@ -24,5 +25,8 @@ watch(
 </script>
 
 <template>
-  <component :is="panel" />
+  <div class="lab-host-unified">
+    <component :is="panel" />
+    <LabKnowledgePanel v-if="plugin" :plugin-id="plugin.id" />
+  </div>
 </template>

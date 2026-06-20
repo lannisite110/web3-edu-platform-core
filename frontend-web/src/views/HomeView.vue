@@ -1,70 +1,71 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import pathData from '@/data/labweave-path.json'
 import ComplianceBadge from '@/components/ComplianceBadge.vue'
+import { useLocalizedPath } from '@/composables/useLocalizedPath'
 
+const { t } = useI18n()
 const router = useRouter()
+const { tracks } = useLocalizedPath()
 
 const stats = computed(() => {
-  const trackCount = pathData.tracks.length
-  const pluginCount = pathData.tracks.reduce((n, t) => n + t.steps.length, 0)
-  return { trackCount, pluginCount, totalLabs: pluginCount + pathData.prerequisite.steps.length }
+  const trackCount = tracks.value.length
+  const pluginCount = tracks.value.reduce((n, tr) => n + tr.steps.length, 0)
+  return { trackCount, pluginCount, totalLabs: pluginCount + 1 }
 })
-
-const tracks = pathData.tracks
 </script>
 
 <template>
   <section class="home-portal">
     <div class="card home-hero">
-      <p class="home-kicker">LabWeave · 沙箱码坊</p>
-      <h1>合规约束下的 Web3 动手实验室</h1>
-      <p class="muted">
-        结构化教程 + 可运行 Lab + rule-engine 合规沙箱 · 测试网 / Fabric 沙箱 only
-      </p>
+      <p class="home-kicker">{{ t('home.kicker') }}</p>
+      <h1>{{ t('home.title') }}</h1>
+      <p class="muted">{{ t('home.subtitle') }}</p>
       <div class="home-badges">
         <ComplianceBadge :passed="null" />
-        <span class="tag">LabWeave v1.2.0</span>
+        <span class="tag">LabWeave {{ t('app.version') }}</span>
         <span class="tag">23 Lab</span>
       </div>
       <div class="home-actions">
-        <button class="primary" @click="router.push('/learn')">打开学习地图</button>
-        <button class="secondary" @click="router.push('/labs/edu.hot.mock')">从 Mock Lab 起步</button>
+        <button class="primary" @click="router.push('/learn')">{{ t('home.openLearn') }}</button>
+        <button class="secondary" @click="router.push('/labs/edu.hot.mock')">{{ t('home.startMock') }}</button>
       </div>
     </div>
 
     <div class="home-grid">
       <div class="card home-stat">
         <div class="stat-num">{{ stats.trackCount }}</div>
-        <div class="muted">学习轨道（3A–3D）</div>
+        <div class="muted">{{ t('home.statTracks') }}</div>
       </div>
       <div class="card home-stat">
         <div class="stat-num">{{ stats.pluginCount }}</div>
-        <div class="muted">业务插件</div>
+        <div class="muted">{{ t('home.statPlugins') }}</div>
       </div>
       <div class="card home-stat">
         <div class="stat-num">{{ stats.totalLabs }}</div>
-        <div class="muted">含起步 mock</div>
+        <div class="muted">{{ t('home.statTotal') }}</div>
       </div>
     </div>
 
     <div class="card home-tracks">
-      <h2>四轨道概览</h2>
-      <p class="muted">左侧边栏可直达任意 Lab；推荐按轨道顺序学习。</p>
+      <h2>{{ t('home.tracksTitle') }}</h2>
+      <p class="muted">{{ t('home.tracksHint') }}</p>
       <ul class="track-overview">
-        <li v-for="t in tracks" :key="t.id">
-          <strong>{{ t.id }}</strong> {{ t.title }}
-          <span class="muted">— {{ t.steps.length }} 插件 · ~{{ t.estimatedDays }} 天</span>
+        <li v-for="tr in tracks" :key="tr.id">
+          <strong>{{ tr.id }}</strong> {{ tr.title }}
+          <span class="muted">
+            — {{ t('home.trackMeta', { count: tr.steps.length, days: tr.estimatedDays }) }}
+          </span>
         </li>
       </ul>
-      <button class="primary" @click="router.push('/learn')">查看完整地图 →</button>
+      <button class="primary" @click="router.push('/learn')">{{ t('home.viewMap') }}</button>
     </div>
 
     <ul class="home-notes muted">
-      <li>每步实验：打开 Lab → 运行仿真 → 查看 eval-card 与 compliance 结果</li>
-      <li>网关运行时拦截主网参数；规则引擎 evaluate 先于 Job 投递</li>
-      <li>文档：<code>docs/LABWEAVE.md</code> · <code>docs/LABWEAVE_PATH.md</code></li>
+      <li>{{ t('home.note1') }}</li>
+      <li>{{ t('home.note2') }}</li>
+      <li>{{ t('home.note3') }}</li>
     </ul>
   </section>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ComplianceBadge from '@/components/ComplianceBadge.vue'
 import { useLabAssist } from '@/composables/useLabAssist'
 
@@ -17,6 +18,7 @@ const props = withDefaults(
   },
 )
 
+const { t } = useI18n()
 const open = ref(false)
 const input = ref('')
 const { loading, messages, ask, clear } = useLabAssist(props.pluginId, props.allowedChainIds)
@@ -36,22 +38,20 @@ function submit() {
 <template>
   <div class="assist-wrap">
     <button type="button" class="assist-fab" @click="toggle">
-      {{ open ? '收起助教' : '沙箱助教' }}
+      {{ open ? t('assist.close') : t('assist.open') }}
     </button>
 
     <aside v-if="open" class="assist-drawer">
       <header class="assist-head">
         <div>
-          <h2>沙箱助教</h2>
-          <p class="muted">L2 · 先 evaluate 再回答 · {{ pluginId }}</p>
+          <h2>{{ t('assist.title') }}</h2>
+          <p class="muted">{{ t('assist.subtitle') }} · {{ pluginId }}</p>
         </div>
         <ComplianceBadge :passed="null" compact />
       </header>
 
       <div class="assist-messages">
-        <p v-if="!messages.length" class="muted assist-empty">
-          可问本 Lab 的规则 hints、参数含义与合规边界。尝试问「batch_id 影响什么？」或输入 mainnet 看拦截。
-        </p>
+        <p v-if="!messages.length" class="muted assist-empty">{{ t('assist.empty') }}</p>
         <div
           v-for="(m, i) in messages"
           :key="i"
@@ -72,13 +72,13 @@ function submit() {
         <textarea
           v-model="input"
           rows="2"
-          placeholder="向沙箱助教提问…"
+          :placeholder="t('assist.placeholder')"
           @keydown.enter.exact.prevent="submit"
         />
         <div class="assist-actions">
-          <button type="button" class="link-btn" @click="clear">清空</button>
+          <button type="button" class="link-btn" @click="clear">{{ t('assist.clear') }}</button>
           <button type="button" class="primary" :disabled="loading" @click="submit">
-            {{ loading ? '思考中…' : '发送' }}
+            {{ loading ? t('assist.sending') : t('assist.send') }}
           </button>
         </div>
       </footer>
