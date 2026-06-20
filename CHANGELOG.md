@@ -1,5 +1,16 @@
 # Changelog · web3-edu-platform-core
 
+## v1.2.0-labweave-l1 — 2026-06-19
+
+**LabWeave L1** — Codewale 式门户层（不含 Agent）：
+
+- [LABWEAVE.md](docs/LABWEAVE.md) · [LABWEAVE_PATH.md](docs/LABWEAVE_PATH.md)
+- 前端 **`/learn`** 学习地图（四轨道 3A–3D + 起步 mock · localStorage 进度）
+- 首页 LabWeave 门户 · `ComplianceBadge` 组件
+- `ci/labweave-path-check.sh` 校验路径 JSON 与 registry 对齐
+
+---
+
 ## v1.1.0 — 2026-06-19
 
 **P0 收官**：四子库全部 **v0.4.0**，主库学习路径 **3A–3D** 齐全。

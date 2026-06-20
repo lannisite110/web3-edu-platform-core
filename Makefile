@@ -1,6 +1,6 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
-        fabric-bootstrap tutorial-audit container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
+        fabric-bootstrap tutorial-audit labweave-path-check container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
         core-version-check release-check bazel-gate
 
 MANIFEST ?=
@@ -18,6 +18,9 @@ k8s-job-smoke:
 
 k8s-multilang-smoke:
 	bash scripts/k8s-multilang-smoke.sh
+
+labweave-path-check:
+	bash ci/labweave-path-check.sh
 
 tutorial-audit:
 	bash ci/tutorial-audit.sh

@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "product": "LabWeave",
+  "prerequisite": {
+    "id": "bootstrap",
+    "title": "起步",
+    "subtitle": "E2E 最小路径",
+    "estimatedDays": 0.5,
+    "steps": [
+      {
+        "order": 0,
+        "pluginId": "edu.hot.mock",
+        "title": "Mock Lab (E2E Smoke)",
+        "summary": "simulate → status → report 全链路",
+        "routePrefix": "/labs/edu.hot.mock",
+        "estimatedHours": 2
+      }
+    ]
+  },
+  "tracks": [
+    {
+      "id": "3A",
+      "title": "Web3 热点专题",
+      "subtitle": "web3-hot-topic-labs",
+      "learningPathDoc": "../web3-hot-topic-labs/docs/HOT_TOPIC_LEARNING_PATH.md",
+      "estimatedDays": 14,
+      "steps": [
+        { "order": 1, "pluginId": "edu.hot.language-advisor", "title": "智能语言择优", "routePrefix": "/labs/edu.hot.language-advisor", "estimatedHours": 4 },
+        { "order": 2, "pluginId": "edu.hot.zk-modular", "title": "ZK 模块化 Rollup", "routePrefix": "/labs/edu.hot.zk-modular", "estimatedHours": 6 },
+        { "order": 3, "pluginId": "edu.hot.zk-circuit", "title": "ZK 电路编译", "routePrefix": "/labs/edu.hot.zk-circuit", "estimatedHours": 6 },
+        { "order": 4, "pluginId": "edu.hot.aa-wallet", "title": "账户抽象 AA", "routePrefix": "/labs/edu.hot.aa-wallet", "estimatedHours": 5 },
+        { "order": 5, "pluginId": "edu.hot.aa-session", "title": "会话密钥", "routePrefix": "/labs/edu.hot.aa-session", "estimatedHours": 4 },
+        { "order": 6, "pluginId": "edu.hot.dao", "title": "DAO 投票", "routePrefix": "/labs/edu.hot.dao", "estimatedHours": 5 },
+        { "order": 7, "pluginId": "edu.hot.mev", "title": "MEV PBS 仿真", "routePrefix": "/labs/edu.hot.mev", "estimatedHours": 4 },
+        { "order": 8, "pluginId": "edu.hot.did", "title": "DID 隐私", "routePrefix": "/labs/edu.hot.did", "estimatedHours": 4 },
+        { "order": 9, "pluginId": "edu.hot.depin", "title": "DePIN 节点", "routePrefix": "/labs/edu.hot.depin", "estimatedHours": 4 },
+        { "order": 10, "pluginId": "edu.hot.rwa-edu", "title": "RWA 教学仿真", "routePrefix": "/labs/edu.hot.rwa-edu", "estimatedHours": 3 },
+        { "order": 11, "pluginId": "edu.hot.ai-agent", "title": "AI Agent 沙箱", "routePrefix": "/labs/edu.hot.ai-agent", "estimatedHours": 4 }
+      ]
+    },
+    {
+      "id": "3B",
+      "title": "国内民生溯源",
+      "subtitle": "supervision-trace-edu-suite",
+      "learningPathDoc": "../supervision-trace-edu-suite/docs/TRACE_LEARNING_PATH.md",
+      "estimatedDays": 3,
+      "steps": [
+        { "order": 1, "pluginId": "edu.cn.trace.food", "title": "食品溯源", "routePrefix": "/labs/edu.cn.trace.food", "estimatedHours": 6 },
+        { "order": 2, "pluginId": "edu.cn.trace.medical", "title": "医疗防篡改", "routePrefix": "/labs/edu.cn.trace.medical", "estimatedHours": 5 },
+        { "order": 3, "pluginId": "edu.cn.trace.charity", "title": "慈善流水", "routePrefix": "/labs/edu.cn.trace.charity", "estimatedHours": 5 }
+      ]
+    },
+    {
+      "id": "3C",
+      "title": "政企内控",
+      "subtitle": "enterprise-gov-edu-demo",
+      "learningPathDoc": "../enterprise-gov-edu-demo/docs/GOV_LEARNING_PATH.md",
+      "estimatedDays": 3,
+      "steps": [
+        { "order": 1, "pluginId": "edu.cn.gov.bid-graph", "title": "招投标关联图谱", "routePrefix": "/labs/edu.cn.gov.bid-graph", "estimatedHours": 6 },
+        { "order": 2, "pluginId": "edu.cn.gov.multisig", "title": "多级多签审批", "routePrefix": "/labs/edu.cn.gov.multisig", "estimatedHours": 6 },
+        { "order": 3, "pluginId": "edu.cn.gov.supply", "title": "供应链存证", "routePrefix": "/labs/edu.cn.gov.supply", "estimatedHours": 5 }
+      ]
+    },
+    {
+      "id": "3D",
+      "title": "海外规则沙箱",
+      "subtitle": "global-social-edu-sandbox",
+      "learningPathDoc": "../global-social-edu-sandbox/docs/GLOBAL_LEARNING_PATH.md",
+      "estimatedDays": 5,
+      "steps": [
+        { "order": 1, "pluginId": "edu.global.sandbox.regulatory", "title": "监管规则沙箱", "routePrefix": "/labs/edu.global.sandbox.regulatory", "estimatedHours": 5 },
+        { "order": 2, "pluginId": "edu.global.sandbox.election", "title": "选举哈希共识", "routePrefix": "/labs/edu.global.sandbox.election", "estimatedHours": 4 },
+        { "order": 3, "pluginId": "edu.global.sandbox.welfare", "title": "福利反欺诈", "routePrefix": "/labs/edu.global.sandbox.welfare", "estimatedHours": 5 },
+        { "order": 4, "pluginId": "edu.global.sandbox.logistics", "title": "物流审计链", "routePrefix": "/labs/edu.global.sandbox.logistics", "estimatedHours": 4 },
+        { "order": 5, "pluginId": "edu.global.sandbox.religion", "title": "宗教规则沙箱", "routePrefix": "/labs/edu.global.sandbox.religion", "estimatedHours": 4 }
+      ]
+    }
+  ]
+}

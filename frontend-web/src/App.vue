@@ -22,13 +22,16 @@ function goLab(id: string, prefix: string) {
       <div class="brand">
         <img src="/favicon.png" alt="logo" class="logo" />
         <div>
-          <div class="title">Web3 教育平台</div>
-          <div class="subtitle">测试网 only · v0.1.0</div>
+          <div class="title">LabWeave</div>
+          <div class="subtitle">沙箱码坊 · v1.1.0</div>
         </div>
       </div>
       <nav>
         <button class="nav-item" :class="{ active: route.path === '/' }" @click="router.push('/')">
           首页
+        </button>
+        <button class="nav-item" :class="{ active: route.path === '/learn' }" @click="router.push('/learn')">
+          学习地图
         </button>
         <section v-for="(items, group) in grouped" :key="group" class="nav-group">
           <div class="group-label">{{ group }}</div>

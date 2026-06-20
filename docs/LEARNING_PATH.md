@@ -1,7 +1,8 @@
 # 学习路径 · Web3 教育培训平台
 
 > **主库** `web3-edu-platform-core` v1.1.0 · 测试网/沙箱 only  
-> 配套四子库各 22 插件 + mock，共 **23** 个 Lab 联调。
+> 配套四子库各 22 插件 + mock，共 **23** 个 Lab 联调。  
+> **LabWeave（沙箱码坊）** 产品入口：[LABWEAVE.md](LABWEAVE.md) · [学习地图 `/learn`](../frontend-web/src/views/LearnView.vue) · [LABWEAVE_PATH.md](LABWEAVE_PATH.md)
 
 ---
 
