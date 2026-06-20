@@ -37,9 +37,10 @@ const objectivesQuiz: ObjectivesQuizMap = {
 
   'edu.hot.language-advisor': {
     objectives: [
-      '理解智能合约语言择优如何将业务场景映射到 language-choice-rules.yaml 关键词规则',
-      '掌握 recommended_language、toolchain_group 与 suggested_lab 在学习路径串联中的作用',
-      '能够根据场景 chip 或自定义 prompt 解读推荐结果并跳转对应专题 Lab',
+      '理解 7 语言组隔离模型：独立镜像、K8s Namespace（ns-evm / ns-solana / ns-hot-zk …）与 NetworkPolicy 的设计意图',
+      '掌握 language-choice-rules.yaml 中 9 条关键词规则的命中顺序、回退策略与各场景对应的 suggested_lab',
+      '能够解读 evaluation 全字段（recommended_language、toolchain_group、namespace、image、audit_hints）并跳转专题 Lab',
+      '区分语言推荐 simulate 与 HOT_MULTI_LANG_COMPILE 编译 Job 的参数差异与合规边界（testnet-only）',
     ],
     quiz: [
       {
@@ -52,7 +53,7 @@ const objectivesQuiz: ObjectivesQuizMap = {
         ],
         answerIndex: 1,
         explanation:
-          '用户选择场景 chip 或输入自定义 prompt 作为 scenario，tags 携带场景 id（如 zk / solana），二者驱动关键词规则匹配。',
+          '用户选择场景 chip 或输入自定义 prompt 作为 scenario，tags 携带场景 id（如 zk / solana），二者拼接后驱动关键词规则匹配。',
       },
       {
         question: 'evaluation 中的 suggested_lab 字段用途是？',
@@ -65,6 +66,30 @@ const objectivesQuiz: ObjectivesQuizMap = {
         answerIndex: 1,
         explanation:
           'suggested_lab 将语言推荐与后续热点实验关联，UI 可显示「打开专题 Lab」按钮实现学习路径跳转。',
+      },
+      {
+        question: '关键词「zk cairo rollup」最可能命中哪条规则与语言？',
+        options: [
+          'defi-general → Solidity',
+          'zk-rollup → Cairo（toolchain_group=zk，suggested_lab=edu.hot.zk-modular）',
+          'solana-tps → Rust (Anchor)',
+          'payment-teal → TEAL',
+        ],
+        answerIndex: 1,
+        explanation:
+          'rules 中 zk-rollup 的 keywords 含 zk、rollup、cairo、starknet 等；命中后推荐 Cairo 并建议进入 ZK 模块化 Rollup Lab。',
+      },
+      {
+        question: '7 语言组隔离的核心目的是？',
+        options: [
+          '让所有 Lab 共用同一个 solc 二进制以节省磁盘',
+          '每种语言独立镜像与 Namespace，编译 Job 互不干扰且符合 Supply Chain 安全',
+          '强制所有合约必须用 Solidity 编写',
+          '在主网部署时自动切换语言',
+        ],
+        answerIndex: 1,
+        explanation:
+          'multi-language-toolchains 文档规定每种语言独立 build-images、ns-* 与 NetworkPolicy，运行时禁止跨 Namespace 访问其他编译器。',
       },
     ],
   },

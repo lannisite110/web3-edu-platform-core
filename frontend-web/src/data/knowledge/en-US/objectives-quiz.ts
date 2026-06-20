@@ -37,9 +37,10 @@ const objectivesQuiz: ObjectivesQuizMap = {
 
   'edu.hot.language-advisor': {
     objectives: [
-      'Understand how business scenarios map onto keyword rules in language-choice-rules.yaml',
-      'Explain the roles of recommended_language, toolchain_group and suggested_lab in path chaining',
-      'Apply scenario chips or custom prompts to interpret recommendations and jump to topic Labs',
+      'Explain the 7-group isolation model: separate images, K8s Namespaces (ns-evm / ns-solana / ns-hot-zk …) and NetworkPolicy',
+      'Apply the 9 keyword rules in language-choice-rules.yaml: match order, fallback, and suggested_lab per scenario',
+      'Interpret full evaluation fields (recommended_language, toolchain_group, namespace, image, audit_hints) and jump to topic Labs',
+      'Contrast language-advisory simulate vs HOT_MULTI_LANG_COMPILE Job params and testnet-only compliance',
     ],
     quiz: [
       {
@@ -52,7 +53,7 @@ const objectivesQuiz: ObjectivesQuizMap = {
         ],
         answerIndex: 1,
         explanation:
-          'The user picks a scenario chip or types a custom prompt as scenario; tags carry the scenario id (e.g. zk / solana) for keyword rule matching.',
+          'The user picks a chip or types a custom prompt as scenario; tags carry the scenario id (e.g. zk / solana) for keyword matching.',
       },
       {
         question: 'What is suggested_lab in the evaluation used for?',
@@ -64,7 +65,31 @@ const objectivesQuiz: ObjectivesQuizMap = {
         ],
         answerIndex: 1,
         explanation:
-          'suggested_lab links the language recommendation to the next hot-topic experiment; the UI can show an "Open topic Lab" button.',
+          'suggested_lab links the language recommendation to the next hot-topic experiment; the UI shows an "Open topic Lab" button.',
+      },
+      {
+        question: 'Keywords "zk cairo rollup" most likely hit which rule and language?',
+        options: [
+          'defi-general → Solidity',
+          'zk-rollup → Cairo (toolchain_group=zk, suggested_lab=edu.hot.zk-modular)',
+          'solana-tps → Rust (Anchor)',
+          'payment-teal → TEAL',
+        ],
+        answerIndex: 1,
+        explanation:
+          'The zk-rollup rule keywords include zk, rollup, cairo, starknet; the hit recommends Cairo and the ZK modular Rollup Lab.',
+      },
+      {
+        question: 'What is the main purpose of 7-group toolchain isolation?',
+        options: [
+          'Share one solc binary across all Labs to save disk',
+          'Separate image and Namespace per language so Jobs never clash and supply chain stays safe',
+          'Force every contract to be written in Solidity',
+          'Auto-switch language on mainnet deploy',
+        ],
+        answerIndex: 1,
+        explanation:
+          'multi-language-toolchains defines separate build-images, ns-* and NetworkPolicy; cross-Namespace compiler access is blocked.',
       },
     ],
   },
