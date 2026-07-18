@@ -51,7 +51,17 @@ make labweave-up PLUGINS_DIR=..
 - 停止 `make labweave-down`
 
 详见 [LABWEAVE_RELEASE.md](LABWEAVE_RELEASE.md)。  
-**内网 / 外网上线**见 [deploy/README.md](../deploy/README.md)（`labweave-prod-build` + Nginx + 可选 K8s）。
+
+**部署分册**（按顺序）：
+
+| 阶段 | 文档 |
+|------|------|
+| 本地开发 | [deploy/01-local-dev.md](../deploy/01-local-dev.md) |
+| 本地生产验收 | [deploy/02-local-prod-verify.md](../deploy/02-local-prod-verify.md) |
+| K8s Job | [deploy/03-k8s-jobs.md](../deploy/03-k8s-jobs.md) |
+| **云上 VPS** | [deploy/04-cloud-vps.md](../deploy/04-cloud-vps.md) |
+| 运维 | [deploy/06-operations.md](../deploy/06-operations.md) |
+| 索引 | [deploy/README.md](../deploy/README.md) |
 
 ---
 
@@ -59,10 +69,11 @@ make labweave-up PLUGINS_DIR=..
 
 | 档位 | 命令 | 何时用 |
 |------|------|--------|
-| 开发（本地） | `make labweave-up` | WSL 改代码、试 Lab |
-| 本地验收 | `make labweave-prod-build && deploy-verify` | 上线云前自测 |
-| K8s 验收 | `make k8s-smoke-all` | 云 K8s / 本地 kind 测 Job 链 |
-| 云上 | `labweave-prod-*` + Nginx + 域名 | 公网正式访问 |
+| 环境自检 | `make labweave-doctor` | 首次 / 每日开工 |
+| 本地开发 | `make labweave-up` | WSL 改代码、试 Lab |
+| 本地验收 | `make labweave-prod-build && make deploy-verify-full` | **上云前必做** |
+| K8s 验收 | `make k8s-apply-base && make k8s-smoke-all` | 需要编译 Job 时 |
+| **云上 VPS** | [deploy/04-cloud-vps.md](../deploy/04-cloud-vps.md) | 公网 HTTPS |
 
 ---
 

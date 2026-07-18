@@ -9,3 +9,6 @@ bazel-*
 .bazel-cache/
 .labweave/
 deploy/env/labweave.prod.env
+deploy/env/labweave.local.env
+deploy/env/labweave.cloud-k8s.env
+deploy/reports/*.txt

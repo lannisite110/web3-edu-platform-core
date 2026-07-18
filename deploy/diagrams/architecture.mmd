@@ -1,0 +1,42 @@
+flowchart TB
+  subgraph clients [访问方]
+    Dev[开发者浏览器]
+    User[学员浏览器]
+  end
+
+  subgraph local [本地 WSL]
+    Vite[Vite dev :5173]
+    Dist[dist 静态]
+    GW1[Gateway :8080]
+    RE1[Rule Engine :8081]
+    SCH1[Scheduler :8082]
+    AA1[Agent Assist :8084]
+  end
+
+  subgraph cloud [云 VPS]
+    NGX[Nginx :443]
+    GW2[Gateway 127.0.0.1:8080]
+    RE2[Rule Engine]
+    SCH2[Scheduler]
+    AA2[Agent Assist]
+    CM[Container Manager :8083]
+  end
+
+  subgraph k8s [Kubernetes 可选]
+    NS1[ns-evm]
+    NS2[ns-hot-zk]
+    NS3[ns-hot-sim]
+    Job[Compile / Sim Job]
+  end
+
+  Dev --> Vite --> GW1
+  User --> NGX --> Dist
+  NGX -->|/api| GW2
+  GW2 --> RE2
+  GW2 --> SCH2
+  GW2 --> AA2
+  SCH2 --> CM
+  SCH2 --> Job
+  Job --> NS1
+  Job --> NS2
+  Job --> NS3

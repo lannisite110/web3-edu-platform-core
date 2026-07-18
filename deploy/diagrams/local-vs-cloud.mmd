@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph phase1 [Phase 1 本地开发]
+    A1[labweave-up]
+    A2[Vite + 热更新]
+    A3[改子库 Lab]
+  end
+
+  subgraph phase2 [Phase 2 本地验收]
+    B1[labweave-prod-build]
+    B2[labweave-prod-up]
+    B3[deploy-verify-full]
+  end
+
+  subgraph phase3 [Phase 3 K8s 可选]
+    C1[k8s-apply-base]
+    C2[k8s-smoke-all]
+  end
+
+  subgraph phase4 [Phase 4 云上]
+    D1[同 build 流程]
+    D2[Nginx + TLS]
+    D3[systemd]
+  end
+
+  A1 --> A2 --> A3 --> B1 --> B2 --> B3
+  B3 --> C1 --> C2
+  B3 --> D1 --> D2 --> D3

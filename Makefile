@@ -1,7 +1,8 @@
 .PHONY: compliance-check validate-plugin register-plugins test-e2e-smoke \
         run-rule-engine run-agent-assist run-scheduler run-scheduler-cm run-gateway run-container-manager run-frontend dev-backend ci-gate \
         fabric-bootstrap tutorial-audit labweave-path-check labweave-assist-smoke labweave-up labweave-up-lan labweave-down \
-        k8s-smoke-all labweave-prod-build labweave-prod-up labweave-prod-down deploy-verify \
+        k8s-smoke-all k8s-apply-base labweave-prod-build labweave-prod-up labweave-prod-down deploy-verify deploy-verify-full labweave-doctor \
+        cloud-bootstrap cloud-deploy deploy-verify-cloud \
         container-manager-smoke scheduler-resolver-smoke bazel-smoke stop-backend \
         core-version-check release-check bazel-gate
 
@@ -35,6 +36,24 @@ labweave-prod-down:
 
 deploy-verify:
 	bash deploy/scripts/verify-local.sh
+
+deploy-verify-full:
+	bash deploy/scripts/verify-local-full.sh
+
+labweave-doctor:
+	bash scripts/labweave-doctor.sh
+
+k8s-apply-base:
+	bash deploy/scripts/k8s-apply-base.sh
+
+cloud-bootstrap:
+	bash deploy/scripts/cloud-bootstrap.sh
+
+cloud-deploy:
+	bash deploy/scripts/cloud-deploy.sh
+
+deploy-verify-cloud:
+	bash deploy/scripts/verify-cloud.sh
 
 labweave-path-check:
 	bash ci/labweave-path-check.sh

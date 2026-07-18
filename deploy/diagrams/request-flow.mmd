@@ -1,0 +1,24 @@
+sequenceDiagram
+  participant B as Browser
+  participant N as Nginx
+  participant G as Gateway
+  participant R as Rule Engine
+  participant S as Scheduler
+  participant K as K8s Job
+
+  B->>N: GET /labs/edu.hot.zk-modular
+  N->>B: dist/index.html + JS
+
+  B->>N: POST /api/v1/labs/.../simulate
+  N->>G: proxy
+  G->>R: POST /evaluate
+  R-->>G: evaluation + audit_hints
+  G-->>B: JSON
+
+  Note over B,S: 用户点击提交 Job（cluster 模式）
+  B->>G: POST simulate taskType=...
+  G->>S: POST /submit
+  S->>K: create Job
+  K-->>S: Pod completed
+  S-->>G: report
+  G-->>B: task status
